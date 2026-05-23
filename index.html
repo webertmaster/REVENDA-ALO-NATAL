@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alô Natal - Painel do Revendedor</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f7f6; color: #333; display: flex; min-height: 100vh; flex-direction: column; }
+        
+        .wrapper { display: flex; flex: 1; flex-direction: row; }
+        @media(max-width: 768px) { .wrapper { flex-direction: column; } .sidebar { width: 100% !important; } }
+
+        /* Menu Lateral - Cores diferenciadas para a Revenda (Verde escuro) para não confundir com o Master */
+        .sidebar { width: 280px; background-color: #1b5e20; color: white; padding: 20px; display: flex; flex-direction: column; gap: 20px; }
+        .sidebar h2 { color: #a5d6a7; font-size: 22px; text-align: center; margin-bottom: 10px; }
+        .reseller-badge { background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid #4caf50; }
+        .reseller-badge p { font-size: 12px; color: #c8e6c9; text-transform: uppercase; font-weight: bold; }
+        .reseller-badge h3 { font-size: 28px; margin-top: 5px; color: #fff; }
+        
+        .menu-item { padding: 12px 10px; cursor: pointer; transition: 0.2s; color: #c8e6c9; border-radius: 6px; display: flex; align-items: center; gap: 10px; }
+        .menu-item:hover { color: #ffffff; background: rgba(255,255,255,0.05); }
+        .menu-item.active { background: rgba(255,255,255,0.2); color: #fff; font-weight: bold; border-left: 4px solid #a5d6a7; }
+        
+        .main-content { flex: 1; padding: 30px; overflow-y: auto; }
+        .main-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 2px solid #d0d7de; padding-bottom: 15px; }
+        .main-header h1 { color: #1b5e20; font-size: 28px; }
+        
+        .panel-view { display: none; }
+        .panel-view.active { display: block; }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-top: 4px solid #1b5e20; }
+        .stat-card p { font-size: 14px; color: #666; font-weight: bold; text-transform: uppercase; }
+        .stat-card h2 { font-size: 30px; color: #333; margin-top: 5px; }
+
+        .action-box { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .section-title { font-size: 18px; color: #1b5e20; margin-bottom: 20px; font-weight: bold; display: flex; align-items: center; gap: 10px; }
+        
+        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        .form-group label { font-size: 13px; font-weight: bold; color: #555; }
+        .form-group input, .form-group select { padding: 12px; border: 1px solid #ccc; border-radius: 8px; font-size: 14px; background: #f9fbfd; outline: none; }
+        .form-group input:focus { border-color: #1b5e20; }
+        
+        .btn { padding: 12px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px; transition: background 0.2s; text-transform: uppercase; }
+        .btn-success { background-color: #2e7d32; color: white; }
+        .btn-success:hover { background-color: #1b5e20; }
+        .btn-primary { background-color: #005b96; color: white; }
+
+        .table-container { overflow-x: auto; background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .data-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .data-table th, .data-table td { padding: 15px; border-bottom: 1px solid #eee; vertical-align: middle; }
+        .data-table th { background-color: #1b5e20; color: white; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .credit-controller { display: flex; align-items: center; gap: 5px; background: #f0f4f8; padding: 6px; border-radius: 30px; width: fit-content; border: 1px solid #cfd8dc; }
+        .counter-btn { width: 32px; height: 32px; border-radius: 50%; border: none; background-color: #fff; color: #1b5e20; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; justify-content: center; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .credit-input { width: 50px; text-align: center; border: none; background: transparent; font-size: 16px; font-weight: bold; color: #333; outline: none; }
+        .credit-input::-webkit-outer-spin-button, .credit-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+        .btn-confirm-credits { background: #ff9800; color: white; border: none; padding: 8px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; cursor: pointer; margin-left: 5px; text-transform: uppercase; }
+        
+        /* Layout API Mercado Pago */
+        .api-box { background: #fff3e0; border: 1px solid #ffe0b2; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .api-box p { font-size: 14px; color: #e65100; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="sidebar">
+        <h2>🤝 Alô Natal - Revenda</h2>
+        <div class="reseller-badge">
+            <p>Seu Estoque Atual</p>
+            <h3><span id="estoque-revendedor">150</span> Crs</h3>
+        </div>
+        
+        <div style="margin-top: 15px; font-size: 14px; display: flex; flex-direction: column; gap: 5px;">
+            <p class="menu-item active" id="menu-dash" onclick="navegarPara('dashboard')">📊 Resumo Operacional</p>
+            <p class="menu-item" id="menu-profissionais" onclick="navegarPara('profissionais')">👷‍♂️ Meus Profissionais</p>
+            <p class="menu-item" id="menu-config" onclick="navegarPara('config')">⚙️ Mercado Pago (API)</p>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="main-header">
+            <h1 id="page-title">Resumo Operacional</h1>
+            <span style="font-size: 14px; color: #fff; font-weight: bold; background: #2e7d32; padding: 5px 10px; border-radius: 20px;">Painel Sub-Admin</span>
+        </div>
+
+        <div id="view-dashboard" class="panel-view active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <p>Profissionais Cadastrados</p>
+                    <h2 id="total-profissionais">1</h2>
+                </div>
+                <div class="stat-card" style="border-top-color: #ff9800;">
+                    <p>Créditos Vendidos (Mês)</p>
+                    <h2>0 🪙</h2>
+                </div>
+            </div>
+            
+            <div class="action-box">
+                <div class="section-title">Avisos do Master</div>
+                <p style="color: #555; font-size: 14px;">Você está operando na região cadastrada pelo Administrador. Fique de olho no seu estoque! Caso precise de mais créditos para repassar aos seus profissionais, solicite uma recarga via Pix para a matriz.</p>
+            </div>
+        </div>
+
+        <div id="view-profissionais" class="panel-view">
+            <div class="action-box" style="border-left: 6px solid #2e7d32;">
+                <div class="section-title">➕ Cadastrar Novo Profissional (Sua Rede)</div>
+                <form onsubmit="event.preventDefault(); criarProfissional();">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nome do Profissional</label>
+                            <input type="text" id="add-nome-prof" placeholder="Ex: Seu Jorge" required>
+                        </div>
+                        <div class="form-group">
+                            <label>WhatsApp (Login dele no app)</label>
+                            <input type="text" id="add-whats-prof" placeholder="(84) 99999-9999" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Categoria Principal</label>
+                            <select id="add-categoria-prof">
+                                <option>Eletricista Residencial</option>
+                                <option>Pedreiro</option>
+                                <option>Diarista / Faxineira</option>
+                                <option>Encanador</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="justify-content: flex-end;">
+                            <button type="submit" class="btn btn-success">Salvar Cadastro</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="action-box">
+                <div class="section-title">🪙 Venda Manual / Repasse de Créditos</div>
+                <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Ao transferir, o saldo sairá do seu estoque e irá para a carteira do profissional no aplicativo.</p>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Profissional</th>
+                                <th>Categoria</th>
+                                <th>Saldo na Carteira</th>
+                                <th>Transferir do seu Estoque</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-profissionais">
+                            <tr id="linha-prof-1">
+                                <td><b>Jorge Eletricista</b><br><span style="font-size: 11px; color: #888;">(84) 91111-2222</span></td>
+                                <td>Eletricista Residencial</td>
+                                <td><span id="saldo-prof-1" style="font-weight: bold; color: #2e7d32;">5</span> Crs</td>
+                                <td>
+                                    <div style="display: flex; align-items: center;">
+                                        <div class="credit-controller">
+                                            <button class="counter-btn" onclick="ajustarContador('input-prof-1', -1)">-</button>
+                                            <input type="number" step="1" class="credit-input" id="input-prof-1" value="5">
+                                            <button class="counter-btn" onclick="ajustarContador('input-prof-1', 1)">+</button>
+                                        </div>
+                                        <button class="btn-confirm-credits" onclick="venderCredito('1')">Repassar</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-config" class="panel-view">
+            <div class="action-box">
+                <div class="section-title">⚙️ Automação de Recebimento (Mercado Pago)</div>
+                
+                <div class="api-box">
+                    <p><b>Atenção:</b> Configure suas credenciais de produção do Mercado Pago. Quando seus profissionais clicarem em "Comprar Créditos" no app deles, o dinheiro via Pix cairá diretamente na sua conta bancária, e o sistema debitará os créditos do seu estoque automaticamente.</p>
+                </div>
+
+                <form onsubmit="event.preventDefault(); alert('Chaves da API salvas com sucesso! O recebimento automático via Pix foi ativado para a sua rede.');">
+                    <div class="form-row" style="grid-template-columns: 1fr;">
+                        <div class="form-group">
+                            <label>Public Key (Chave Pública)</label>
+                            <input type="text" placeholder="APP_USR-xxxxxx-xxxxxx-xxxxxx" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Access Token (Token de Acesso)</label>
+                            <input type="password" placeholder="APP_USR-123456789-xxxxxx" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="margin-top: 15px;">Salvar Integração</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Navegação de Telas
+    function navegarPara(tela) {
+        document.querySelectorAll('.panel-view').forEach(view => view.classList.remove('active'));
+        document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+        
+        if (tela === 'dashboard') {
+            document.getElementById('view-dashboard').classList.add('active');
+            document.getElementById('menu-dash').classList.add('active');
+            document.getElementById('page-title').innerText = "Resumo Operacional";
+        } else if (tela === 'profissionais') {
+            document.getElementById('view-profissionais').classList.add('active');
+            document.getElementById('menu-profissionais').classList.add('active');
+            document.getElementById('page-title').innerText = "Minha Rede de Profissionais";
+        } else if (tela === 'config') {
+            document.getElementById('view-config').classList.add('active');
+            document.getElementById('menu-config').classList.add('active');
+            document.getElementById('page-title').innerText = "Configuração Financeira";
+        }
+    }
+
+    // Contador e Matemática do Revendedor (Subtraindo do Estoque dele)
+    function ajustarContador(inputId, valor) {
+        const input = document.getElementById(inputId);
+        let valorAtual = parseFloat(input.value) || 0;
+        valorAtual += valor;
+        if (valorAtual < 0) valorAtual = 0;
+        input.value = Number.isInteger(valorAtual) ? valorAtual : valorAtual.toFixed(2);
+    }
+
+    function venderCredito(idProf) {
+        const inputRepasse = document.getElementById(`input-prof-${idProf}`);
+        const saldoProf = document.getElementById(`saldo-prof-${idProf}`);
+        const estoqueRevendedorLabel = document.getElementById('estoque-revendedor');
+        
+        let qtdRepasse = parseFloat(inputRepasse.value) || 0;
+        let estoqueAtual = parseFloat(estoqueRevendedorLabel.innerText.replace(',', '.')) || 0;
+        let saldoAtualProf = parseFloat(saldoProf.innerText.replace(',', '.')) || 0;
+
+        if (qtdRepasse <= 0) {
+            alert("Digite um valor válido para repassar.");
+            return;
+        }
+
+        // Validação crucial: O revendedor tem estoque suficiente?
+        if (qtdRepasse > estoqueAtual) {
+            alert(`⚠️ Saldo Insuficiente!\nVocê está tentando repassar ${qtdRepasse} créditos, mas só tem ${estoqueAtual} no estoque.\nSolicite mais créditos ao Administrador Master.`);
+            return;
+        }
+
+        // Faz a matemática: Tira do revendedor, coloca no profissional
+        estoqueAtual -= qtdRepasse;
+        saldoAtualProf += qtdRepasse;
+
+        // Atualiza as telas
+        estoqueRevendedorLabel.innerText = estoqueAtual.toString().replace('.', ',');
+        saldoProf.innerText = saldoAtualProf.toString().replace('.', ',');
+
+        alert(`✅ Repasse Concluído!\nVocê transferiu ${qtdRepasse} créditos para o profissional.\nSeu novo estoque é: ${estoqueAtual.toString().replace('.', ',')} Crs.`);
+        inputRepasse.value = 5;
+    }
+
+    // Criar novo profissional na lista visual
+    let contadorProf = 1;
+    function criarProfissional() {
+        contadorProf++;
+        const nome = document.getElementById('add-nome-prof').value;
+        const whats = document.getElementById('add-whats-prof').value;
+        const categoria = document.getElementById('add-categoria-prof').value;
+        
+        const tabela = document.getElementById('tabela-profissionais');
+        const novaLinhaId = `linha-prof-${contadorProf}`;
+        const inputId = `input-prof-${contadorProf}`;
+        const saldoId = `saldo-prof-${contadorProf}`;
+
+        const novaLinha = document.createElement('tr');
+        novaLinha.id = novaLinhaId;
+        novaLinha.innerHTML = `
+            <td><b>${nome}</b><br><span style="font-size: 11px; color: #888;">${whats}</span></td>
+            <td>${categoria}</td>
+            <td><span id="${saldoId}" style="font-weight: bold; color: #2e7d32;">0</span> Crs</td>
+            <td>
+                <div style="display: flex; align-items: center;">
+                    <div class="credit-controller">
+                        <button class="counter-btn" onclick="ajustarContador('${inputId}', -1)">-</button>
+                        <input type="number" step="1" class="credit-input" id="${inputId}" value="5">
+                        <button class="counter-btn" onclick="ajustarContador('${inputId}', 1)">+</button>
+                    </div>
+                    <button class="btn-confirm-credits" onclick="venderCredito('${contadorProf}')">Repassar</button>
+                </div>
+            </td>
+        `;
+        
+        tabela.appendChild(novaLinha);
+        document.getElementById('total-profissionais').innerText = contadorProf;
+        
+        document.getElementById('add-nome-prof').value = '';
+        document.getElementById('add-whats-prof').value = '';
+        
+        alert(`👷‍♂️ ${nome} cadastrado com sucesso na sua rede!`);
+    }
+</script>
+
+</body>
+</html>

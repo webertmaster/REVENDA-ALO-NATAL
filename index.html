@@ -50,7 +50,6 @@
         .plan-name { font-size: 16px; font-weight: 800; }
         .plan-price { font-size: 28px; font-weight: 800; color: var(--primary); }
         .plan-price small { font-size: 11px; color: var(--text-muted); }
-        .plan-credits { font-size: 12px; color: var(--text-muted); }
         .plan-features { margin-bottom: 16px; }
         .plan-feature { display: flex; align-items: center; gap: 6px; padding: 4px 0; font-size: 11px; color: var(--text-muted); }
         .plan-feature i { color: var(--success); font-size: 12px; }
@@ -66,24 +65,20 @@
         .progress-fill { background: var(--gold); height: 100%; border-radius: 8px; }
         .plano-actions { display: flex; gap: 8px; flex-wrap: wrap; }
         .badge-plan { padding: 4px 10px; border-radius: 16px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
-        .badge-start { background: #dcfce7; color: #166534; }
-        .badge-pro { background: #dbeafe; color: #1e40af; }
-        .badge-premium { background: #ede9fe; color: #6d28d9; }
-        .badge-empresa { background: #fff7ed; color: #9a3412; }
+        .badge-start { background: #dcfce7; color: #166534; } .badge-pro { background: #dbeafe; color: #1e40af; }
+        .badge-premium { background: #ede9fe; color: #6d28d9; } .badge-empresa { background: #fff7ed; color: #9a3412; }
         .badge-gratis { background: #f1f5f9; color: #64748b; }
         .status-badge { padding: 4px 10px; border-radius: 16px; font-size: 10px; font-weight: 700; }
-        .status-ativo { background: #dcfce7; color: #166534; }
+        .status-ativo { background: #dcfce7; color: #166534; } .status-pendente { background: #fff3e0; color: #e65100; }
+        .status-aprovado { background: #dcfce7; color: #166534; } .status-negado { background: #fee2e2; color: #991b1b; }
         .table-container { overflow-x: auto; background: white; border-radius: 12px; border: 1px solid var(--border); }
         .data-table { width: 100%; border-collapse: collapse; font-size: 12px; }
         .data-table th, .data-table td { padding: 10px 12px; border-bottom: 1px solid #eee; }
         .data-table th { background: var(--primary); color: white; font-size: 10px; text-transform: uppercase; }
         .btn { padding: 10px 18px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 12px; transition: all 0.3s; text-transform: uppercase; }
-        .btn-success { background: #10b981; color: white; }
-        .btn-primary { background: #1b5e20; color: white; }
-        .btn-warning { background: #f59e0b; color: white; }
-        .btn-danger { background: #ef4444; color: white; }
-        .btn-gold { background: #ffc107; color: #1a1a1a; font-weight: 800; }
-        .btn-sm { padding: 6px 12px; font-size: 10px; }
+        .btn-success { background: #10b981; color: white; } .btn-primary { background: #1b5e20; color: white; }
+        .btn-warning { background: #f59e0b; color: white; } .btn-danger { background: #ef4444; color: white; }
+        .btn-gold { background: #ffc107; color: #1a1a1a; font-weight: 800; } .btn-sm { padding: 6px 12px; font-size: 10px; }
         .form-row { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 12px; }
         @media(min-width: 500px) { .form-row { grid-template-columns: repeat(2, 1fr); } }
         .form-group { display: flex; flex-direction: column; gap: 4px; }
@@ -94,6 +89,11 @@
         .credit-input { width: 45px; text-align: center; border: none; background: transparent; font-size: 14px; font-weight: bold; outline: none; }
         .btn-confirm-credits { background: #ff9800; color: white; border: none; padding: 6px 12px; border-radius: 16px; font-size: 11px; font-weight: bold; cursor: pointer; }
         .alert-info { background: #e3f2fd; border: 1px solid #bbdefb; padding: 14px; border-radius: 10px; color: #1565c0; font-size: 12px; margin-bottom: 16px; }
+        .alert-success { background: #d4edda; border: 1px solid #c3e6cb; padding: 14px; border-radius: 10px; color: #155724; font-size: 12px; margin-bottom: 16px; }
+        .resgate-card { background: #f9fafb; border-radius: 12px; padding: 16px; border: 1px solid var(--border); margin-bottom: 10px; }
+        .resgate-card.pendente { border-left: 3px solid #f59e0b; }
+        .resgate-card.aprovado { border-left: 3px solid #10b981; }
+        .resgate-card.negado { border-left: 3px solid #ef4444; }
     </style>
 </head>
 <body>
@@ -108,6 +108,7 @@
             <div class="menu-item" id="menu-profissionais" onclick="navegarPara('profissionais')"><i class="fas fa-users"></i> Profissionais</div>
             <div class="menu-item" id="menu-plano" onclick="navegarPara('plano')"><i class="fas fa-crown"></i> Meu Plano</div>
             <div class="menu-item" id="menu-creditos" onclick="navegarPara('creditos')"><i class="fas fa-coins"></i> Comprar Créditos</div>
+            <div class="menu-item" id="menu-resgate" onclick="navegarPara('resgate')"><i class="fas fa-hand-holding-usd"></i> Resgatar Comissão</div>
         </div>
     </div>
 
@@ -117,10 +118,10 @@
         <div id="view-dashboard" class="panel-view active">
             <div class="stats-grid">
                 <div class="stat-card"><p>Profissionais</p><h2 id="total-profissionais">1</h2></div>
-                <div class="stat-card" style="border-left-color:#ff9800;"><p>Créditos Vendidos</p><h2>0</h2></div>
+                <div class="stat-card" style="border-left-color:#ff9800;"><p>Comissão Acumulada</p><h2 id="comissao-dash">0</h2></div>
                 <div class="stat-card" style="border-left-color:#8b5cf6;"><p>Plano Atual</p><h2 id="plano-atual-dash" style="font-size:16px;">Nenhum</h2></div>
             </div>
-            <div class="action-box"><div class="section-title"><i class="fas fa-bullhorn"></i> Avisos</div><p style="font-size:13px;">Gerencie seus profissionais e escolha o melhor plano!</p></div>
+            <div class="action-box"><div class="section-title"><i class="fas fa-bullhorn"></i> Avisos</div><p style="font-size:13px;">Gerencie seus profissionais e resgate sua comissão!</p></div>
         </div>
 
         <div id="view-profissionais" class="panel-view">
@@ -157,6 +158,42 @@
                 </div>
             </div>
         </div>
+
+        <!-- RESGATAR COMISSÃO (NOVO) -->
+        <div id="view-resgate" class="panel-view">
+            <div class="stats-grid">
+                <div class="stat-card" style="border-left-color:#f59e0b;"><p>Comissão Disponível</p><h2 id="comissao-disponivel">0</h2></div>
+                <div class="stat-card" style="border-left-color:#10b981;"><p>Valor por Crédito</p><h2>R$ 5,00</h2></div>
+            </div>
+            
+            <div class="action-box">
+                <div class="section-title"><i class="fas fa-hand-holding-usd"></i> Resgatar Comissão</div>
+                <div class="alert-success" id="msg-comissao">
+                    💰 Você tem <b id="txt-comissao">0</b> créditos de comissão disponíveis para resgate.
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Quantos créditos deseja resgatar?</label>
+                        <input type="number" id="qtd-resgate" value="1" min="1" onchange="calcularResgate()" style="font-size:18px;font-weight:bold;text-align:center;">
+                    </div>
+                    <div class="form-group">
+                        <label>Valor a receber</label>
+                        <div style="font-size:28px;font-weight:800;color:#1b5e20;" id="valor-resgate">R$ 5,00</div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-gold" onclick="solicitarResgate()" style="width:100%;padding:14px;font-size:14px;">
+                    <i class="fas fa-paper-plane"></i> Solicitar Resgate
+                </button>
+                <p style="font-size:11px;color:#888;margin-top:8px;text-align:center;">O administrador analisará sua solicitação e fará o PIX.</p>
+            </div>
+            
+            <div class="action-box">
+                <div class="section-title"><i class="fas fa-history"></i> Histórico de Resgates</div>
+                <div id="historico-resgates-revenda"></div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -165,9 +202,10 @@ const REVENDA_ID = 'r1';
 let revendas = JSON.parse(localStorage.getItem('revendas')) || [];
 let planos = JSON.parse(localStorage.getItem('planos')) || [];
 let profissionais = JSON.parse(localStorage.getItem('profissionais')) || [];
+let resgates = JSON.parse(localStorage.getItem('resgates')) || [];
 let baseCredito = parseFloat(localStorage.getItem('baseCredito')) || 12.00;
+const VALOR_RESGATE_CREDITO = 5.00;
 
-// PLANOS PADRÃO (sempre carrega se não existir)
 if (planos.length === 0) {
     planos = [
         { id: 'plano1', nome: 'Start', icone: 'fas fa-seedling', valor: 29.90, creditos: 5, limiteSolicitacoes: 3, categorias: 1, prioridade: 75, selo: '', cor: 'start', destaque: false },
@@ -178,13 +216,14 @@ if (planos.length === 0) {
     localStorage.setItem('planos', JSON.stringify(planos));
 }
 
-let revendaAtual = revendas.find(r => r.id === REVENDA_ID) || { id: REVENDA_ID, nome: 'Revenda Alecrim', regiao: 'Leste', whats: '(84) 98888-7777', saldo: 150, planoId: null, assinatura: null };
+let revendaAtual = revendas.find(r => r.id === REVENDA_ID) || { id: REVENDA_ID, nome: 'Revenda Alecrim', regiao: 'Leste', whats: '(84) 98888-7777', saldo: 150, comissao: 0, planoId: null, assinatura: null };
 
 function saveData() {
     const i = revendas.findIndex(r => r.id === REVENDA_ID);
     if(i >= 0) revendas[i] = revendaAtual; else revendas.push(revendaAtual);
     localStorage.setItem('revendas', JSON.stringify(revendas));
     localStorage.setItem('profissionais', JSON.stringify(profissionais));
+    localStorage.setItem('resgates', JSON.stringify(resgates));
 }
 
 function navegarPara(tela) {
@@ -196,6 +235,7 @@ function navegarPara(tela) {
     if(m) m.classList.add('active');
     if(tela === 'dashboard') renderDash();
     if(tela === 'plano') renderMeuPlano();
+    if(tela === 'resgate') renderResgate();
     atualizarSidebar();
 }
 
@@ -207,10 +247,79 @@ function atualizarSidebar() {
 
 function renderDash() {
     document.getElementById('total-profissionais').innerText = profissionais.filter(p => p.revendaId === REVENDA_ID).length;
+    document.getElementById('comissao-dash').innerText = revendaAtual.comissao || 0;
     const p = planos.find(x => x.id === revendaAtual.planoId);
     document.getElementById('plano-atual-dash').innerText = p ? p.nome : 'Nenhum';
 }
 
+// ==================== RESGATE COMISSÃO ====================
+function renderResgate() {
+    const comissao = revendaAtual.comissao || 0;
+    document.getElementById('comissao-disponivel').innerText = comissao;
+    document.getElementById('txt-comissao').innerText = comissao;
+    document.getElementById('qtd-resgate').max = comissao;
+    calcularResgate();
+    renderHistoricoResgates();
+}
+
+function calcularResgate() {
+    const qtd = parseInt(document.getElementById('qtd-resgate').value) || 0;
+    const comissao = revendaAtual.comissao || 0;
+    if(qtd > comissao) {
+        document.getElementById('qtd-resgate').value = comissao;
+    }
+    const qtdFinal = Math.min(qtd, comissao);
+    document.getElementById('valor-resgate').innerText = `R$ ${(qtdFinal * VALOR_RESGATE_CREDITO).toFixed(2).replace('.', ',')}`;
+}
+
+function solicitarResgate() {
+    const qtd = parseInt(document.getElementById('qtd-resgate').value) || 0;
+    const comissao = revendaAtual.comissao || 0;
+    
+    if(qtd <= 0) return alert('⚠️ Digite uma quantidade válida!');
+    if(qtd > comissao) return alert('⚠️ Créditos de comissão insuficientes!');
+    
+    if(!confirm(`Solicitar resgate de ${qtd} créditos = R$ ${(qtd * VALOR_RESGATE_CREDITO).toFixed(2).replace('.', ',')}?\n\nO administrador fará o PIX após aprovação.`)) return;
+    
+    resgates.push({
+        id: 'res' + Date.now(),
+        revendaId: REVENDA_ID,
+        creditos: qtd,
+        valor: qtd * VALOR_RESGATE_CREDITO,
+        data: new Date().toISOString(),
+        status: 'pendente'
+    });
+    
+    revendaAtual.comissao = comissao - qtd;
+    saveData();
+    renderResgate();
+    atualizarSidebar();
+    alert(`✅ Solicitação enviada!\n${qtd} créditos = R$ ${(qtd * VALOR_RESGATE_CREDITO).toFixed(2).replace('.', ',')}\nAguarde a aprovação do administrador.`);
+}
+
+function renderHistoricoResgates() {
+    const container = document.getElementById('historico-resgates-revenda');
+    const meusResgates = resgates.filter(r => r.revendaId === REVENDA_ID);
+    
+    if(meusResgates.length === 0) {
+        container.innerHTML = '<p style="text-align:center;color:#888;padding:20px;">Nenhum resgate solicitado</p>';
+        return;
+    }
+    
+    container.innerHTML = meusResgates.sort((a,b) => new Date(b.data) - new Date(a.data)).map(r => `
+        <div class="resgate-card ${r.status}">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+                <div>
+                    <strong>${r.creditos} créditos</strong> = R$ ${r.valor.toFixed(2).replace('.', ',')}
+                    <br><span style="font-size:10px;color:#888;">${new Date(r.data).toLocaleString('pt-BR')}</span>
+                </div>
+                <span class="status-badge status-${r.status}">${r.status === 'pendente' ? '⏳ Pendente' : r.status === 'aprovado' ? '✅ Pago' : '❌ Negado'}</span>
+            </div>
+        </div>
+    `).join('');
+}
+
+// ==================== MEU PLANO ====================
 function renderMeuPlano() {
     const ac = document.getElementById('plano-atual-container');
     const cc = document.getElementById('planos-cards-revenda');
@@ -219,20 +328,17 @@ function renderMeuPlano() {
     
     if(pa && as && as.status === 'ativo') {
         const pc = Math.min((revendaAtual.saldo/pa.creditos)*100, 100);
-        const ps = pa.limiteSolicitacoes >= 999 ? 50 : Math.min(((as.solicitacoesUsadas||0)/pa.limiteSolicitacoes)*100, 100);
-        ac.innerHTML = `<div class="plano-atual-card"><h3>Plano ${pa.nome}</h3><p class="plano-status">✅ Ativo - Renova em ${new Date(as.dataRenovacao).toLocaleDateString('pt-BR')}</p><div class="plano-info-grid"><div class="plano-info-item"><p>Créditos</p><h4>${revendaAtual.saldo}/${pa.creditos}</h4><div class="progress-bar"><div class="progress-fill" style="width:${pc}%"></div></div></div><div class="plano-info-item"><p>Solicitações</p><h4>${as.solicitacoesUsadas||0}/${pa.limiteSolicitacoes>=999?'∞':pa.limiteSolicitacoes}</h4><div class="progress-bar"><div class="progress-fill" style="width:${ps}%"></div></div></div><div class="plano-info-item"><p>Prioridade</p><h4>${pa.prioridade}%</h4></div><div class="plano-info-item"><p>Valor</p><h4>R$ ${pa.valor.toFixed(2).replace('.',',')}</h4></div></div><div class="plano-actions"><button class="btn btn-warning btn-sm" onclick="pausarPlano()">Pausar</button><button class="btn btn-danger btn-sm" onclick="cancelarPlano()">Cancelar</button></div></div>`;
+        ac.innerHTML = `<div class="plano-atual-card"><h3>Plano ${pa.nome}</h3><p class="plano-status">✅ Ativo - Renova em ${new Date(as.dataRenovacao).toLocaleDateString('pt-BR')}</p><div class="plano-info-grid"><div class="plano-info-item"><p>Créditos</p><h4>${revendaAtual.saldo}/${pa.creditos}</h4><div class="progress-bar"><div class="progress-fill" style="width:${pc}%"></div></div></div><div class="plano-info-item"><p>Solicitações</p><h4>${as.solicitacoesUsadas||0}/${pa.limiteSolicitacoes>=999?'∞':pa.limiteSolicitacoes}</h4></div><div class="plano-info-item"><p>Prioridade</p><h4>${pa.prioridade}%</h4></div><div class="plano-info-item"><p>Valor</p><h4>R$ ${pa.valor.toFixed(2).replace('.',',')}</h4></div></div><div class="plano-actions"><button class="btn btn-warning btn-sm" onclick="pausarPlano()">Pausar</button><button class="btn btn-danger btn-sm" onclick="cancelarPlano()">Cancelar</button></div></div>`;
     } else if(pa && as && as.status === 'pausado') {
-        ac.innerHTML = `<div class="plano-atual-card" style="background:#78350f;"><h3>Plano ${pa.nome} - Pausado</h3><p class="plano-status">⏸️ Reative para voltar a receber.</p><button class="btn btn-success" onclick="reativarPlano()">Reativar</button></div>`;
+        ac.innerHTML = `<div class="plano-atual-card" style="background:#78350f;"><h3>Plano ${pa.nome} - Pausado</h3><p class="plano-status">⏸️ Reative para voltar.</p><button class="btn btn-success" onclick="reativarPlano()">Reativar</button></div>`;
     } else {
-        ac.innerHTML = `<div class="alert-info">Você ainda não possui um plano ativo. Escolha um abaixo!</div>`;
+        ac.innerHTML = `<div class="alert-info">Escolha um plano abaixo!</div>`;
     }
     
     cc.innerHTML = '';
     planos.forEach(p => {
         const ia = revendaAtual.planoId === p.id;
-        const vr = (p.creditos*baseCredito).toFixed(2).replace('.',',');
-        const eco = ((p.creditos*baseCredito-p.valor)/(p.creditos*baseCredito)*100).toFixed(0);
-        cc.innerHTML += `<div class="plan-card ${ia?'atual':''} ${p.destaque?'popular':''}"><div class="plan-header"><div class="plan-icon"><i class="${p.icone||'fas fa-box'}"></i></div><div class="plan-name">${p.nome}</div><div class="plan-price">R$ ${p.valor.toFixed(2).replace('.',',')}<small>/mês</small></div><div class="plan-credits">${p.creditos} créditos (R$ ${vr})</div><span class="badge-plan badge-${p.cor}">${eco}% economia</span></div><div class="plan-features"><div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.creditos} créditos/mês</div><div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.limiteSolicitacoes>=999?'Sem limite':'Até '+p.limiteSolicitacoes+' solicitações'}</div><div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.categorias>=999?'Todas categorias':p.categorias+' categoria(s)'}</div><div class="plan-feature"><i class="fas fa-check-circle"></i> Prioridade ${p.prioridade}%</div>${p.selo?`<div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.selo}</div>`:''}</div>${ia?'<button class="btn btn-success" disabled>✅ Plano Atual</button>':`<button class="btn btn-gold" onclick="contratarPlano('${p.id}')">Contratar</button>`}</div>`;
+        cc.innerHTML += `<div class="plan-card ${ia?'atual':''} ${p.destaque?'popular':''}"><div class="plan-header"><div class="plan-icon"><i class="${p.icone||'fas fa-box'}"></i></div><div class="plan-name">${p.nome}</div><div class="plan-price">R$ ${p.valor.toFixed(2).replace('.',',')}<small>/mês</small></div></div><div class="plan-features"><div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.creditos} créditos</div></div>${ia?'<button class="btn btn-success" disabled>✅ Atual</button>':`<button class="btn btn-gold" onclick="contratarPlano('${p.id}')">Contratar</button>`}</div>`;
     });
 }
 
@@ -244,14 +350,13 @@ function contratarPlano(id) {
     revendaAtual.assinatura = { dataInicio: new Date().toISOString(), dataRenovacao: new Date(Date.now()+30*24*60*60*1000).toISOString(), status: 'ativo', solicitacoesUsadas: 0 };
     revendaAtual.saldo = p.creditos;
     saveData(); renderMeuPlano(); atualizarSidebar();
-    alert(`✅ Plano ${p.nome} contratado!`);
 }
 
 function pausarPlano() { if(!confirm('Pausar?')) return; revendaAtual.assinatura.status = 'pausado'; saveData(); renderMeuPlano(); }
 function reativarPlano() { revendaAtual.assinatura.status = 'ativo'; revendaAtual.assinatura.dataRenovacao = new Date(Date.now()+30*24*60*60*1000).toISOString(); saveData(); renderMeuPlano(); }
 function cancelarPlano() { if(!confirm('Cancelar?')) return; revendaAtual.assinatura.status = 'cancelado'; saveData(); renderMeuPlano(); }
 
-function comprarCreditos(q) { if(!confirm(`Comprar ${q} créditos por R$ ${(q*baseCredito).toFixed(2)}?`)) return; revendaAtual.saldo += q; saveData(); atualizarSidebar(); alert(`✅ ${q} créditos!`); }
+function comprarCreditos(q) { if(!confirm(`Comprar ${q} créditos por R$ ${(q*baseCredito).toFixed(2)}?`)) return; revendaAtual.saldo += q; saveData(); atualizarSidebar(); }
 function comprarCreditosPersonalizado() { const q = parseInt(document.getElementById('qtd-creditos-avulsos').value)||0; if(q>0) comprarCreditos(q); }
 
 let contadorProf = 0;
@@ -275,8 +380,8 @@ function aj(id, v) { const i = document.getElementById(id); let x = parseInt(i.v
 
 function venderCredito(id) {
     const q = parseInt(document.getElementById('input-prof-'+id).value)||0;
-    if(q<=0) return alert('⚠️ Valor inválido!');
-    if(q > revendaAtual.saldo) return alert('⚠️ Saldo insuficiente!');
+    if(q<=0) return alert('Valor inválido!');
+    if(q > revendaAtual.saldo) return alert('Saldo insuficiente!');
     revendaAtual.saldo -= q;
     document.getElementById('sp-'+id).innerText = (parseInt(document.getElementById('sp-'+id).innerText)||0) + q;
     saveData(); atualizarSidebar();

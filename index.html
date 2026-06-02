@@ -96,7 +96,6 @@
             <div class="menu-item active" id="menu-dash" onclick="navegarPara('dashboard')"><i class="fas fa-chart-pie"></i> Dashboard</div>
             <div class="menu-item" id="menu-profissionais" onclick="navegarPara('profissionais')"><i class="fas fa-users"></i> Profissionais</div>
             <div class="menu-item" id="menu-planos" onclick="navegarPara('planos')"><i class="fas fa-crown"></i> Planos</div>
-            <div class="menu-item" id="menu-creditos" onclick="navegarPara('creditos')"><i class="fas fa-coins"></i> Comprar Créditos</div>
             <div class="menu-item" id="menu-resgate" onclick="navegarPara('resgate')"><i class="fas fa-hand-holding-usd"></i> Resgatar Comissão</div>
         </div>
     </div>
@@ -142,19 +141,6 @@
             </div>
         </div>
 
-        <!-- COMPRAR CRÉDITOS -->
-        <div id="view-creditos" class="panel-view">
-            <div class="action-box">
-                <div class="section-title"><i class="fas fa-shopping-cart"></i> Comprar Créditos</div>
-                <div class="alert-info">💡 Créditos avulsos: <b>R$ 12,00</b> cada. Não expiram.</div>
-                <div class="plan-cards-grid">
-                    <div class="plan-card" style="text-align:center;"><div class="plan-header"><div class="plan-icon">📦</div><div class="plan-name">Pack 10</div><div class="plan-price">R$ 120</div></div><button class="btn btn-gold" onclick="comprarCreditos(10)">Comprar</button></div>
-                    <div class="plan-card" style="text-align:center;"><div class="plan-header"><div class="plan-icon">📦</div><div class="plan-name">Pack 30</div><div class="plan-price">R$ 360</div></div><button class="btn btn-gold" onclick="comprarCreditos(30)">Comprar</button></div>
-                    <div class="plan-card" style="text-align:center;"><div class="plan-header"><div class="plan-icon">💎</div><div class="plan-name">Livre</div><div class="plan-price">R$ 12 <small>/cada</small></div></div><div class="form-group" style="margin-bottom:8px;"><input type="number" id="qtd-creditos-avulsos" value="1" min="1" style="text-align:center;font-size:16px;font-weight:bold;"></div><button class="btn btn-gold" onclick="comprarCreditosPersonalizado()">Comprar</button></div>
-                </div>
-            </div>
-        </div>
-
         <!-- RESGATAR COMISSÃO -->
         <div id="view-resgate" class="panel-view">
             <div class="stats-grid">
@@ -188,7 +174,7 @@ let resgates = JSON.parse(localStorage.getItem('resgates')) || [];
 let baseCredito = parseFloat(localStorage.getItem('baseCredito')) || 12.00;
 const VALOR_RESGATE_CREDITO = 5.00;
 
-// Planos padrão
+// Planos padrão com COMISSÃO CORRETA
 if (planos.length === 0) {
     planos = [
         { id: 'plano1', nome: 'Start', icone: 'fas fa-seedling', valor: 29.90, creditos: 5, limiteSolicitacoes: 3, categorias: 1, prioridade: 75, selo: '', cor: 'start', destaque: false, comissao: 2 },
@@ -233,13 +219,14 @@ function renderDash() {
     document.getElementById('estoque-dash').innerText = revendaAtual.saldo || 0;
 }
 
-// ==================== PLANOS (APENAS VISUALIZAÇÃO) ====================
+// ==================== PLANOS (VISUALIZAÇÃO COM COMISSÃO CORRETA) ====================
 function renderPlanos() {
     const cc = document.getElementById('planos-cards-revenda');
     cc.innerHTML = '';
     planos.forEach(p => {
         const vr = (p.creditos * baseCredito).toFixed(2).replace('.', ',');
         const eco = ((p.creditos * baseCredito - p.valor) / (p.creditos * baseCredito) * 100).toFixed(0);
+        // PEGA A COMISSÃO DIRETO DO PLANO
         const comissao = p.comissao || 0;
         cc.innerHTML += `<div class="plan-card ${p.destaque ? 'popular' : ''}">
             <div class="plan-header">
@@ -255,7 +242,7 @@ function renderPlanos() {
                 <div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.categorias >= 999 ? 'Todas categorias' : p.categorias + ' categoria(s)'}</div>
                 <div class="plan-feature"><i class="fas fa-check-circle"></i> Prioridade ${p.prioridade}%</div>
                 ${p.selo ? `<div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.selo}</div>` : ''}
-                <div class="plan-feature"><i class="fas fa-star"></i> <strong>Comissão: ${comissao} créditos</strong></div>
+                <div class="plan-feature"><i class="fas fa-star"></i> <strong>Sua Comissão: ${comissao} créditos</strong></div>
             </div>
         </div>`;
     });
@@ -307,10 +294,6 @@ function renderHistoricoResgates() {
         </div>
     `).join('');
 }
-
-// ==================== COMPRAR CRÉDITOS ====================
-function comprarCreditos(q) { if(!confirm(`Comprar ${q} créditos por R$ ${(q*baseCredito).toFixed(2)}?`)) return; revendaAtual.saldo += q; saveData(); atualizarSidebar(); alert(`✅ ${q} créditos!`); }
-function comprarCreditosPersonalizado() { const q = parseInt(document.getElementById('qtd-creditos-avulsos').value)||0; if(q>0) comprarCreditos(q); }
 
 // ==================== PROFISSIONAIS ====================
 let contadorProf = 0;

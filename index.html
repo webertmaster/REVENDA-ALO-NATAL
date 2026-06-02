@@ -6,709 +6,287 @@
     <title>Alô Natal - Painel do Revendedor</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #1b5e20;
-            --primary-dark: #0d3b11;
-            --accent: #4caf50;
-            --gold: #ffc107;
-            --success: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --bg: #f4f7f6;
-            --card: #ffffff;
-            --text: #333;
-            --text-muted: #666;
-            --border: #d0d7de;
-            --start: #10b981;
-            --pro: #005b96;
-            --premium: #8b5cf6;
-            --empresa: #e65100;
-        }
-        
+        :root { --primary: #1b5e20; --primary-dark: #0d3b11; --accent: #4caf50; --gold: #ffc107; --success: #10b981; --danger: #ef4444; --warning: #f59e0b; --bg: #f4f7f6; --card: #ffffff; --text: #333; --text-muted: #666; --border: #d0d7de; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: var(--bg); color: var(--text); display: flex; min-height: 100vh; flex-direction: column; }
         .wrapper { display: flex; flex: 1; flex-direction: row; }
         @media(max-width: 768px) { .wrapper { flex-direction: column; } .sidebar { width: 100% !important; } }
-
-        /* SIDEBAR */
-        .sidebar { 
-            width: 280px; 
-            background: linear-gradient(180deg, #1b5e20 0%, #0d3b11 100%);
-            color: white; 
-            padding: 24px 18px; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 6px;
-            box-shadow: 4px 0 20px rgba(0,0,0,0.2);
-        }
-        
+        .sidebar { width: 280px; background: linear-gradient(180deg, #1b5e20 0%, #0d3b11 100%); color: white; padding: 24px 18px; display: flex; flex-direction: column; gap: 6px; box-shadow: 4px 0 20px rgba(0,0,0,0.2); }
         .sidebar-logo { text-align: center; margin-bottom: 24px; }
-        .sidebar-logo h2 { color: #a5d6a7; font-size: 22px; font-weight: 700; }
+        .sidebar-logo h2 { color: #a5d6a7; font-size: 20px; font-weight: 700; }
         .sidebar-logo .subtitle { font-size: 10px; color: #81c784; text-transform: uppercase; letter-spacing: 2px; margin-top: 4px; }
-        
-        .reseller-badge { 
-            background: rgba(255,255,255,0.08); 
-            padding: 18px; 
-            border-radius: 14px; 
-            text-align: center; 
-            border: 1px solid rgba(255,255,255,0.15);
-            margin-bottom: 20px;
-        }
+        .reseller-badge { background: rgba(255,255,255,0.08); padding: 18px; border-radius: 14px; text-align: center; border: 1px solid rgba(255,255,255,0.15); margin-bottom: 20px; }
         .reseller-badge p { font-size: 10px; color: #a5d6a7; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; }
         .reseller-badge h3 { font-size: 32px; margin-top: 6px; color: #fff; font-weight: 800; }
         .reseller-badge .plano-nome { font-size: 12px; color: #ffd700; margin-top: 4px; font-weight: 600; }
-        
         .menu-section { margin-top: 10px; }
         .menu-section-title { font-size: 9px; color: #81c784; text-transform: uppercase; letter-spacing: 2px; padding: 8px 12px; font-weight: 700; opacity: 0.7; }
-        
-        .menu-item { 
-            padding: 12px 14px; cursor: pointer; transition: all 0.3s; color: #c8e6c9; 
-            border-radius: 10px; display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 500;
-        }
+        .menu-item { padding: 12px 14px; cursor: pointer; transition: all 0.3s; color: #c8e6c9; border-radius: 10px; display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 500; }
         .menu-item i { font-size: 15px; width: 18px; text-align: center; }
         .menu-item:hover { color: #ffffff; background: rgba(255,255,255,0.08); transform: translateX(3px); }
-        .menu-item.active { background: rgba(255,255,255,0.18); color: #fff; font-weight: 700; border-left: 3px solid #ffd700; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
-        
-        /* MAIN CONTENT */
-        .main-content { flex: 1; padding: 32px; overflow-y: auto; background: linear-gradient(135deg, #f4f7f6, #e8f5e9); }
-        .main-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; padding-bottom: 18px; border-bottom: 2px solid var(--border); }
-        .main-header h1 { color: var(--primary); font-size: 28px; font-weight: 800; }
-        .badge-role { font-size: 12px; color: #fff; font-weight: 700; background: linear-gradient(135deg, #2e7d32, #1b5e20); padding: 8px 18px; border-radius: 25px; box-shadow: 0 4px 12px rgba(27,94,32,0.3); }
-        
+        .menu-item.active { background: rgba(255,255,255,0.18); color: #fff; font-weight: 700; border-left: 3px solid #ffd700; }
+        .main-content { flex: 1; padding: 24px; overflow-y: auto; background: linear-gradient(135deg, #f4f7f6, #e8f5e9); }
+        .main-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 2px solid var(--border); }
+        .main-header h1 { color: var(--primary); font-size: 24px; font-weight: 800; }
+        .badge-role { font-size: 11px; color: #fff; font-weight: 700; background: #2e7d32; padding: 6px 14px; border-radius: 20px; }
         .panel-view { display: none; animation: fadeIn 0.4s ease; }
         .panel-view.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        /* STATS */
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 30px; }
-        .stat-card { background: var(--card); padding: 24px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-left: 4px solid var(--primary); transition: all 0.3s; }
-        .stat-card:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
-        .stat-card p { font-size: 11px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-        .stat-card h2 { font-size: 32px; color: var(--text); font-weight: 800; }
-        
-        /* ACTION BOX */
-        .action-box { background: var(--card); padding: 28px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 28px; border: 1px solid var(--border); }
-        .section-title { font-size: 20px; color: var(--primary); margin-bottom: 24px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
-        
-        /* PLAN CARDS */
-        .plan-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-bottom: 24px; }
-        
-        .plan-card {
-            background: var(--card); border-radius: 18px; padding: 24px; border: 2px solid var(--border);
-            transition: all 0.3s; position: relative; overflow: hidden;
-        }
-        .plan-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
+        .stat-card { background: var(--card); padding: 20px; border-radius: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 4px solid var(--primary); }
+        .stat-card p { font-size: 10px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
+        .stat-card h2 { font-size: 28px; color: var(--text); font-weight: 800; }
+        .action-box { background: var(--card); padding: 24px; border-radius: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 24px; border: 1px solid var(--border); }
+        .section-title { font-size: 18px; color: var(--primary); margin-bottom: 20px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .plan-cards-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        @media(min-width: 600px) { .plan-cards-grid { grid-template-columns: repeat(2, 1fr); } }
+        .plan-card { background: var(--card); border-radius: 16px; padding: 20px; border: 2px solid var(--border); transition: all 0.3s; position: relative; overflow: hidden; }
         .plan-card.atual { border-color: var(--gold); border-width: 3px; }
-        .plan-card.atual::before { content: '✅ ATUAL'; position: absolute; top: 10px; right: -28px; background: var(--gold); color: #1a1a1a; padding: 3px 35px; font-size: 9px; font-weight: 800; transform: rotate(45deg); }
+        .plan-card.atual::before { content: '✅ ATUAL'; position: absolute; top: 8px; right: -24px; background: var(--gold); color: #1a1a1a; padding: 2px 30px; font-size: 8px; font-weight: 800; transform: rotate(45deg); }
         .plan-card.popular { border-color: var(--gold); }
-        .plan-card.popular::before { content: '⭐ MAIS POPULAR'; position: absolute; top: 10px; right: -32px; background: var(--gold); color: #1a1a1a; padding: 3px 38px; font-size: 9px; font-weight: 800; transform: rotate(45deg); }
-        
-        .plan-header { text-align: center; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 2px solid var(--border); }
-        .plan-icon { font-size: 36px; margin-bottom: 10px; }
-        .plan-name { font-size: 18px; font-weight: 800; color: var(--primary); }
-        .plan-price { font-size: 32px; font-weight: 800; color: var(--primary); margin: 6px 0; }
-        .plan-price small { font-size: 13px; color: var(--text-muted); font-weight: 500; }
-        .plan-credits { font-size: 13px; color: var(--text-muted); font-weight: 600; }
-        
-        .plan-features { margin-bottom: 20px; }
-        .plan-feature { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 12px; color: var(--text-muted); }
-        .plan-feature i { color: var(--success); font-size: 13px; }
-        
-        .plan-card .btn { width: 100%; margin-top: 6px; }
-        
-        /* PLANO ATUAL */
-        .plano-atual-card {
-            background: linear-gradient(135deg, #1b5e20, #0d3b11);
-            color: white; padding: 28px; border-radius: 18px; margin-bottom: 24px;
-            box-shadow: 0 8px 25px rgba(27,94,32,0.3);
-        }
-        .plano-atual-card h3 { font-size: 22px; margin-bottom: 6px; }
-        .plano-atual-card .plano-status { font-size: 13px; color: #a5d6a7; margin-bottom: 20px; }
-        
-        .plano-info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin-bottom: 20px; }
-        .plano-info-item { background: rgba(255,255,255,0.1); padding: 16px; border-radius: 12px; text-align: center; }
-        .plano-info-item p { font-size: 10px; color: #a5d6a7; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-        .plano-info-item h4 { font-size: 24px; font-weight: 800; }
-        
-        .progress-bar { background: rgba(255,255,255,0.2); border-radius: 10px; height: 10px; margin-top: 8px; overflow: hidden; }
-        .progress-fill { background: var(--gold); height: 100%; border-radius: 10px; transition: width 0.5s; }
-        
-        .plano-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
-        
-        /* BADGES */
-        .badge-plan { padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
+        .plan-card.popular::before { content: '⭐ POPULAR'; position: absolute; top: 8px; right: -24px; background: var(--gold); color: #1a1a1a; padding: 2px 30px; font-size: 8px; font-weight: 800; transform: rotate(45deg); }
+        .plan-header { text-align: center; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+        .plan-icon { font-size: 30px; margin-bottom: 8px; }
+        .plan-name { font-size: 16px; font-weight: 800; }
+        .plan-price { font-size: 28px; font-weight: 800; color: var(--primary); }
+        .plan-price small { font-size: 11px; color: var(--text-muted); }
+        .plan-credits { font-size: 12px; color: var(--text-muted); }
+        .plan-features { margin-bottom: 16px; }
+        .plan-feature { display: flex; align-items: center; gap: 6px; padding: 4px 0; font-size: 11px; color: var(--text-muted); }
+        .plan-feature i { color: var(--success); font-size: 12px; }
+        .plan-card .btn { width: 100%; margin-top: 4px; }
+        .plano-atual-card { background: linear-gradient(135deg, #1b5e20, #0d3b11); color: white; padding: 24px; border-radius: 16px; margin-bottom: 20px; }
+        .plano-atual-card h3 { font-size: 20px; margin-bottom: 4px; }
+        .plano-atual-card .plano-status { font-size: 12px; color: #a5d6a7; margin-bottom: 16px; }
+        .plano-info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 16px; }
+        .plano-info-item { background: rgba(255,255,255,0.1); padding: 14px; border-radius: 10px; text-align: center; }
+        .plano-info-item p { font-size: 9px; color: #a5d6a7; text-transform: uppercase; }
+        .plano-info-item h4 { font-size: 20px; font-weight: 800; }
+        .progress-bar { background: rgba(255,255,255,0.2); border-radius: 8px; height: 8px; margin-top: 6px; overflow: hidden; }
+        .progress-fill { background: var(--gold); height: 100%; border-radius: 8px; }
+        .plano-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+        .badge-plan { padding: 4px 10px; border-radius: 16px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
         .badge-start { background: #dcfce7; color: #166534; }
         .badge-pro { background: #dbeafe; color: #1e40af; }
         .badge-premium { background: #ede9fe; color: #6d28d9; }
         .badge-empresa { background: #fff7ed; color: #9a3412; }
         .badge-gratis { background: #f1f5f9; color: #64748b; }
-        
-        .status-badge { padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+        .status-badge { padding: 4px 10px; border-radius: 16px; font-size: 10px; font-weight: 700; }
         .status-ativo { background: #dcfce7; color: #166534; }
-        .status-pausado { background: #fef3c7; color: #92400e; }
-        .status-cancelado { background: #fee2e2; color: #991b1b; }
-        
-        /* TABLES */
-        .table-container { overflow-x: auto; background: white; border-radius: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid var(--border); }
-        .data-table { width: 100%; border-collapse: collapse; text-align: left; }
-        .data-table th, .data-table td { padding: 14px 16px; border-bottom: 1px solid #eee; vertical-align: middle; }
-        .data-table th { background: var(--primary); color: white; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
-        .data-table tbody tr:hover { background: #f0fdf4; }
-        
-        /* BUTTONS */
-        .btn { padding: 12px 22px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 13px; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px; }
-        .btn:hover { transform: translateY(-2px); }
-        .btn-success { background: linear-gradient(135deg, #10b981, #059669); color: white; box-shadow: 0 4px 12px rgba(16,185,129,0.3); }
-        .btn-primary { background: linear-gradient(135deg, #1b5e20, #0d3b11); color: white; box-shadow: 0 4px 12px rgba(27,94,32,0.3); }
-        .btn-warning { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
-        .btn-danger { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; }
-        .btn-sm { padding: 8px 16px; font-size: 11px; }
-        .btn-xs { padding: 5px 10px; font-size: 10px; border-radius: 6px; }
-        .btn-gold { background: linear-gradient(135deg, #ffc107, #ff9800); color: #1a1a1a; font-weight: 800; }
-        
-        /* FORMS */
-        .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 16px; }
-        .form-group { display: flex; flex-direction: column; gap: 6px; }
-        .form-group label { font-size: 12px; font-weight: 700; color: #555; text-transform: uppercase; letter-spacing: 0.5px; }
-        .form-group input, .form-group select { padding: 12px 16px; border: 2px solid #ccc; border-radius: 10px; font-size: 14px; background: #f9fbfd; transition: all 0.2s; }
-        .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--primary); background: white; }
-        
-        .credit-controller { display: flex; align-items: center; gap: 6px; background: #f0f4f8; padding: 6px; border-radius: 30px; border: 1px solid #cfd8dc; }
-        .counter-btn { width: 32px; height: 32px; border-radius: 50%; border: none; background: #fff; color: var(--primary); font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .credit-input { width: 55px; text-align: center; border: none; background: transparent; font-size: 16px; font-weight: bold; color: #333; outline: none; }
-        .btn-confirm-credits { background: #ff9800; color: white; border: none; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; cursor: pointer; text-transform: uppercase; }
-        
-        .api-box { background: #fff3e0; border: 1px solid #ffe0b2; padding: 20px; border-radius: 12px; margin-bottom: 20px; }
-        .api-box p { font-size: 14px; color: #e65100; margin-bottom: 15px; }
-        
-        .alert-info { background: #e3f2fd; border: 1px solid #bbdefb; padding: 16px; border-radius: 10px; color: #1565c0; font-size: 13px; margin-bottom: 20px; }
+        .table-container { overflow-x: auto; background: white; border-radius: 12px; border: 1px solid var(--border); }
+        .data-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        .data-table th, .data-table td { padding: 10px 12px; border-bottom: 1px solid #eee; }
+        .data-table th { background: var(--primary); color: white; font-size: 10px; text-transform: uppercase; }
+        .btn { padding: 10px 18px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 12px; transition: all 0.3s; text-transform: uppercase; }
+        .btn-success { background: #10b981; color: white; }
+        .btn-primary { background: #1b5e20; color: white; }
+        .btn-warning { background: #f59e0b; color: white; }
+        .btn-danger { background: #ef4444; color: white; }
+        .btn-gold { background: #ffc107; color: #1a1a1a; font-weight: 800; }
+        .btn-sm { padding: 6px 12px; font-size: 10px; }
+        .form-row { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 12px; }
+        @media(min-width: 500px) { .form-row { grid-template-columns: repeat(2, 1fr); } }
+        .form-group { display: flex; flex-direction: column; gap: 4px; }
+        .form-group label { font-size: 11px; font-weight: 700; color: #555; text-transform: uppercase; }
+        .form-group input, .form-group select { padding: 10px 14px; border: 2px solid #ccc; border-radius: 8px; font-size: 13px; background: #f9fbfd; }
+        .credit-controller { display: flex; align-items: center; gap: 4px; background: #f0f4f8; padding: 4px; border-radius: 20px; border: 1px solid #cfd8dc; }
+        .counter-btn { width: 28px; height: 28px; border-radius: 50%; border: none; background: #fff; color: var(--primary); font-size: 16px; font-weight: bold; cursor: pointer; }
+        .credit-input { width: 45px; text-align: center; border: none; background: transparent; font-size: 14px; font-weight: bold; outline: none; }
+        .btn-confirm-credits { background: #ff9800; color: white; border: none; padding: 6px 12px; border-radius: 16px; font-size: 11px; font-weight: bold; cursor: pointer; }
+        .alert-info { background: #e3f2fd; border: 1px solid #bbdefb; padding: 14px; border-radius: 10px; color: #1565c0; font-size: 12px; margin-bottom: 16px; }
     </style>
 </head>
 <body>
 
 <div class="wrapper">
     <div class="sidebar">
-        <div class="sidebar-logo">
-            <h2>🤝 Alô Natal</h2>
-            <div class="subtitle">Painel da Revenda</div>
-        </div>
-        
-        <div class="reseller-badge">
-            <p>Seu Estoque</p>
-            <h3><span id="estoque-revendedor">150</span> Crs</h3>
-            <p class="plano-nome" id="plano-atual-sidebar">Plano: Nenhum</p>
-        </div>
-        
+        <div class="sidebar-logo"><h2>🤝 Alô Natal</h2><div class="subtitle">Painel da Revenda</div></div>
+        <div class="reseller-badge"><p>Seu Estoque</p><h3><span id="estoque-revendedor">150</span> Crs</h3><p class="plano-nome" id="plano-atual-sidebar">Plano: Nenhum</p></div>
         <div class="menu-section">
             <div class="menu-section-title">Principal</div>
-            <div class="menu-item active" id="menu-dash" onclick="navegarPara('dashboard')">
-                <i class="fas fa-chart-pie"></i> Resumo Operacional
-            </div>
-            <div class="menu-item" id="menu-profissionais" onclick="navegarPara('profissionais')">
-                <i class="fas fa-users"></i> Meus Profissionais
-            </div>
-            <div class="menu-item" id="menu-plano" onclick="navegarPara('plano')">
-                <i class="fas fa-crown"></i> Meu Plano
-            </div>
-            <div class="menu-item" id="menu-creditos" onclick="navegarPara('creditos')">
-                <i class="fas fa-coins"></i> Comprar Créditos
-            </div>
-        </div>
-        
-        <div class="menu-section">
-            <div class="menu-section-title">Configurações</div>
-            <div class="menu-item" id="menu-config" onclick="navegarPara('config')">
-                <i class="fas fa-cog"></i> Mercado Pago (API)
-            </div>
+            <div class="menu-item active" id="menu-dash" onclick="navegarPara('dashboard')"><i class="fas fa-chart-pie"></i> Dashboard</div>
+            <div class="menu-item" id="menu-profissionais" onclick="navegarPara('profissionais')"><i class="fas fa-users"></i> Profissionais</div>
+            <div class="menu-item" id="menu-plano" onclick="navegarPara('plano')"><i class="fas fa-crown"></i> Meu Plano</div>
+            <div class="menu-item" id="menu-creditos" onclick="navegarPara('creditos')"><i class="fas fa-coins"></i> Comprar Créditos</div>
         </div>
     </div>
 
     <div class="main-content">
-        <div class="main-header">
-            <h1 id="page-title">Resumo Operacional</h1>
-            <span class="badge-role">🔑 Revenda</span>
-        </div>
+        <div class="main-header"><h1 id="page-title">Dashboard</h1><span class="badge-role">🔑 Revenda</span></div>
 
-        <!-- DASHBOARD -->
         <div id="view-dashboard" class="panel-view active">
             <div class="stats-grid">
-                <div class="stat-card">
-                    <p><i class="fas fa-users"></i> Profissionais</p>
-                    <h2 id="total-profissionais">1</h2>
-                </div>
-                <div class="stat-card" style="border-left-color: #ff9800;">
-                    <p><i class="fas fa-coins"></i> Créditos Vendidos</p>
-                    <h2>0</h2>
-                </div>
-                <div class="stat-card" style="border-left-color: #8b5cf6;">
-                    <p><i class="fas fa-crown"></i> Plano Atual</p>
-                    <h2 id="plano-atual-dash" style="font-size:18px;">Nenhum</h2>
-                </div>
+                <div class="stat-card"><p>Profissionais</p><h2 id="total-profissionais">1</h2></div>
+                <div class="stat-card" style="border-left-color:#ff9800;"><p>Créditos Vendidos</p><h2>0</h2></div>
+                <div class="stat-card" style="border-left-color:#8b5cf6;"><p>Plano Atual</p><h2 id="plano-atual-dash" style="font-size:16px;">Nenhum</h2></div>
             </div>
-            
-            <div class="action-box">
-                <div class="section-title"><i class="fas fa-bullhorn"></i> Avisos</div>
-                <p style="color: #555; font-size: 14px;">Gerencie seus profissionais, acompanhe seu estoque e escolha o melhor plano para sua revenda!</p>
-            </div>
+            <div class="action-box"><div class="section-title"><i class="fas fa-bullhorn"></i> Avisos</div><p style="font-size:13px;">Gerencie seus profissionais e escolha o melhor plano!</p></div>
         </div>
 
-        <!-- PROFISSIONAIS -->
         <div id="view-profissionais" class="panel-view">
-            <div class="action-box" style="border-left: 4px solid var(--primary);">
+            <div class="action-box">
                 <div class="section-title"><i class="fas fa-user-plus"></i> Cadastrar Profissional</div>
                 <form onsubmit="event.preventDefault(); criarProfissional();">
                     <div class="form-row">
-                        <div class="form-group">
-                            <label>Nome do Profissional</label>
-                            <input type="text" id="add-nome-prof" placeholder="Ex: Seu Jorge" required>
-                        </div>
-                        <div class="form-group">
-                            <label>WhatsApp</label>
-                            <input type="text" id="add-whats-prof" placeholder="(84) 99999-9999" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Categoria</label>
-                            <select id="add-categoria-prof">
-                                <option>Eletricista Residencial</option>
-                                <option>Pedreiro</option>
-                                <option>Diarista / Faxineira</option>
-                                <option>Encanador</option>
-                                <option>Chaveiro</option>
-                                <option>Pintor</option>
-                                <option>Montador</option>
-                                <option>Marceneiro</option>
-                            </select>
-                        </div>
-                        <div class="form-group" style="justify-content: flex-end;">
-                            <button type="submit" class="btn btn-success"><i class="fas fa-check"></i> Salvar</button>
-                        </div>
+                        <div class="form-group"><label>Nome</label><input type="text" id="add-nome-prof" placeholder="Ex: Seu Jorge" required></div>
+                        <div class="form-group"><label>WhatsApp</label><input type="text" id="add-whats-prof" placeholder="(84) 99999-9999" required></div>
+                        <div class="form-group"><label>Categoria</label><select id="add-categoria-prof"><option>Eletricista</option><option>Pedreiro</option><option>Diarista</option><option>Encanador</option><option>Chaveiro</option><option>Pintor</option></select></div>
+                        <div class="form-group" style="justify-content:flex-end"><button type="submit" class="btn btn-success">Salvar</button></div>
                     </div>
                 </form>
             </div>
-
             <div class="action-box">
-                <div class="section-title"><i class="fas fa-exchange-alt"></i> Repasse de Créditos</div>
-                <div class="table-container">
-                    <table class="data-table">
-                        <thead><tr><th>Profissional</th><th>Categoria</th><th>Saldo</th><th>Transferir</th></tr></thead>
-                        <tbody id="tabela-profissionais">
-                            <tr id="linha-prof-1">
-                                <td><b>Jorge Eletricista</b><br><span style="font-size:11px;color:#888;">(84) 91111-2222</span></td>
-                                <td>Eletricista</td>
-                                <td><span id="saldo-prof-1" style="font-weight:bold;color:#2e7d32;">5</span> Crs</td>
-                                <td>
-                                    <div style="display:flex;align-items:center;gap:8px;">
-                                        <div class="credit-controller">
-                                            <button class="counter-btn" onclick="ajustarContador('input-prof-1', -1)">-</button>
-                                            <input type="number" class="credit-input" id="input-prof-1" value="5">
-                                            <button class="counter-btn" onclick="ajustarContador('input-prof-1', 1)">+</button>
-                                        </div>
-                                        <button class="btn-confirm-credits" onclick="venderCredito('1')">Repassar</button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <div class="section-title"><i class="fas fa-exchange-alt"></i> Repassar Créditos</div>
+                <div class="table-container"><table class="data-table"><thead><tr><th>Profissional</th><th>Categoria</th><th>Saldo</th><th>Transferir</th></tr></thead><tbody id="tabela-profissionais"></tbody></table></div>
             </div>
         </div>
 
-        <!-- MEU PLANO -->
         <div id="view-plano" class="panel-view">
-            <!-- Plano Atual -->
             <div id="plano-atual-container"></div>
-            
-            <!-- Planos Disponíveis -->
-            <div class="action-box">
-                <div class="section-title"><i class="fas fa-list"></i> Planos Disponíveis</div>
-                <div class="plan-cards-grid" id="planos-cards-revenda"></div>
-            </div>
+            <div class="action-box"><div class="section-title"><i class="fas fa-list"></i> Planos Disponíveis</div><div class="plan-cards-grid" id="planos-cards-revenda"></div></div>
         </div>
 
-        <!-- COMPRAR CRÉDITOS -->
         <div id="view-creditos" class="panel-view">
             <div class="action-box">
-                <div class="section-title"><i class="fas fa-shopping-cart"></i> Comprar Créditos Avulsos</div>
-                
-                <div class="alert-info">
-                    <i class="fas fa-info-circle"></i> Créditos avulsos custam <b>R$ 12,00</b> cada. Eles não expiram e podem ser usados a qualquer momento.
-                </div>
-                
+                <div class="section-title"><i class="fas fa-shopping-cart"></i> Comprar Créditos</div>
+                <div class="alert-info">💡 Créditos avulsos: <b>R$ 12,00</b> cada. Não expiram.</div>
                 <div class="plan-cards-grid">
-                    <div class="plan-card" style="text-align:center;">
-                        <div class="plan-header">
-                            <div class="plan-icon">📦</div>
-                            <div class="plan-name">Pack 10</div>
-                            <div class="plan-price">R$ 120,00</div>
-                        </div>
-                        <button class="btn btn-gold" onclick="comprarCreditos(10)"><i class="fas fa-shopping-cart"></i> Comprar</button>
-                    </div>
-                    
-                    <div class="plan-card" style="text-align:center;">
-                        <div class="plan-header">
-                            <div class="plan-icon">📦</div>
-                            <div class="plan-name">Pack 30</div>
-                            <div class="plan-price">R$ 360,00</div>
-                        </div>
-                        <button class="btn btn-gold" onclick="comprarCreditos(30)"><i class="fas fa-shopping-cart"></i> Comprar</button>
-                    </div>
-                    
-                    <div class="plan-card" style="text-align:center;">
-                        <div class="plan-header">
-                            <div class="plan-icon">📦</div>
-                            <div class="plan-name">Pack 50</div>
-                            <div class="plan-price">R$ 600,00</div>
-                        </div>
-                        <button class="btn btn-gold" onclick="comprarCreditos(50)"><i class="fas fa-shopping-cart"></i> Comprar</button>
-                    </div>
-                    
-                    <div class="plan-card" style="text-align:center;">
-                        <div class="plan-header">
-                            <div class="plan-icon">💎</div>
-                            <div class="plan-name">Quantidade Livre</div>
-                            <div class="plan-price">R$ 12,00 <small>/cada</small></div>
-                        </div>
-                        <div class="form-group" style="margin-bottom:12px;">
-                            <input type="number" id="qtd-creditos-avulsos" value="1" min="1" style="text-align:center;font-size:18px;font-weight:bold;">
-                        </div>
-                        <button class="btn btn-gold" onclick="comprarCreditosPersonalizado()"><i class="fas fa-shopping-cart"></i> Comprar</button>
-                    </div>
+                    <div class="plan-card" style="text-align:center;"><div class="plan-header"><div class="plan-icon">📦</div><div class="plan-name">Pack 10</div><div class="plan-price">R$ 120</div></div><button class="btn btn-gold" onclick="comprarCreditos(10)">Comprar</button></div>
+                    <div class="plan-card" style="text-align:center;"><div class="plan-header"><div class="plan-icon">📦</div><div class="plan-name">Pack 30</div><div class="plan-price">R$ 360</div></div><button class="btn btn-gold" onclick="comprarCreditos(30)">Comprar</button></div>
+                    <div class="plan-card" style="text-align:center;"><div class="plan-header"><div class="plan-icon">💎</div><div class="plan-name">Livre</div><div class="plan-price">R$ 12 <small>/cada</small></div></div><div class="form-group" style="margin-bottom:8px;"><input type="number" id="qtd-creditos-avulsos" value="1" min="1" style="text-align:center;font-size:16px;font-weight:bold;"></div><button class="btn btn-gold" onclick="comprarCreditosPersonalizado()">Comprar</button></div>
                 </div>
-            </div>
-        </div>
-
-        <!-- CONFIG -->
-        <div id="view-config" class="panel-view">
-            <div class="action-box">
-                <div class="section-title"><i class="fas fa-plug"></i> Integração Mercado Pago</div>
-                <div class="api-box">
-                    <p><b>💰 Pix Automático:</b> Configure suas credenciais do Mercado Pago para receber pagamentos dos profissionais diretamente na sua conta.</p>
-                </div>
-                <form onsubmit="event.preventDefault(); alert('✅ Chaves da API salvas!');">
-                    <div class="form-row">
-                        <div class="form-group"><label>Public Key</label><input type="text" placeholder="APP_USR-xxxxxx"></div>
-                        <div class="form-group"><label>Access Token</label><input type="password" placeholder="APP_USR-123456789"></div>
-                    </div>
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Salvar</button>
-                </form>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-// ==================== DADOS ====================
 const REVENDA_ID = 'r1';
-
-// Carregar dados do localStorage
 let revendas = JSON.parse(localStorage.getItem('revendas')) || [];
 let planos = JSON.parse(localStorage.getItem('planos')) || [];
 let profissionais = JSON.parse(localStorage.getItem('profissionais')) || [];
 let baseCredito = parseFloat(localStorage.getItem('baseCredito')) || 12.00;
 
-// Encontrar revenda atual
-let revendaAtual = revendas.find(r => r.id === REVENDA_ID) || {
-    id: REVENDA_ID,
-    nome: 'Revenda Alecrim',
-    regiao: 'Leste',
-    whats: '(84) 98888-7777',
-    saldo: 150,
-    planoId: null,
-    assinatura: null
-};
+// PLANOS PADRÃO (sempre carrega se não existir)
+if (planos.length === 0) {
+    planos = [
+        { id: 'plano1', nome: 'Start', icone: 'fas fa-seedling', valor: 29.90, creditos: 5, limiteSolicitacoes: 3, categorias: 1, prioridade: 75, selo: '', cor: 'start', destaque: false },
+        { id: 'plano2', nome: 'Pro', icone: 'fas fa-star', valor: 39.90, creditos: 8, limiteSolicitacoes: 6, categorias: 1, prioridade: 80, selo: '', cor: 'pro', destaque: true },
+        { id: 'plano3', nome: 'Premium', icone: 'fas fa-gem', valor: 49.90, creditos: 10, limiteSolicitacoes: 8, categorias: 2, prioridade: 85, selo: '', cor: 'premium', destaque: false },
+        { id: 'plano4', nome: 'Empresa', icone: 'fas fa-building', valor: 79.90, creditos: 15, limiteSolicitacoes: 999, categorias: 999, prioridade: 100, selo: '🏢 Empresa Verificada', cor: 'empresa', destaque: false }
+    ];
+    localStorage.setItem('planos', JSON.stringify(planos));
+}
+
+let revendaAtual = revendas.find(r => r.id === REVENDA_ID) || { id: REVENDA_ID, nome: 'Revenda Alecrim', regiao: 'Leste', whats: '(84) 98888-7777', saldo: 150, planoId: null, assinatura: null };
 
 function saveData() {
-    const index = revendas.findIndex(r => r.id === REVENDA_ID);
-    if(index >= 0) {
-        revendas[index] = revendaAtual;
-    } else {
-        revendas.push(revendaAtual);
-    }
+    const i = revendas.findIndex(r => r.id === REVENDA_ID);
+    if(i >= 0) revendas[i] = revendaAtual; else revendas.push(revendaAtual);
     localStorage.setItem('revendas', JSON.stringify(revendas));
     localStorage.setItem('profissionais', JSON.stringify(profissionais));
 }
 
-// ==================== NAVEGAÇÃO ====================
 function navegarPara(tela) {
     document.querySelectorAll('.panel-view').forEach(v => v.classList.remove('active'));
     document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
-    
-    const viewEl = document.getElementById('view-' + tela);
-    const menuEl = document.getElementById('menu-' + tela);
-    if(viewEl) viewEl.classList.add('active');
-    if(menuEl) menuEl.classList.add('active');
-    
+    const v = document.getElementById('view-' + tela);
+    const m = document.getElementById('menu-' + tela);
+    if(v) v.classList.add('active');
+    if(m) m.classList.add('active');
     if(tela === 'dashboard') renderDash();
     if(tela === 'plano') renderMeuPlano();
-    if(tela === 'profissionais') renderProfissionais();
-    
     atualizarSidebar();
 }
 
-// ==================== ATUALIZAR SIDEBAR ====================
 function atualizarSidebar() {
     document.getElementById('estoque-revendedor').innerText = revendaAtual.saldo || 0;
-    
-    const plano = planos.find(p => p.id === revendaAtual.planoId);
-    document.getElementById('plano-atual-sidebar').innerText = plano ? `Plano: ${plano.nome}` : 'Plano: Nenhum';
+    const p = planos.find(x => x.id === revendaAtual.planoId);
+    document.getElementById('plano-atual-sidebar').innerText = p ? `Plano: ${p.nome}` : 'Plano: Nenhum';
 }
 
-// ==================== DASHBOARD ====================
 function renderDash() {
     document.getElementById('total-profissionais').innerText = profissionais.filter(p => p.revendaId === REVENDA_ID).length;
-    
-    const plano = planos.find(p => p.id === revendaAtual.planoId);
-    document.getElementById('plano-atual-dash').innerText = plano ? plano.nome : 'Nenhum';
+    const p = planos.find(x => x.id === revendaAtual.planoId);
+    document.getElementById('plano-atual-dash').innerText = p ? p.nome : 'Nenhum';
 }
 
-// ==================== MEU PLANO ====================
 function renderMeuPlano() {
-    const planoAtualContainer = document.getElementById('plano-atual-container');
-    const planosCardsContainer = document.getElementById('planos-cards-revenda');
+    const ac = document.getElementById('plano-atual-container');
+    const cc = document.getElementById('planos-cards-revenda');
+    const pa = planos.find(p => p.id === revendaAtual.planoId);
+    const as = revendaAtual.assinatura;
     
-    const planoAtual = planos.find(p => p.id === revendaAtual.planoId);
-    const assinatura = revendaAtual.assinatura;
-    
-    // Plano Atual
-    if(planoAtual && assinatura && assinatura.status === 'ativo') {
-        const creditosUsados = assinatura.solicitacoesUsadas || 0;
-        const pctCreditos = Math.min((revendaAtual.saldo / planoAtual.creditos) * 100, 100);
-        const pctSolicitacoes = planoAtual.limiteSolicitacoes >= 999 ? 50 : Math.min((creditosUsados / planoAtual.limiteSolicitacoes) * 100, 100);
-        const dataRenovacao = new Date(assinatura.dataRenovacao).toLocaleDateString('pt-BR');
-        
-        planoAtualContainer.innerHTML = `
-            <div class="plano-atual-card">
-                <h3><i class="${planoAtual.icone || 'fas fa-crown'}"></i> Plano ${planoAtual.nome}</h3>
-                <p class="plano-status">✅ Ativo - Renova em ${dataRenovacao}</p>
-                
-                <div class="plano-info-grid">
-                    <div class="plano-info-item">
-                        <p>Créditos</p>
-                        <h4>${revendaAtual.saldo} / ${planoAtual.creditos}</h4>
-                        <div class="progress-bar"><div class="progress-fill" style="width:${pctCreditos}%"></div></div>
-                    </div>
-                    <div class="plano-info-item">
-                        <p>Solicitações</p>
-                        <h4>${creditosUsados} / ${planoAtual.limiteSolicitacoes >= 999 ? '∞' : planoAtual.limiteSolicitacoes}</h4>
-                        <div class="progress-bar"><div class="progress-fill" style="width:${pctSolicitacoes}%"></div></div>
-                    </div>
-                    <div class="plano-info-item">
-                        <p>Prioridade</p>
-                        <h4>${planoAtual.prioridade}%</h4>
-                    </div>
-                    <div class="plano-info-item">
-                        <p>Valor</p>
-                        <h4>R$ ${planoAtual.valor.toFixed(2).replace('.', ',')}</h4>
-                    </div>
-                </div>
-                
-                <div class="plano-actions">
-                    <button class="btn btn-warning btn-sm" onclick="pausarPlano()"><i class="fas fa-pause"></i> Pausar</button>
-                    <button class="btn btn-danger btn-sm" onclick="cancelarPlano()"><i class="fas fa-times"></i> Cancelar</button>
-                </div>
-            </div>`;
-    } else if(planoAtual && assinatura && assinatura.status === 'pausado') {
-        planoAtualContainer.innerHTML = `
-            <div class="plano-atual-card" style="background: linear-gradient(135deg, #92400e, #78350f);">
-                <h3><i class="fas fa-pause-circle"></i> Plano ${planoAtual.nome} - Pausado</h3>
-                <p class="plano-status">⏸️ Seu plano está pausado. Reative para voltar a receber solicitações.</p>
-                <button class="btn btn-success" onclick="reativarPlano()"><i class="fas fa-play"></i> Reativar Plano</button>
-            </div>`;
+    if(pa && as && as.status === 'ativo') {
+        const pc = Math.min((revendaAtual.saldo/pa.creditos)*100, 100);
+        const ps = pa.limiteSolicitacoes >= 999 ? 50 : Math.min(((as.solicitacoesUsadas||0)/pa.limiteSolicitacoes)*100, 100);
+        ac.innerHTML = `<div class="plano-atual-card"><h3>Plano ${pa.nome}</h3><p class="plano-status">✅ Ativo - Renova em ${new Date(as.dataRenovacao).toLocaleDateString('pt-BR')}</p><div class="plano-info-grid"><div class="plano-info-item"><p>Créditos</p><h4>${revendaAtual.saldo}/${pa.creditos}</h4><div class="progress-bar"><div class="progress-fill" style="width:${pc}%"></div></div></div><div class="plano-info-item"><p>Solicitações</p><h4>${as.solicitacoesUsadas||0}/${pa.limiteSolicitacoes>=999?'∞':pa.limiteSolicitacoes}</h4><div class="progress-bar"><div class="progress-fill" style="width:${ps}%"></div></div></div><div class="plano-info-item"><p>Prioridade</p><h4>${pa.prioridade}%</h4></div><div class="plano-info-item"><p>Valor</p><h4>R$ ${pa.valor.toFixed(2).replace('.',',')}</h4></div></div><div class="plano-actions"><button class="btn btn-warning btn-sm" onclick="pausarPlano()">Pausar</button><button class="btn btn-danger btn-sm" onclick="cancelarPlano()">Cancelar</button></div></div>`;
+    } else if(pa && as && as.status === 'pausado') {
+        ac.innerHTML = `<div class="plano-atual-card" style="background:#78350f;"><h3>Plano ${pa.nome} - Pausado</h3><p class="plano-status">⏸️ Reative para voltar a receber.</p><button class="btn btn-success" onclick="reativarPlano()">Reativar</button></div>`;
     } else {
-        planoAtualContainer.innerHTML = `
-            <div class="alert-info" style="margin-bottom:24px;">
-                <i class="fas fa-info-circle"></i> Você ainda não possui um plano ativo. Escolha um abaixo para começar a receber solicitações!
-            </div>`;
+        ac.innerHTML = `<div class="alert-info">Você ainda não possui um plano ativo. Escolha um abaixo!</div>`;
     }
     
-    // Cards de Planos
-    planosCardsContainer.innerHTML = '';
-    planos.forEach(plano => {
-        const isAtual = revendaAtual.planoId === plano.id;
-        const valorReal = (plano.creditos * baseCredito).toFixed(2).replace('.', ',');
-        const economia = ((plano.creditos * baseCredito - plano.valor) / (plano.creditos * baseCredito) * 100).toFixed(0);
-        
-        planosCardsContainer.innerHTML += `
-            <div class="plan-card ${isAtual ? 'atual' : ''} ${plano.destaque ? 'popular' : ''}">
-                <div class="plan-header">
-                    <div class="plan-icon"><i class="${plano.icone || 'fas fa-box'}"></i></div>
-                    <div class="plan-name">${plano.nome}</div>
-                    <div class="plan-price">R$ ${plano.valor.toFixed(2).replace('.', ',')}<small>/mês</small></div>
-                    <div class="plan-credits">${plano.creditos} créditos (R$ ${valorReal})</div>
-                    <span class="badge-plan badge-${plano.cor}" style="margin-top:8px;">${economia}% economia</span>
-                </div>
-                <div class="plan-features">
-                    <div class="plan-feature"><i class="fas fa-check-circle"></i> ${plano.creditos} créditos/mês</div>
-                    <div class="plan-feature"><i class="fas fa-check-circle"></i> ${plano.limiteSolicitacoes >= 999 ? 'Sem limite' : 'Até ' + plano.limiteSolicitacoes + ' solicitações'}</div>
-                    <div class="plan-feature"><i class="fas fa-check-circle"></i> ${plano.categorias >= 999 ? 'Todas categorias' : plano.categorias + ' categoria(s)'}</div>
-                    <div class="plan-feature"><i class="fas fa-check-circle"></i> Prioridade ${plano.prioridade}%</div>
-                    ${plano.selo ? `<div class="plan-feature"><i class="fas fa-check-circle"></i> Selo: ${plano.selo}</div>` : ''}
-                </div>
-                ${isAtual ? 
-                    '<button class="btn btn-success" disabled><i class="fas fa-check"></i> Plano Atual</button>' : 
-                    `<button class="btn btn-gold" onclick="contratarPlano('${plano.id}')"><i class="fas fa-crown"></i> Contratar</button>`
-                }
-            </div>`;
+    cc.innerHTML = '';
+    planos.forEach(p => {
+        const ia = revendaAtual.planoId === p.id;
+        const vr = (p.creditos*baseCredito).toFixed(2).replace('.',',');
+        const eco = ((p.creditos*baseCredito-p.valor)/(p.creditos*baseCredito)*100).toFixed(0);
+        cc.innerHTML += `<div class="plan-card ${ia?'atual':''} ${p.destaque?'popular':''}"><div class="plan-header"><div class="plan-icon"><i class="${p.icone||'fas fa-box'}"></i></div><div class="plan-name">${p.nome}</div><div class="plan-price">R$ ${p.valor.toFixed(2).replace('.',',')}<small>/mês</small></div><div class="plan-credits">${p.creditos} créditos (R$ ${vr})</div><span class="badge-plan badge-${p.cor}">${eco}% economia</span></div><div class="plan-features"><div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.creditos} créditos/mês</div><div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.limiteSolicitacoes>=999?'Sem limite':'Até '+p.limiteSolicitacoes+' solicitações'}</div><div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.categorias>=999?'Todas categorias':p.categorias+' categoria(s)'}</div><div class="plan-feature"><i class="fas fa-check-circle"></i> Prioridade ${p.prioridade}%</div>${p.selo?`<div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.selo}</div>`:''}</div>${ia?'<button class="btn btn-success" disabled>✅ Plano Atual</button>':`<button class="btn btn-gold" onclick="contratarPlano('${p.id}')">Contratar</button>`}</div>`;
     });
 }
 
-function contratarPlano(planoId) {
-    const plano = planos.find(p => p.id === planoId);
-    if(!plano) return;
-    
-    if(!confirm(`Contratar Plano ${plano.nome} por R$ ${plano.valor.toFixed(2)}/mês?`)) return;
-    
-    revendaAtual.planoId = plano.id;
-    revendaAtual.assinatura = {
-        dataInicio: new Date().toISOString(),
-        dataRenovacao: new Date(Date.now() + 30*24*60*60*1000).toISOString(),
-        status: 'ativo',
-        solicitacoesUsadas: 0
-    };
-    revendaAtual.saldo = plano.creditos;
-    
-    saveData();
-    renderMeuPlano();
-    atualizarSidebar();
-    alert(`✅ Plano ${plano.nome} contratado!\nCréditos: ${plano.creditos}\nValor: R$ ${plano.valor.toFixed(2)}/mês`);
+function contratarPlano(id) {
+    const p = planos.find(x => x.id === id);
+    if(!p) return;
+    if(!confirm(`Contratar ${p.nome} por R$ ${p.valor.toFixed(2)}/mês?`)) return;
+    revendaAtual.planoId = p.id;
+    revendaAtual.assinatura = { dataInicio: new Date().toISOString(), dataRenovacao: new Date(Date.now()+30*24*60*60*1000).toISOString(), status: 'ativo', solicitacoesUsadas: 0 };
+    revendaAtual.saldo = p.creditos;
+    saveData(); renderMeuPlano(); atualizarSidebar();
+    alert(`✅ Plano ${p.nome} contratado!`);
 }
 
-function pausarPlano() {
-    if(!confirm('Pausar seu plano? Você não receberá novas solicitações.')) return;
-    if(revendaAtual.assinatura) revendaAtual.assinatura.status = 'pausado';
-    saveData();
-    renderMeuPlano();
-    atualizarSidebar();
-    alert('⏸️ Plano pausado!');
-}
+function pausarPlano() { if(!confirm('Pausar?')) return; revendaAtual.assinatura.status = 'pausado'; saveData(); renderMeuPlano(); }
+function reativarPlano() { revendaAtual.assinatura.status = 'ativo'; revendaAtual.assinatura.dataRenovacao = new Date(Date.now()+30*24*60*60*1000).toISOString(); saveData(); renderMeuPlano(); }
+function cancelarPlano() { if(!confirm('Cancelar?')) return; revendaAtual.assinatura.status = 'cancelado'; saveData(); renderMeuPlano(); }
 
-function reativarPlano() {
-    if(!confirm('Reativar seu plano?')) return;
-    if(revendaAtual.assinatura) {
-        revendaAtual.assinatura.status = 'ativo';
-        revendaAtual.assinatura.dataRenovacao = new Date(Date.now() + 30*24*60*60*1000).toISOString();
-    }
-    saveData();
-    renderMeuPlano();
-    atualizarSidebar();
-    alert('✅ Plano reativado!');
-}
+function comprarCreditos(q) { if(!confirm(`Comprar ${q} créditos por R$ ${(q*baseCredito).toFixed(2)}?`)) return; revendaAtual.saldo += q; saveData(); atualizarSidebar(); alert(`✅ ${q} créditos!`); }
+function comprarCreditosPersonalizado() { const q = parseInt(document.getElementById('qtd-creditos-avulsos').value)||0; if(q>0) comprarCreditos(q); }
 
-function cancelarPlano() {
-    if(!confirm('Cancelar seu plano? Seus créditos restantes serão perdidos.')) return;
-    if(revendaAtual.assinatura) revendaAtual.assinatura.status = 'cancelado';
-    saveData();
-    renderMeuPlano();
-    atualizarSidebar();
-    alert('❌ Plano cancelado!');
-}
-
-// ==================== COMPRAR CRÉDITOS ====================
-function comprarCreditos(qtd) {
-    if(!confirm(`Comprar ${qtd} créditos por R$ ${(qtd * baseCredito).toFixed(2).replace('.', ',')}?`)) return;
-    revendaAtual.saldo = (revendaAtual.saldo || 0) + qtd;
-    saveData();
-    atualizarSidebar();
-    alert(`✅ ${qtd} créditos adicionados!\nNovo saldo: ${revendaAtual.saldo} Crs`);
-}
-
-function comprarCreditosPersonalizado() {
-    const qtd = parseInt(document.getElementById('qtd-creditos-avulsos').value) || 0;
-    if(qtd <= 0) return alert('⚠️ Digite uma quantidade válida!');
-    comprarCreditos(qtd);
-}
-
-// ==================== PROFISSIONAIS ====================
-let contadorProf = 1;
-
-function renderProfissionais() {
-    const tbody = document.getElementById('tabela-profissionais');
-    const meusPros = profissionais.filter(p => p.revendaId === REVENDA_ID);
-    document.getElementById('total-profissionais').innerText = meusPros.length;
-    contadorProf = meusPros.length;
-}
-
-function ajustarContador(inputId, valor) {
-    const input = document.getElementById(inputId);
-    let valorAtual = parseInt(input.value) || 0;
-    valorAtual += valor;
-    if(valorAtual < 0) valorAtual = 0;
-    input.value = valorAtual;
-}
-
-function venderCredito(idProf) {
-    const inputRepasse = document.getElementById(`input-prof-${idProf}`);
-    const saldoProf = document.getElementById(`saldo-prof-${idProf}`);
-    
-    let qtdRepasse = parseInt(inputRepasse.value) || 0;
-    let estoqueAtual = revendaAtual.saldo || 0;
-    let saldoAtualProf = parseInt(saldoProf.innerText) || 0;
-
-    if(qtdRepasse <= 0) return alert("⚠️ Digite um valor válido!");
-    if(qtdRepasse > estoqueAtual) return alert(`⚠️ Saldo Insuficiente!\nSeu estoque: ${estoqueAtual} Crs`);
-    
-    revendaAtual.saldo = estoqueAtual - qtdRepasse;
-    saldoProf.innerText = saldoAtualProf + qtdRepasse;
-    
-    saveData();
-    atualizarSidebar();
-    inputRepasse.value = 5;
-    alert(`✅ ${qtdRepasse} créditos repassados!\nSeu estoque: ${revendaAtual.saldo} Crs`);
-}
-
+let contadorProf = 0;
 function criarProfissional() {
     contadorProf++;
-    const nome = document.getElementById('add-nome-prof').value;
-    const whats = document.getElementById('add-whats-prof').value;
-    const categoria = document.getElementById('add-categoria-prof').value;
-    
-    const tabela = document.getElementById('tabela-profissionais');
-    const novaLinhaId = `linha-prof-${contadorProf}`;
-    const inputId = `input-prof-${contadorProf}`;
-    const saldoId = `saldo-prof-${contadorProf}`;
-
-    const novaLinha = document.createElement('tr');
-    novaLinha.id = novaLinhaId;
-    novaLinha.innerHTML = `
-        <td><b>${nome}</b><br><span style="font-size:11px;color:#888;">${whats}</span></td>
-        <td>${categoria}</td>
-        <td><span id="${saldoId}" style="font-weight:bold;color:#2e7d32;">0</span> Crs</td>
-        <td>
-            <div style="display:flex;align-items:center;gap:8px;">
-                <div class="credit-controller">
-                    <button class="counter-btn" onclick="ajustarContador('${inputId}', -1)">-</button>
-                    <input type="number" class="credit-input" id="${inputId}" value="5">
-                    <button class="counter-btn" onclick="ajustarContador('${inputId}', 1)">+</button>
-                </div>
-                <button class="btn-confirm-credits" onclick="venderCredito('${contadorProf}')">Repassar</button>
-            </div>
-        </td>
-    `;
-    
-    tabela.appendChild(novaLinha);
+    const n = document.getElementById('add-nome-prof').value;
+    const w = document.getElementById('add-whats-prof').value;
+    const c = document.getElementById('add-categoria-prof').value;
+    const t = document.getElementById('tabela-profissionais');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td><b>${n}</b><br><span style="font-size:10px;color:#888;">${w}</span></td><td>${c}</td><td><span id="sp-${contadorProf}" style="color:#2e7d32;font-weight:700;">0</span> Crs</td><td><div style="display:flex;align-items:center;gap:6px;"><div class="credit-controller"><button class="counter-btn" onclick="aj('input-prof-${contadorProf}',-1)">-</button><input type="number" class="credit-input" id="input-prof-${contadorProf}" value="5"><button class="counter-btn" onclick="aj('input-prof-${contadorProf}',1)">+</button></div><button class="btn-confirm-credits" onclick="venderCredito(${contadorProf})">Repassar</button></div></td>`;
+    t.appendChild(tr);
     document.getElementById('total-profissionais').innerText = contadorProf;
-    
     document.getElementById('add-nome-prof').value = '';
     document.getElementById('add-whats-prof').value = '';
-    
-    // Salvar profissional
-    profissionais.push({
-        revendaId: REVENDA_ID,
-        nome,
-        categoria,
-        saldo: 0
-    });
+    profissionais.push({ revendaId: REVENDA_ID, nome: n, categoria: c, saldo: 0 });
     saveData();
-    
-    alert(`✅ ${nome} cadastrado!`);
 }
 
-// ==================== INICIALIZAR ====================
+function aj(id, v) { const i = document.getElementById(id); let x = parseInt(i.value)||0; x+=v; if(x<0)x=0; i.value = x; }
+
+function venderCredito(id) {
+    const q = parseInt(document.getElementById('input-prof-'+id).value)||0;
+    if(q<=0) return alert('⚠️ Valor inválido!');
+    if(q > revendaAtual.saldo) return alert('⚠️ Saldo insuficiente!');
+    revendaAtual.saldo -= q;
+    document.getElementById('sp-'+id).innerText = (parseInt(document.getElementById('sp-'+id).innerText)||0) + q;
+    saveData(); atualizarSidebar();
+    document.getElementById('input-prof-'+id).value = 5;
+}
+
+// Inicializar
 atualizarSidebar();
 renderDash();
 renderMeuPlano();
-renderProfissionais();
 </script>
-
 </body>
 </html>

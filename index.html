@@ -3,166 +3,535 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alô Natal - Painel do Revendedor</title>
+    <title>Alô Natal - Painel da Revenda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --primary: #1b5e20; --primary-dark: #0d3b11; --accent: #4caf50; --gold: #ffc107; --success: #10b981; --danger: #ef4444; --warning: #f59e0b; --bg: #f4f7f6; --card: #ffffff; --text: #333; --text-muted: #666; --border: #d0d7de; }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--bg); color: var(--text); display: flex; min-height: 100vh; flex-direction: column; }
-        .wrapper { display: flex; flex: 1; flex-direction: row; }
-        @media(max-width: 768px) { .wrapper { flex-direction: column; } .sidebar { width: 100% !important; } }
-        .sidebar { width: 280px; background: linear-gradient(180deg, #1b5e20 0%, #0d3b11 100%); color: white; padding: 24px 18px; display: flex; flex-direction: column; gap: 6px; box-shadow: 4px 0 20px rgba(0,0,0,0.2); }
-        .sidebar-logo { text-align: center; margin-bottom: 24px; }
-        .sidebar-logo h2 { color: #a5d6a7; font-size: 20px; font-weight: 700; }
-        .sidebar-logo .subtitle { font-size: 10px; color: #81c784; text-transform: uppercase; letter-spacing: 2px; margin-top: 4px; }
-        .reseller-badge { background: rgba(255,255,255,0.08); padding: 18px; border-radius: 14px; text-align: center; border: 1px solid rgba(255,255,255,0.15); margin-bottom: 20px; }
-        .reseller-badge p { font-size: 10px; color: #a5d6a7; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; }
-        .reseller-badge h3 { font-size: 32px; margin-top: 6px; color: #fff; font-weight: 800; }
-        .reseller-badge .plano-nome { font-size: 12px; color: #ffd700; margin-top: 4px; font-weight: 600; }
-        .menu-section { margin-top: 10px; }
-        .menu-section-title { font-size: 9px; color: #81c784; text-transform: uppercase; letter-spacing: 2px; padding: 8px 12px; font-weight: 700; opacity: 0.7; }
-        .menu-item { padding: 12px 14px; cursor: pointer; transition: all 0.3s; color: #c8e6c9; border-radius: 10px; display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 500; }
-        .menu-item i { font-size: 15px; width: 18px; text-align: center; }
-        .menu-item:hover { color: #ffffff; background: rgba(255,255,255,0.08); transform: translateX(3px); }
-        .menu-item.active { background: rgba(255,255,255,0.18); color: #fff; font-weight: 700; border-left: 3px solid #ffd700; }
-        .main-content { flex: 1; padding: 24px; overflow-y: auto; background: linear-gradient(135deg, #f4f7f6, #e8f5e9); }
-        .main-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 2px solid var(--border); }
-        .main-header h1 { color: var(--primary); font-size: 24px; font-weight: 800; }
-        .badge-role { font-size: 11px; color: #fff; font-weight: 700; background: #2e7d32; padding: 6px 14px; border-radius: 20px; }
-        .panel-view { display: none; animation: fadeIn 0.4s ease; }
-        .panel-view.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
-        .stat-card { background: var(--card); padding: 20px; border-radius: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 4px solid var(--primary); }
-        .stat-card p { font-size: 10px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; }
-        .stat-card h2 { font-size: 28px; color: var(--text); font-weight: 800; }
-        .action-box { background: var(--card); padding: 24px; border-radius: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin-bottom: 24px; border: 1px solid var(--border); }
-        .section-title { font-size: 18px; color: var(--primary); margin-bottom: 20px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
-        .plan-cards-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
-        @media(min-width: 600px) { .plan-cards-grid { grid-template-columns: repeat(2, 1fr); } }
-        .plan-card { background: var(--card); border-radius: 16px; padding: 20px; border: 2px solid var(--border); transition: all 0.3s; position: relative; overflow: hidden; }
-        .plan-card.popular { border-color: var(--gold); }
-        .plan-card.popular::before { content: '⭐ POPULAR'; position: absolute; top: 8px; right: -24px; background: var(--gold); color: #1a1a1a; padding: 2px 30px; font-size: 8px; font-weight: 800; transform: rotate(45deg); }
-        .plan-header { text-align: center; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
-        .plan-icon { font-size: 30px; margin-bottom: 8px; }
-        .plan-name { font-size: 16px; font-weight: 800; }
-        .plan-price { font-size: 28px; font-weight: 800; color: var(--primary); }
-        .plan-price small { font-size: 11px; color: var(--text-muted); }
-        .plan-credits { font-size: 12px; color: var(--text-muted); }
-        .plan-features { margin-bottom: 16px; }
-        .plan-feature { display: flex; align-items: center; gap: 6px; padding: 4px 0; font-size: 11px; color: var(--text-muted); }
-        .plan-feature i { font-size: 12px; }
-        .plan-feature .fa-check-circle { color: var(--success); }
-        .plan-feature .fa-star { color: #f59e0b; }
-        .badge-plan { padding: 4px 10px; border-radius: 16px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
-        .badge-start { background: #dcfce7; color: #166534; } .badge-pro { background: #dbeafe; color: #1e40af; }
-        .badge-premium { background: #ede9fe; color: #6d28d9; } .badge-empresa { background: #fff7ed; color: #9a3412; }
-        .status-badge { padding: 4px 10px; border-radius: 16px; font-size: 10px; font-weight: 700; }
-        .status-ativo { background: #dcfce7; color: #166534; } .status-pendente { background: #fff3e0; color: #e65100; }
-        .status-aprovado { background: #dcfce7; color: #166534; } .status-negado { background: #fee2e2; color: #991b1b; }
-        .table-container { overflow-x: auto; background: white; border-radius: 12px; border: 1px solid var(--border); }
-        .data-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-        .data-table th, .data-table td { padding: 10px 12px; border-bottom: 1px solid #eee; }
-        .data-table th { background: var(--primary); color: white; font-size: 10px; text-transform: uppercase; }
-        .btn { padding: 10px 18px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 12px; transition: all 0.3s; text-transform: uppercase; }
-        .btn-success { background: #10b981; color: white; } .btn-primary { background: #1b5e20; color: white; }
-        .btn-warning { background: #f59e0b; color: white; } .btn-danger { background: #ef4444; color: white; }
-        .btn-gold { background: #ffc107; color: #1a1a1a; font-weight: 800; } .btn-sm { padding: 6px 12px; font-size: 10px; }
-        .form-row { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 12px; }
-        @media(min-width: 500px) { .form-row { grid-template-columns: repeat(2, 1fr); } }
-        .form-group { display: flex; flex-direction: column; gap: 4px; }
-        .form-group label { font-size: 11px; font-weight: 700; color: #555; text-transform: uppercase; }
-        .form-group input, .form-group select { padding: 10px 14px; border: 2px solid #ccc; border-radius: 8px; font-size: 13px; background: #f9fbfd; }
-        .credit-controller { display: flex; align-items: center; gap: 4px; background: #f0f4f8; padding: 4px; border-radius: 20px; border: 1px solid #cfd8dc; }
-        .counter-btn { width: 28px; height: 28px; border-radius: 50%; border: none; background: #fff; color: var(--primary); font-size: 16px; font-weight: bold; cursor: pointer; }
-        .credit-input { width: 45px; text-align: center; border: none; background: transparent; font-size: 14px; font-weight: bold; outline: none; }
-        .btn-confirm-credits { background: #ff9800; color: white; border: none; padding: 6px 12px; border-radius: 16px; font-size: 11px; font-weight: bold; cursor: pointer; }
-        .alert-info { background: #e3f2fd; border: 1px solid #bbdefb; padding: 14px; border-radius: 10px; color: #1565c0; font-size: 12px; margin-bottom: 16px; }
-        .alert-success { background: #d4edda; border: 1px solid #c3e6cb; padding: 14px; border-radius: 10px; color: #155724; font-size: 12px; margin-bottom: 16px; }
-        .resgate-card { background: #f9fafb; border-radius: 12px; padding: 16px; border: 1px solid var(--border); margin-bottom: 10px; }
-        .resgate-card.pendente { border-left: 3px solid #f59e0b; }
-        .resgate-card.aprovado { border-left: 3px solid #10b981; }
-        .resgate-card.negado { border-left: 3px solid #ef4444; }
+        :root {
+            --primary: #1a1a2e;
+            --primary-light: #16213e;
+            --accent: #0f3460;
+            --gold: #ffd700;
+            --gold-dark: #ffc107;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
+        body { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; }
+        .app-container { width: 100%; max-width: 430px; background: var(--bg); min-height: 100vh; position: relative; overflow-x: hidden; box-shadow: 0 0 60px rgba(0,0,0,0.5); }
+        
+        /* HEADER PREMIUM */
+        .header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: white;
+            padding: 40px 24px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
+            animation: headerGlow 4s ease-in-out infinite;
+        }
+        @keyframes headerGlow {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-10%, -10%); }
+        }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+            z-index: 1;
+        }
+        .header-info h1 {
+            font-size: 24px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 4px;
+        }
+        .header-info .categoria {
+            font-size: 12px;
+            color: rgba(255,255,255,0.7);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+        .profile-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 8px 25px rgba(255,215,0,0.3);
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        /* STATS */
+        .header-stats {
+            display: flex;
+            gap: 16px;
+            margin-top: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .header-stat {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.15);
+            flex: 1;
+            text-align: center;
+        }
+        .header-stat p {
+            font-size: 9px;
+            color: rgba(255,255,255,0.6);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        .header-stat h3 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--gold);
+        }
+        
+        /* NAV MENU */
+        .nav-menu {
+            display: flex;
+            gap: 4px;
+            margin: 20px 16px;
+            background: white;
+            border-radius: 16px;
+            padding: 4px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .nav-item {
+            flex: 1;
+            padding: 12px 8px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-muted);
+            border: none;
+            background: transparent;
+        }
+        .nav-item i { font-size: 16px; display: block; margin-bottom: 4px; }
+        .nav-item.active {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: var(--gold);
+            box-shadow: 0 4px 12px rgba(26,26,46,0.3);
+        }
+        
+        /* SECTION */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            margin-bottom: 16px;
+        }
+        .section-title {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+        
+        /* CARDS */
+        .card-list {
+            padding: 0 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 100px;
+        }
+        .card-premium {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+        .card-premium:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+        }
+        .card-premium.popular {
+            border: 2px solid var(--gold);
+            background: linear-gradient(135deg, #fffbeb, white);
+            position: relative;
+            overflow: hidden;
+        }
+        .card-premium.popular::before {
+            content: '⭐ POPULAR';
+            position: absolute;
+            top: 10px;
+            right: -28px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: #1a1a1a;
+            padding: 3px 35px;
+            font-size: 8px;
+            font-weight: 800;
+            transform: rotate(45deg);
+            letter-spacing: 1px;
+        }
+        
+        /* PLANO CARD */
+        .plano-icon { font-size: 36px; text-align: center; margin-bottom: 8px; }
+        .plano-nome { font-size: 18px; font-weight: 800; text-align: center; }
+        .plano-preco { font-size: 32px; font-weight: 900; text-align: center; color: #1a1a2e; }
+        .plano-preco small { font-size: 13px; color: var(--text-muted); }
+        .plano-features { margin: 16px 0; }
+        .plano-feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+            font-size: 12px;
+            color: var(--text-muted);
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .plano-feature i { font-size: 12px; }
+        .plano-feature .fa-check-circle { color: var(--success); }
+        .plano-feature .fa-star { color: #f59e0b; }
+        
+        /* PROFISSIONAL CARD */
+        .prof-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .prof-nome { font-size: 16px; font-weight: 700; }
+        .prof-categoria {
+            background: #eff6ff;
+            color: #1e40af;
+            padding: 3px 8px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+        .prof-whatsapp {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .prof-saldo {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1b5e20;
+            margin-bottom: 12px;
+        }
+        
+        .credit-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .credit-controller {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: #f0f4f8;
+            padding: 4px;
+            border-radius: 20px;
+            flex: 1;
+        }
+        .counter-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            background: #fff;
+            color: #1a1a2e;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .credit-input {
+            width: 50px;
+            text-align: center;
+            border: none;
+            background: transparent;
+            font-size: 15px;
+            font-weight: 700;
+            outline: none;
+        }
+        .btn-repassar {
+            background: #ff9800;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        
+        /* BOTÕES */
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .btn-success { background: var(--success); color: white; width: 100%; }
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: #1a1a1a;
+            font-weight: 800;
+            width: 100%;
+            padding: 14px;
+            font-size: 14px;
+        }
+        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,215,0,0.4); }
+        
+        /* FORM */
+        .form-row {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .form-group label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .form-group input, .form-group select {
+            padding: 12px 14px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 13px;
+            background: #f8fafc;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #1a1a2e;
+            background: white;
+        }
+        
+        /* RESGATE */
+        .resgate-info-box {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .resgate-info-box h3 {
+            font-size: 28px;
+            font-weight: 900;
+            color: #1b5e20;
+        }
+        .resgate-info-box p {
+            font-size: 11px;
+            color: #166534;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .resgate-valor {
+            font-size: 24px;
+            font-weight: 800;
+            color: #1a1a2e;
+            text-align: center;
+            margin: 12px 0;
+        }
+        
+        .historico-card {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 8px;
+            border-left: 3px solid #f59e0b;
+        }
+        .historico-card.aprovado { border-left-color: #10b981; }
+        .historico-card.negado { border-left-color: #ef4444; }
+        .historico-card .hist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+        .historico-card .hist-valor {
+            font-size: 14px;
+            font-weight: 700;
+        }
+        .historico-card .hist-data {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+        .badge-status {
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .badge-pendente { background: #fef3c7; color: #92400e; }
+        .badge-aprovado { background: #dcfce7; color: #166534; }
+        .badge-negado { background: #fee2e2; color: #991b1b; }
+        
+        .spacer { height: 20px; }
     </style>
 </head>
 <body>
 
-<div class="wrapper">
-    <div class="sidebar">
-        <div class="sidebar-logo"><h2>🤝 Alô Natal</h2><div class="subtitle">Painel da Revenda</div></div>
-        <div class="reseller-badge"><p>Seu Estoque</p><h3><span id="estoque-revendedor">150</span> Crs</h3><p class="plano-nome" id="plano-atual-sidebar">Comissão: 0 Crs</p></div>
-        <div class="menu-section">
-            <div class="menu-section-title">Principal</div>
-            <div class="menu-item active" id="menu-dash" onclick="navegarPara('dashboard')"><i class="fas fa-chart-pie"></i> Dashboard</div>
-            <div class="menu-item" id="menu-profissionais" onclick="navegarPara('profissionais')"><i class="fas fa-users"></i> Profissionais</div>
-            <div class="menu-item" id="menu-planos" onclick="navegarPara('planos')"><i class="fas fa-crown"></i> Planos</div>
-            <div class="menu-item" id="menu-resgate" onclick="navegarPara('resgate')"><i class="fas fa-hand-holding-usd"></i> Resgatar Comissão</div>
+<div class="app-container">
+    
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-top">
+            <div class="header-info">
+                <p class="categoria">🏪 Revenda</p>
+                <h1 id="nome-revenda">Revenda Alecrim</h1>
+            </div>
+            <div class="profile-avatar">🏪</div>
+        </div>
+        <div class="header-stats">
+            <div class="header-stat">
+                <p>Profissionais</p>
+                <h3 id="total-profissionais">1</h3>
+            </div>
+            <div class="header-stat">
+                <p>Comissão</p>
+                <h3 id="comissao-header">0 Crs</h3>
+            </div>
+            <div class="header-stat">
+                <p>Estoque</p>
+                <h3 id="estoque-header">150 Crs</h3>
+            </div>
         </div>
     </div>
 
-    <div class="main-content">
-        <div class="main-header"><h1 id="page-title">Dashboard</h1><span class="badge-role">🔑 Revenda</span></div>
+    <!-- NAV MENU -->
+    <div class="nav-menu">
+        <button class="nav-item active" id="nav-profissionais" onclick="mudarView('profissionais')">
+            <i class="fas fa-users"></i> Profissionais
+        </button>
+        <button class="nav-item" id="nav-planos" onclick="mudarView('planos')">
+            <i class="fas fa-crown"></i> Planos
+        </button>
+        <button class="nav-item" id="nav-resgate" onclick="mudarView('resgate')">
+            <i class="fas fa-hand-holding-usd"></i> Resgatar
+        </button>
+    </div>
 
-        <!-- DASHBOARD -->
-        <div id="view-dashboard" class="panel-view active">
-            <div class="stats-grid">
-                <div class="stat-card"><p>Profissionais</p><h2 id="total-profissionais">1</h2></div>
-                <div class="stat-card" style="border-left-color:#ff9800;"><p>Comissão Acumulada</p><h2 id="comissao-dash">0</h2></div>
-                <div class="stat-card" style="border-left-color:#8b5cf6;"><p>Créditos Estoque</p><h2 id="estoque-dash">150</h2></div>
-            </div>
-            <div class="action-box"><div class="section-title"><i class="fas fa-bullhorn"></i> Avisos</div><p style="font-size:13px;">Gerencie seus profissionais, visualize os planos da plataforma e resgate sua comissão!</p></div>
+    <!-- PROFISSIONAIS VIEW -->
+    <div id="view-profissionais">
+        <div class="section-header">
+            <span class="section-title">👷 Seus Profissionais</span>
         </div>
-
-        <!-- PROFISSIONAIS -->
-        <div id="view-profissionais" class="panel-view">
-            <div class="action-box">
-                <div class="section-title"><i class="fas fa-user-plus"></i> Cadastrar Profissional</div>
-                <form onsubmit="event.preventDefault(); criarProfissional();">
-                    <div class="form-row">
-                        <div class="form-group"><label>Nome</label><input type="text" id="add-nome-prof" placeholder="Ex: Seu Jorge" required></div>
-                        <div class="form-group"><label>WhatsApp</label><input type="text" id="add-whats-prof" placeholder="(84) 99999-9999" required></div>
-                        <div class="form-group"><label>Categoria</label><select id="add-categoria-prof"><option>Eletricista</option><option>Pedreiro</option><option>Diarista</option><option>Encanador</option><option>Chaveiro</option><option>Pintor</option></select></div>
-                        <div class="form-group" style="justify-content:flex-end"><button type="submit" class="btn btn-success">Salvar</button></div>
-                    </div>
-                </form>
-            </div>
-            <div class="action-box">
-                <div class="section-title"><i class="fas fa-exchange-alt"></i> Repassar Créditos</div>
-                <div class="table-container"><table class="data-table"><thead><tr><th>Profissional</th><th>Categoria</th><th>Saldo</th><th>Transferir</th></tr></thead><tbody id="tabela-profissionais"></tbody></table></div>
-            </div>
-        </div>
-
-        <!-- PLANOS (APENAS VISUALIZAÇÃO) -->
-        <div id="view-planos" class="panel-view">
-            <div class="action-box">
-                <div class="section-title"><i class="fas fa-crown"></i> Planos da Plataforma</div>
-                <div class="alert-info">📋 Visualize os planos disponíveis para os profissionais. A comissão que você ganha por cada plano está destacada em <b style="color:#f59e0b;">⭐ amarelo</b>.</div>
-                <div class="plan-cards-grid" id="planos-cards-revenda"></div>
-            </div>
-        </div>
-
-        <!-- RESGATAR COMISSÃO -->
-        <div id="view-resgate" class="panel-view">
-            <div class="stats-grid">
-                <div class="stat-card" style="border-left-color:#f59e0b;"><p>Comissão Disponível</p><h2 id="comissao-disponivel">0</h2></div>
-                <div class="stat-card" style="border-left-color:#10b981;"><p>Valor por Crédito</p><h2>R$ 5,00</h2></div>
-            </div>
-            <div class="action-box">
-                <div class="section-title"><i class="fas fa-hand-holding-usd"></i> Resgatar Comissão</div>
-                <div class="alert-success" id="msg-comissao">💰 Você tem <b id="txt-comissao">0</b> créditos de comissão disponíveis para resgate.</div>
+        <div class="card-list" id="profissionais-list"></div>
+        
+        <div style="padding: 0 16px;">
+            <div class="card-premium">
+                <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;">➕ Cadastrar Profissional</h3>
                 <div class="form-row">
-                    <div class="form-group"><label>Quantos créditos deseja resgatar?</label><input type="number" id="qtd-resgate" value="1" min="1" onchange="calcularResgate()" style="font-size:18px;font-weight:bold;text-align:center;"></div>
-                    <div class="form-group"><label>Valor a receber</label><div style="font-size:28px;font-weight:800;color:#1b5e20;" id="valor-resgate">R$ 5,00</div></div>
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <input type="text" id="add-nome-prof" placeholder="Ex: Seu Jorge">
+                    </div>
+                    <div class="form-group">
+                        <label>WhatsApp</label>
+                        <input type="text" id="add-whats-prof" placeholder="(84) 99999-9999">
+                    </div>
+                    <div class="form-group">
+                        <label>Categoria</label>
+                        <select id="add-categoria-prof">
+                            <option>Eletricista</option><option>Pedreiro</option><option>Diarista</option>
+                            <option>Encanador</option><option>Chaveiro</option><option>Pintor</option>
+                        </select>
+                    </div>
                 </div>
-                <button class="btn btn-gold" onclick="solicitarResgate()" style="width:100%;padding:14px;font-size:14px;"><i class="fas fa-paper-plane"></i> Solicitar Resgate</button>
-                <p style="font-size:11px;color:#888;margin-top:8px;text-align:center;">O administrador analisará sua solicitação e fará o PIX.</p>
-            </div>
-            <div class="action-box">
-                <div class="section-title"><i class="fas fa-history"></i> Histórico de Resgates</div>
-                <div id="historico-resgates-revenda"></div>
+                <button class="btn btn-success" onclick="criarProfissional()">Salvar</button>
             </div>
         </div>
     </div>
+
+    <!-- PLANOS VIEW -->
+    <div id="view-planos" style="display:none;">
+        <div class="section-header" style="margin-top:8px;">
+            <span class="section-title">👑 Planos da Plataforma</span>
+        </div>
+        <div style="padding:0 16px;margin-bottom:12px;">
+            <div style="background:#e3f2fd;border:1px solid #bbdefb;padding:12px;border-radius:10px;font-size:11px;color:#1565c0;">
+                📋 Visualize os planos disponíveis. Sua comissão está em <b style="color:#f59e0b;">⭐ amarelo</b>.
+            </div>
+        </div>
+        <div class="card-list" id="planos-list"></div>
+    </div>
+
+    <!-- RESGATE VIEW -->
+    <div id="view-resgate" style="display:none;">
+        <div class="section-header" style="margin-top:8px;">
+            <span class="section-title">💰 Resgatar Comissão</span>
+        </div>
+        <div style="padding:0 16px;">
+            <div class="resgate-info-box">
+                <p>Comissão Disponível</p>
+                <h3 id="comissao-disponivel">0</h3>
+                <p>Créditos</p>
+            </div>
+            <div class="card-premium">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Quantos créditos resgatar?</label>
+                        <input type="number" id="qtd-resgate" value="1" min="1" onchange="calcularResgate()" style="font-size:18px;font-weight:700;text-align:center;">
+                    </div>
+                </div>
+                <div class="resgate-valor" id="valor-resgate">R$ 5,00</div>
+                <p style="font-size:10px;color:var(--text-muted);text-align:center;margin-bottom:12px;">Cada crédito vale R$ 5,00</p>
+                <button class="btn btn-gold" onclick="solicitarResgate()">
+                    <i class="fas fa-paper-plane"></i> Solicitar Resgate
+                </button>
+                <p style="font-size:10px;color:#888;text-align:center;margin-top:8px;">O administrador fará o PIX após aprovação.</p>
+            </div>
+            
+            <h4 style="font-size:14px;font-weight:700;margin:16px 0 8px;">📜 Histórico</h4>
+            <div id="historico-resgates"></div>
+        </div>
+    </div>
+
+    <div class="spacer"></div>
 </div>
 
 <script>
@@ -174,18 +543,17 @@ let resgates = JSON.parse(localStorage.getItem('resgates')) || [];
 let baseCredito = parseFloat(localStorage.getItem('baseCredito')) || 12.00;
 const VALOR_RESGATE_CREDITO = 5.00;
 
-// Planos padrão com COMISSÃO CORRETA
 if (planos.length === 0) {
     planos = [
-        { id: 'plano1', nome: 'Start', icone: 'fas fa-seedling', valor: 29.90, creditos: 5, limiteSolicitacoes: 3, categorias: 1, prioridade: 75, selo: '', cor: 'start', destaque: false, comissao: 2 },
-        { id: 'plano2', nome: 'Pro', icone: 'fas fa-star', valor: 39.90, creditos: 8, limiteSolicitacoes: 6, categorias: 1, prioridade: 80, selo: '', cor: 'pro', destaque: true, comissao: 3 },
-        { id: 'plano3', nome: 'Premium', icone: 'fas fa-gem', valor: 49.90, creditos: 10, limiteSolicitacoes: 8, categorias: 2, prioridade: 85, selo: '', cor: 'premium', destaque: false, comissao: 4 },
-        { id: 'plano4', nome: 'Empresa', icone: 'fas fa-building', valor: 79.90, creditos: 15, limiteSolicitacoes: 999, categorias: 999, prioridade: 100, selo: '🏢 Empresa Verificada', cor: 'empresa', destaque: false, comissao: 6 }
+        { id: 'plano1', nome: 'Start', icone: 'fas fa-seedling', valor: 39.90, limiteSolicitacoes: 3, categorias: 1, prioridade: 75, selo: '', cor: 'start', destaque: false, comissao: 2 },
+        { id: 'plano2', nome: 'Pro', icone: 'fas fa-star', valor: 49.90, limiteSolicitacoes: 6, categorias: 1, prioridade: 80, selo: '', cor: 'pro', destaque: true, comissao: 3 },
+        { id: 'plano3', nome: 'Premium', icone: 'fas fa-gem', valor: 59.90, limiteSolicitacoes: 8, categorias: 2, prioridade: 85, selo: '', cor: 'premium', destaque: false, comissao: 4 },
+        { id: 'plano4', nome: 'Empresa', icone: 'fas fa-building', valor: 89.90, limiteSolicitacoes: 999, categorias: 999, prioridade: 100, selo: '🏢 Verificado', cor: 'empresa', destaque: false, comissao: 6 }
     ];
     localStorage.setItem('planos', JSON.stringify(planos));
 }
 
-let revendaAtual = revendas.find(r => r.id === REVENDA_ID) || { id: REVENDA_ID, nome: 'Revenda Alecrim', regiao: 'Leste', whats: '(84) 98888-7777', saldo: 150, comissao: 0, planoId: null, assinatura: null };
+let revendaAtual = revendas.find(r => r.id === REVENDA_ID) || { id: REVENDA_ID, nome: 'Revenda Alecrim', regiao: 'Leste', whats: '(84) 98888-7777', saldo: 150, comissao: 0 };
 
 function saveData() {
     const i = revendas.findIndex(r => r.id === REVENDA_ID);
@@ -195,67 +563,110 @@ function saveData() {
     localStorage.setItem('resgates', JSON.stringify(resgates));
 }
 
-function navegarPara(tela) {
-    document.querySelectorAll('.panel-view').forEach(v => v.classList.remove('active'));
-    document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
-    const v = document.getElementById('view-' + tela);
-    const m = document.getElementById('menu-' + tela);
-    if(v) v.classList.add('active');
-    if(m) m.classList.add('active');
-    if(tela === 'dashboard') renderDash();
-    if(tela === 'planos') renderPlanos();
-    if(tela === 'resgate') renderResgate();
-    atualizarSidebar();
-}
-
-function atualizarSidebar() {
-    document.getElementById('estoque-revendedor').innerText = revendaAtual.saldo || 0;
-    document.getElementById('plano-atual-sidebar').innerText = 'Comissão: ' + (revendaAtual.comissao || 0) + ' Crs';
-}
-
-function renderDash() {
+function atualizarHeader() {
     document.getElementById('total-profissionais').innerText = profissionais.filter(p => p.revendaId === REVENDA_ID).length;
-    document.getElementById('comissao-dash').innerText = revendaAtual.comissao || 0;
-    document.getElementById('estoque-dash').innerText = revendaAtual.saldo || 0;
+    document.getElementById('comissao-header').innerText = (revendaAtual.comissao || 0) + ' Crs';
+    document.getElementById('estoque-header').innerText = (revendaAtual.saldo || 0) + ' Crs';
+    document.getElementById('nome-revenda').innerText = revendaAtual.nome || 'Revenda';
 }
 
-// ==================== PLANOS (VISUALIZAÇÃO COM COMISSÃO CORRETA) ====================
+function mudarView(view) {
+    document.getElementById('view-profissionais').style.display = view === 'profissionais' ? 'block' : 'none';
+    document.getElementById('view-planos').style.display = view === 'planos' ? 'block' : 'none';
+    document.getElementById('view-resgate').style.display = view === 'resgate' ? 'block' : 'none';
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('nav-' + view).classList.add('active');
+    if(view === 'planos') renderPlanos();
+    if(view === 'profissionais') renderProfissionais();
+    if(view === 'resgate') renderResgate();
+}
+
+// ==================== PROFISSIONAIS ====================
+function renderProfissionais() {
+    const list = document.getElementById('profissionais-list');
+    const meusPros = profissionais.filter(p => p.revendaId === REVENDA_ID);
+    
+    if(meusPros.length === 0) {
+        list.innerHTML = '<div class="card-premium" style="text-align:center;color:var(--text-muted);padding:30px;">Nenhum profissional cadastrado</div>';
+        return;
+    }
+    
+    list.innerHTML = meusPros.map((p, idx) => `
+        <div class="card-premium">
+            <div class="prof-header">
+                <span class="prof-nome">${p.nome}</span>
+                <span class="prof-categoria">${p.categoria}</span>
+            </div>
+            <div class="prof-saldo">💎 Saldo: <span id="sp-${idx}">${p.saldo || 0}</span> Crs</div>
+            <div class="credit-row">
+                <div class="credit-controller">
+                    <button class="counter-btn" onclick="aj('input-prof-${idx}', -1)">−</button>
+                    <input type="number" class="credit-input" id="input-prof-${idx}" value="5">
+                    <button class="counter-btn" onclick="aj('input-prof-${idx}', 1)">+</button>
+                </div>
+                <button class="btn-repassar" onclick="venderCredito(${idx})">Repassar</button>
+            </div>
+        </div>
+    `).join('');
+    atualizarHeader();
+}
+
+function aj(id, v) { const i = document.getElementById(id); let x = parseInt(i.value)||0; x+=v; if(x<0)x=0; i.value = x; }
+
+function venderCredito(idx) {
+    const q = parseInt(document.getElementById('input-prof-'+idx).value)||0;
+    if(q<=0) return alert('Valor inválido!');
+    if(q > revendaAtual.saldo) return alert('Saldo insuficiente!');
+    revendaAtual.saldo -= q;
+    const pro = profissionais.filter(p => p.revendaId === REVENDA_ID)[idx];
+    if(pro) pro.saldo = (pro.saldo || 0) + q;
+    saveData();
+    renderProfissionais();
+    atualizarHeader();
+    document.getElementById('input-prof-'+idx).value = 5;
+}
+
+function criarProfissional() {
+    const nome = document.getElementById('add-nome-prof').value.trim();
+    const whats = document.getElementById('add-whats-prof').value.trim();
+    const categoria = document.getElementById('add-categoria-prof').value;
+    if(!nome) return alert('Digite o nome!');
+    profissionais.push({ revendaId: REVENDA_ID, nome, whats, categoria, saldo: 0 });
+    saveData();
+    document.getElementById('add-nome-prof').value = '';
+    document.getElementById('add-whats-prof').value = '';
+    renderProfissionais();
+    atualizarHeader();
+}
+
+// ==================== PLANOS ====================
 function renderPlanos() {
-    const cc = document.getElementById('planos-cards-revenda');
-    cc.innerHTML = '';
-    planos.forEach(p => {
-        const vr = (p.creditos * baseCredito).toFixed(2).replace('.', ',');
-        const eco = ((p.creditos * baseCredito - p.valor) / (p.creditos * baseCredito) * 100).toFixed(0);
-        // PEGA A COMISSÃO DIRETO DO PLANO
+    const list = document.getElementById('planos-list');
+    list.innerHTML = planos.map(p => {
         const comissao = p.comissao || 0;
-        cc.innerHTML += `<div class="plan-card ${p.destaque ? 'popular' : ''}">
-            <div class="plan-header">
-                <div class="plan-icon"><i class="${p.icone || 'fas fa-box'}"></i></div>
-                <div class="plan-name">${p.nome}</div>
-                <div class="plan-price">R$ ${p.valor.toFixed(2).replace('.', ',')}<small>/mês</small></div>
-                <div class="plan-credits">${p.creditos} créditos (R$ ${vr})</div>
-                <span class="badge-plan badge-${p.cor}" style="margin-top:8px;">${eco}% economia</span>
+        return `
+            <div class="card-premium ${p.destaque ? 'popular' : ''}">
+                <div class="plano-icon"><i class="${p.icone || 'fas fa-box'}"></i></div>
+                <div class="plano-nome">${p.nome}</div>
+                <div class="plano-preco">R$ ${p.valor.toFixed(2).replace('.', ',')}<small>/mês</small></div>
+                <div class="plano-features">
+                    <div class="plano-feature"><i class="fas fa-check-circle"></i> ${p.limiteSolicitacoes >= 999 ? 'Sem limite' : 'Até ' + p.limiteSolicitacoes + ' solicitações/mês'}</div>
+                    <div class="plano-feature"><i class="fas fa-check-circle"></i> ${p.categorias >= 999 ? 'Todas categorias' : p.categorias + ' categoria(s)'}</div>
+                    <div class="plano-feature"><i class="fas fa-check-circle"></i> Prioridade ${p.prioridade}%</div>
+                    ${p.selo ? `<div class="plano-feature"><i class="fas fa-check-circle"></i> ${p.selo}</div>` : ''}
+                    <div class="plano-feature"><i class="fas fa-star"></i> <strong>Sua Comissão: ${comissao} créditos</strong></div>
+                </div>
             </div>
-            <div class="plan-features">
-                <div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.creditos} créditos/mês</div>
-                <div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.limiteSolicitacoes >= 999 ? 'Sem limite' : 'Até ' + p.limiteSolicitacoes + ' solicitações'}</div>
-                <div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.categorias >= 999 ? 'Todas categorias' : p.categorias + ' categoria(s)'}</div>
-                <div class="plan-feature"><i class="fas fa-check-circle"></i> Prioridade ${p.prioridade}%</div>
-                ${p.selo ? `<div class="plan-feature"><i class="fas fa-check-circle"></i> ${p.selo}</div>` : ''}
-                <div class="plan-feature"><i class="fas fa-star"></i> <strong>Sua Comissão: ${comissao} créditos</strong></div>
-            </div>
-        </div>`;
-    });
+        `;
+    }).join('');
 }
 
-// ==================== RESGATE COMISSÃO ====================
+// ==================== RESGATE ====================
 function renderResgate() {
-    const comissao = revendaAtual.comissao || 0;
-    document.getElementById('comissao-disponivel').innerText = comissao;
-    document.getElementById('txt-comissao').innerText = comissao;
-    document.getElementById('qtd-resgate').max = comissao;
+    document.getElementById('comissao-disponivel').innerText = revendaAtual.comissao || 0;
+    document.getElementById('qtd-resgate').max = revendaAtual.comissao || 0;
     calcularResgate();
-    renderHistoricoResgates();
+    renderHistorico();
 }
 
 function calcularResgate() {
@@ -263,72 +674,45 @@ function calcularResgate() {
     const comissao = revendaAtual.comissao || 0;
     if(qtd > comissao) document.getElementById('qtd-resgate').value = comissao;
     const qtdFinal = Math.min(qtd, comissao);
-    document.getElementById('valor-resgate').innerText = `R$ ${(qtdFinal * VALOR_RESGATE_CREDITO).toFixed(2).replace('.', ',')}`;
+    document.getElementById('valor-resgate').innerText = 'R$ ' + (qtdFinal * VALOR_RESGATE_CREDITO).toFixed(2).replace('.', ',');
 }
 
 function solicitarResgate() {
     const qtd = parseInt(document.getElementById('qtd-resgate').value) || 0;
     const comissao = revendaAtual.comissao || 0;
-    if(qtd <= 0) return alert('⚠️ Digite uma quantidade válida!');
-    if(qtd > comissao) return alert('⚠️ Créditos de comissão insuficientes!');
-    if(!confirm(`Solicitar resgate de ${qtd} créditos = R$ ${(qtd * VALOR_RESGATE_CREDITO).toFixed(2).replace('.', ',')}?\n\nO administrador fará o PIX após aprovação.`)) return;
+    if(qtd <= 0) return alert('Quantidade inválida!');
+    if(qtd > comissao) return alert('Comissão insuficiente!');
+    if(!confirm(`Solicitar resgate de ${qtd} créditos = R$ ${(qtd * VALOR_RESGATE_CREDITO).toFixed(2)}?`)) return;
     
     resgates.push({ id: 'res' + Date.now(), revendaId: REVENDA_ID, creditos: qtd, valor: qtd * VALOR_RESGATE_CREDITO, data: new Date().toISOString(), status: 'pendente' });
     revendaAtual.comissao = comissao - qtd;
     saveData();
     renderResgate();
-    atualizarSidebar();
-    alert(`✅ Solicitação enviada!\n${qtd} créditos = R$ ${(qtd * VALOR_RESGATE_CREDITO).toFixed(2).replace('.', ',')}\nAguarde a aprovação.`);
+    atualizarHeader();
+    alert('✅ Solicitação enviada! Aguarde aprovação.');
 }
 
-function renderHistoricoResgates() {
-    const container = document.getElementById('historico-resgates-revenda');
-    const meusResgates = resgates.filter(r => r.revendaId === REVENDA_ID);
-    if(meusResgates.length === 0) { container.innerHTML = '<p style="text-align:center;color:#888;padding:20px;">Nenhum resgate solicitado</p>'; return; }
-    container.innerHTML = meusResgates.sort((a,b) => new Date(b.data) - new Date(a.data)).map(r => `
-        <div class="resgate-card ${r.status}">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-                <div><strong>${r.creditos} créditos</strong> = R$ ${r.valor.toFixed(2).replace('.', ',')}<br><span style="font-size:10px;color:#888;">${new Date(r.data).toLocaleString('pt-BR')}</span></div>
-                <span class="status-badge status-${r.status}">${r.status === 'pendente' ? '⏳ Pendente' : r.status === 'aprovado' ? '✅ Pago' : '❌ Negado'}</span>
+function renderHistorico() {
+    const container = document.getElementById('historico-resgates');
+    const meus = resgates.filter(r => r.revendaId === REVENDA_ID);
+    if(meus.length === 0) {
+        container.innerHTML = '<p style="text-align:center;color:#888;padding:20px;">Nenhum resgate</p>';
+        return;
+    }
+    container.innerHTML = meus.sort((a,b) => new Date(b.data) - new Date(a.data)).map(r => `
+        <div class="historico-card ${r.status}">
+            <div class="hist-header">
+                <span class="hist-valor">${r.creditos} créditos = R$ ${r.valor.toFixed(2).replace('.', ',')}</span>
+                <span class="badge-status badge-${r.status}">${r.status === 'pendente' ? '⏳ Pendente' : r.status === 'aprovado' ? '✅ Pago' : '❌ Negado'}</span>
             </div>
+            <span class="hist-data">${new Date(r.data).toLocaleString('pt-BR')}</span>
         </div>
     `).join('');
 }
 
-// ==================== PROFISSIONAIS ====================
-let contadorProf = 0;
-function criarProfissional() {
-    contadorProf++;
-    const n = document.getElementById('add-nome-prof').value;
-    const w = document.getElementById('add-whats-prof').value;
-    const c = document.getElementById('add-categoria-prof').value;
-    const t = document.getElementById('tabela-profissionais');
-    const tr = document.createElement('tr');
-    tr.innerHTML = `<td><b>${n}</b><br><span style="font-size:10px;color:#888;">${w}</span></td><td>${c}</td><td><span id="sp-${contadorProf}" style="color:#2e7d32;font-weight:700;">0</span> Crs</td><td><div style="display:flex;align-items:center;gap:6px;"><div class="credit-controller"><button class="counter-btn" onclick="aj('input-prof-${contadorProf}',-1)">-</button><input type="number" class="credit-input" id="input-prof-${contadorProf}" value="5"><button class="counter-btn" onclick="aj('input-prof-${contadorProf}',1)">+</button></div><button class="btn-confirm-credits" onclick="venderCredito(${contadorProf})">Repassar</button></div></td>`;
-    t.appendChild(tr);
-    document.getElementById('total-profissionais').innerText = contadorProf;
-    document.getElementById('add-nome-prof').value = '';
-    document.getElementById('add-whats-prof').value = '';
-    profissionais.push({ revendaId: REVENDA_ID, nome: n, categoria: c, saldo: 0 });
-    saveData();
-}
-
-function aj(id, v) { const i = document.getElementById(id); let x = parseInt(i.value)||0; x+=v; if(x<0)x=0; i.value = x; }
-
-function venderCredito(id) {
-    const q = parseInt(document.getElementById('input-prof-'+id).value)||0;
-    if(q<=0) return alert('Valor inválido!');
-    if(q > revendaAtual.saldo) return alert('Saldo insuficiente!');
-    revendaAtual.saldo -= q;
-    document.getElementById('sp-'+id).innerText = (parseInt(document.getElementById('sp-'+id).innerText)||0) + q;
-    saveData(); atualizarSidebar();
-    document.getElementById('input-prof-'+id).value = 5;
-}
-
-// Inicializar
-atualizarSidebar();
-renderDash();
-renderPlanos();
+// INICIALIZAR
+atualizarHeader();
+renderProfissionais();
 </script>
 </body>
 </html>

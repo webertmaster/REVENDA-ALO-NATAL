@@ -8,19 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary: #1a1a2e;
-            --primary-light: #16213e;
-            --accent: #0f3460;
-            --gold: #ffd700;
-            --gold-dark: #ffc107;
-            --success: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --bg: #f8fafc;
-            --card: #ffffff;
-            --text: #1e293b;
-            --text-muted: #64748b;
-            --border: #e2e8f0;
+            --primary: #1a1a2e; --primary-light: #16213e; --accent: #0f3460;
+            --gold: #ffd700; --gold-dark: #ffc107; --success: #10b981; --danger: #ef4444;
+            --warning: #f59e0b; --bg: #f8fafc; --card: #ffffff; --text: #1e293b;
+            --text-muted: #64748b; --border: #e2e8f0;
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
@@ -29,456 +20,106 @@
         
         .header {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            color: white;
-            padding: 40px 24px 30px;
-            position: relative;
-            overflow: hidden;
+            color: white; padding: 32px 24px 24px; position: relative; overflow: hidden;
         }
         .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
+            content: ''; position: absolute; top: -50%; right: -50%; width: 200%; height: 200%;
             background: radial-gradient(circle, rgba(255,215,0,0.1) 0%, transparent 70%);
             animation: headerGlow 4s ease-in-out infinite;
         }
-        @keyframes headerGlow {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(-10%, -10%); }
-        }
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            position: relative;
-            z-index: 1;
-        }
-        .header-info h1 {
-            font-size: 24px;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--gold), #fff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 4px;
-        }
-        .header-info .categoria {
-            font-size: 12px;
-            color: rgba(255,255,255,0.7);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 600;
-        }
-        .profile-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            box-shadow: 0 8px 25px rgba(255,215,0,0.3);
-            border: 2px solid rgba(255,255,255,0.3);
-        }
+        @keyframes headerGlow { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-10%, -10%); } }
+        .header-top { display: flex; justify-content: space-between; align-items: flex-start; position: relative; z-index: 1; }
+        .header-info h1 { font-size: 22px; font-weight: 900; background: linear-gradient(135deg, var(--gold), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 2px; }
+        .header-info .categoria { font-size: 11px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 2px; font-weight: 600; }
+        .profile-avatar { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: 0 8px 25px rgba(255,215,0,0.3); border: 2px solid rgba(255,255,255,0.3); }
         
-        .header-stats {
-            display: flex;
-            gap: 12px;
-            margin-top: 20px;
-            position: relative;
-            z-index: 1;
-        }
+        .header-stats { display: flex; gap: 10px; margin-top: 16px; position: relative; z-index: 1; }
         .header-stat {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            padding: 12px 14px;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.15);
-            flex: 1;
-            text-align: center;
-            cursor: default;
-            transition: all 0.3s;
+            background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 10px 12px;
+            border-radius: 10px; border: 1px solid rgba(255,255,255,0.15); flex: 1; text-align: center;
+            cursor: default; transition: all 0.3s;
         }
-        .header-stat.clickable {
-            cursor: pointer;
-        }
-        .header-stat.clickable:hover {
-            background: rgba(255,215,0,0.2);
-            border-color: var(--gold);
-        }
-        .header-stat p {
-            font-size: 9px;
-            color: rgba(255,255,255,0.6);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-        }
-        .header-stat h3 {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--gold);
-        }
-        .header-stat .stat-sub {
-            font-size: 10px;
-            color: rgba(255,255,255,0.7);
-            font-weight: 500;
-        }
+        .header-stat.clickable { cursor: pointer; }
+        .header-stat.clickable:hover { background: rgba(255,215,0,0.2); border-color: var(--gold); }
+        .header-stat p { font-size: 8px; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
+        .header-stat h3 { font-size: 18px; font-weight: 800; color: var(--gold); }
+        .header-stat .stat-sub { font-size: 9px; color: rgba(255,255,255,0.7); font-weight: 500; }
         
+        /* NAV MENU COM 3 BOTÕES */
         .nav-menu {
-            display: flex;
-            gap: 4px;
-            margin: 20px 16px;
-            background: white;
-            border-radius: 16px;
-            padding: 4px;
+            display: flex; gap: 4px; margin: 16px 12px;
+            background: white; border-radius: 14px; padding: 4px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
         .nav-item {
-            flex: 1;
-            padding: 12px 8px;
-            border-radius: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 10px;
-            font-weight: 600;
-            color: var(--text-muted);
-            border: none;
-            background: transparent;
+            flex: 1; padding: 10px 6px; border-radius: 10px; text-align: center;
+            cursor: pointer; transition: all 0.3s; font-size: 9px; font-weight: 600;
+            color: var(--text-muted); border: none; background: transparent;
         }
-        .nav-item i { font-size: 16px; display: block; margin-bottom: 4px; }
-        .nav-item.active {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            color: var(--gold);
-            box-shadow: 0 4px 12px rgba(26,26,46,0.3);
-        }
+        .nav-item i { font-size: 14px; display: block; margin-bottom: 3px; }
+        .nav-item.active { background: linear-gradient(135deg, #1a1a2e, #16213e); color: var(--gold); box-shadow: 0 4px 12px rgba(26,26,46,0.3); }
+        .nav-item.nav-converter { color: #10b981; font-weight: 700; }
+        .nav-item.nav-converter i { color: #10b981; }
         
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 16px;
-            margin-bottom: 12px;
-        }
-        .section-title {
-            font-size: 13px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 700;
-        }
-        .section-count {
-            background: #1a1a2e;
-            color: var(--gold);
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 10px;
-            font-weight: 700;
-        }
+        .section-header { display: flex; justify-content: space-between; align-items: center; padding: 0 14px; margin-bottom: 10px; }
+        .section-title { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
+        .section-count { background: #1a1a2e; color: var(--gold); padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 700; }
         
-        .card-list {
-            padding: 0 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 100px;
-        }
+        .card-list { padding: 0 14px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 80px; }
         .card-premium {
-            background: white;
-            border-radius: 16px;
-            padding: 16px;
-            transition: all 0.3s;
-            border: 1px solid var(--border);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            background: white; border-radius: 14px; padding: 14px; transition: all 0.3s;
+            border: 1px solid var(--border); box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
-        .card-premium:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
-        }
-        .card-premium.popular {
-            border: 2px solid var(--gold);
-            background: linear-gradient(135deg, #fffbeb, white);
-            position: relative;
-            overflow: hidden;
-        }
-        .card-premium.popular::before {
-            content: '⭐ POPULAR';
-            position: absolute;
-            top: 10px;
-            right: -28px;
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            color: #1a1a1a;
-            padding: 3px 35px;
-            font-size: 8px;
-            font-weight: 800;
-            transform: rotate(45deg);
-            letter-spacing: 1px;
-        }
+        .card-premium:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+        .card-premium.popular { border: 2px solid var(--gold); background: linear-gradient(135deg, #fffbeb, white); position: relative; overflow: hidden; }
+        .card-premium.popular::before { content: '⭐ POPULAR'; position: absolute; top: 8px; right: -24px; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: #1a1a1a; padding: 2px 28px; font-size: 7px; font-weight: 800; transform: rotate(45deg); letter-spacing: 1px; }
         
-        /* PROFISSIONAL CARD */
-        .prof-card {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .prof-avatar {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            flex-shrink: 0;
-        }
-        .prof-info {
-            flex: 1;
-            min-width: 0;
-        }
-        .prof-nome {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--text);
-        }
-        .prof-detalhes {
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
-        .prof-detalhes i {
-            width: 14px;
-            text-align: center;
-            margin-right: 2px;
-        }
-        .prof-actions {
-            display: flex;
-            gap: 4px;
-            flex-shrink: 0;
-        }
-        .btn-icon {
-            width: 34px;
-            height: 34px;
-            border-radius: 10px;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .btn-edit {
-            background: #eff6ff;
-            color: #1e40af;
-        }
-        .btn-delete {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-        .btn-icon:hover {
-            transform: scale(1.1);
-        }
+        .prof-card { display: flex; align-items: center; gap: 10px; }
+        .prof-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #e2e8f0, #cbd5e1); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+        .prof-info { flex: 1; min-width: 0; }
+        .prof-nome { font-size: 13px; font-weight: 700; color: var(--text); }
+        .prof-detalhes { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+        .prof-actions { display: flex; gap: 4px; flex-shrink: 0; }
+        .btn-icon { width: 30px; height: 30px; border-radius: 8px; border: none; cursor: pointer; font-size: 12px; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+        .btn-edit { background: #eff6ff; color: #1e40af; } .btn-delete { background: #fee2e2; color: #991b1b; }
+        .btn-icon:hover { transform: scale(1.1); }
         
-        /* COMISSÃO CARD */
-        .comissao-card {
-            background: linear-gradient(135deg, #fffbeb, #fff7e0);
-            border: 2px solid var(--gold);
-            border-radius: 20px;
-            padding: 24px;
-            text-align: center;
-            margin: 0 16px 16px;
-        }
-        .comissao-card .comissao-titulo {
-            font-size: 12px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-        .comissao-card .comissao-creditos {
-            font-size: 42px;
-            font-weight: 900;
-            color: #1a1a2e;
-        }
-        .comissao-card .comissao-creditos span {
-            font-size: 16px;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-        .comissao-card .comissao-valor {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin: 8px 0 16px;
-        }
-        .comissao-card .comissao-valor strong {
-            color: #1b5e20;
-            font-size: 18px;
-        }
-        .btn-converter {
-            background: linear-gradient(135deg, var(--success), #059669);
-            color: white;
-            border: none;
-            padding: 14px 24px;
-            border-radius: 14px;
-            font-weight: 800;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 8px 25px rgba(16,185,129,0.3);
-        }
-        .btn-converter:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 35px rgba(16,185,129,0.4);
-        }
-        .btn-converter:disabled {
-            background: #cbd5e1;
-            box-shadow: none;
-            cursor: not-allowed;
-            transform: none;
-        }
+        .plano-icon { font-size: 30px; text-align: center; margin-bottom: 6px; }
+        .plano-nome { font-size: 16px; font-weight: 800; text-align: center; }
+        .plano-preco { font-size: 28px; font-weight: 900; text-align: center; color: #1a1a2e; }
+        .plano-preco small { font-size: 12px; color: var(--text-muted); }
+        .plano-features { margin: 12px 0; }
+        .plano-feature { display: flex; align-items: center; gap: 6px; padding: 5px 0; font-size: 11px; color: var(--text-muted); border-bottom: 1px solid #f1f5f9; }
+        .plano-feature i { font-size: 11px; } .plano-feature .fa-check-circle { color: var(--success); } .plano-feature .fa-star { color: #f59e0b; }
         
-        .plano-icon { font-size: 36px; text-align: center; margin-bottom: 8px; }
-        .plano-nome { font-size: 18px; font-weight: 800; text-align: center; }
-        .plano-preco { font-size: 32px; font-weight: 900; text-align: center; color: #1a1a2e; }
-        .plano-preco small { font-size: 13px; color: var(--text-muted); }
-        .plano-features { margin: 16px 0; }
-        .plano-feature {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 6px 0;
-            font-size: 12px;
-            color: var(--text-muted);
-            border-bottom: 1px solid #f1f5f9;
-        }
-        .plano-feature i { font-size: 12px; }
-        .plano-feature .fa-check-circle { color: var(--success); }
-        .plano-feature .fa-star { color: #f59e0b; }
-        
-        .btn {
-            padding: 12px 20px;
-            border: none;
-            border-radius: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 13px;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+        .btn { padding: 10px 16px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 12px; transition: all 0.3s; text-transform: uppercase; letter-spacing: 0.5px; }
         .btn-success { background: var(--success); color: white; width: 100%; }
-        .btn-gold {
-            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-            color: #1a1a1a;
-            font-weight: 800;
-            width: 100%;
-            padding: 14px;
-            font-size: 14px;
-        }
+        .btn-gold { background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: #1a1a1a; font-weight: 800; width: 100%; padding: 12px; font-size: 13px; }
         .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,215,0,0.4); }
         
-        .form-row {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 14px;
-        }
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-        .form-group label {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .form-group input, .form-group select {
-            padding: 12px 14px;
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            font-size: 13px;
-            background: #f8fafc;
-        }
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: #1a1a2e;
-            background: white;
-        }
+        .form-row { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+        .form-group { display: flex; flex-direction: column; gap: 3px; }
+        .form-group label { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-group input, .form-group select { padding: 10px 12px; border: 2px solid var(--border); border-radius: 8px; font-size: 12px; background: #f8fafc; }
+        .form-group input:focus, .form-group select:focus { outline: none; border-color: #1a1a2e; background: white; }
         
-        .historico-card {
-            background: #f9fafb;
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 8px;
-            border-left: 3px solid #f59e0b;
-        }
-        .historico-card.aprovado { border-left-color: #10b981; }
-        .historico-card.negado { border-left-color: #ef4444; }
-        .historico-card .hist-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 4px;
-        }
-        .historico-card .hist-valor { font-size: 14px; font-weight: 700; }
-        .historico-card .hist-data { font-size: 10px; color: var(--text-muted); }
-        .badge-status {
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 9px;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        .badge-pendente { background: #fef3c7; color: #92400e; }
-        .badge-aprovado { background: #dcfce7; color: #166534; }
-        .badge-negado { background: #fee2e2; color: #991b1b; }
+        .historico-card { background: #f9fafb; border-radius: 10px; padding: 12px; margin-bottom: 6px; border-left: 3px solid #f59e0b; }
+        .historico-card.aprovado { border-left-color: #10b981; } .historico-card.negado { border-left-color: #ef4444; }
+        .historico-card .hist-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; }
+        .historico-card .hist-valor { font-size: 13px; font-weight: 700; } .historico-card .hist-data { font-size: 9px; color: var(--text-muted); }
+        .badge-status { padding: 2px 7px; border-radius: 10px; font-size: 8px; font-weight: 700; text-transform: uppercase; }
+        .badge-pendente { background: #fef3c7; color: #92400e; } .badge-aprovado { background: #dcfce7; color: #166534; } .badge-negado { background: #fee2e2; color: #991b1b; }
         
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.8);
-            z-index: 100;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 100; justify-content: center; align-items: center; padding: 20px; }
         .modal-overlay.active { display: flex; }
-        .modal-premium {
-            background: white;
-            border-radius: 24px;
-            padding: 28px;
-            width: 100%;
-            max-width: 380px;
-            text-align: center;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-        }
-        .modal-premium h2 {
-            font-size: 22px;
-            font-weight: 800;
-            color: #1a1a2e;
-            margin-bottom: 8px;
-        }
-        .modal-premium .modal-valor {
-            font-size: 36px;
-            font-weight: 900;
-            color: #1b5e20;
-            margin: 12px 0;
-        }
-        .modal-premium .modal-info {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-        }
+        .modal-premium { background: white; border-radius: 20px; padding: 24px; width: 100%; max-width: 350px; text-align: center; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
+        .modal-premium h2 { font-size: 20px; font-weight: 800; color: #1a1a2e; margin-bottom: 4px; }
+        .modal-premium .modal-valor { font-size: 32px; font-weight: 900; color: #1b5e20; margin: 10px 0; }
+        .modal-premium .modal-info { font-size: 11px; color: var(--text-muted); margin-bottom: 16px; }
+        
+        .comissao-resumo { text-align: center; padding: 12px; background: linear-gradient(135deg, #fffbeb, #fff7e0); border-radius: 12px; margin-bottom: 16px; }
+        .comissao-resumo h4 { font-size: 28px; font-weight: 900; color: #1a1a2e; }
+        .comissao-resumo p { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
         
         .spacer { height: 20px; }
     </style>
@@ -513,23 +154,16 @@
         </div>
     </div>
 
-    <!-- COMISSÃO CARD -->
-    <div class="comissao-card" id="comissao-card">
-        <div class="comissao-titulo">💰 Comissão Disponível</div>
-        <div class="comissao-creditos" id="comissao-creditos">0 <span>créditos</span></div>
-        <div class="comissao-valor">Equivale a <strong id="comissao-equiv">R$ 0,00</strong></div>
-        <button class="btn-converter" id="btn-converter" onclick="converterCreditos()" disabled>
-            <i class="fas fa-sync-alt"></i> Converter em Dinheiro
-        </button>
-    </div>
-
-    <!-- NAV MENU -->
+    <!-- NAV MENU COM CONVERTER -->
     <div class="nav-menu">
         <button class="nav-item active" id="nav-profissionais" onclick="mudarView('profissionais')">
-            <i class="fas fa-users"></i> Profissionais
+            <i class="fas fa-users"></i> Profiss.
         </button>
         <button class="nav-item" id="nav-planos" onclick="mudarView('planos')">
             <i class="fas fa-crown"></i> Planos
+        </button>
+        <button class="nav-item nav-converter" onclick="abrirConverter()">
+            <i class="fas fa-sync-alt"></i> Converter
         </button>
     </div>
 
@@ -541,9 +175,9 @@
         </div>
         <div class="card-list" id="profissionais-list"></div>
         
-        <div style="padding: 0 16px;">
+        <div style="padding: 0 14px;">
             <div class="card-premium">
-                <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;" id="form-titulo">➕ Cadastrar Profissional</h3>
+                <h3 style="font-size:14px;font-weight:700;margin-bottom:12px;" id="form-titulo">➕ Cadastrar</h3>
                 <input type="hidden" id="edit-prof-index" value="-1">
                 <div class="form-row">
                     <div class="form-group"><label>Nome</label><input type="text" id="add-nome-prof" placeholder="Ex: Seu Jorge"></div>
@@ -551,7 +185,7 @@
                     <div class="form-group"><label>Categoria</label><select id="add-categoria-prof"><option>Eletricista</option><option>Pedreiro</option><option>Diarista</option><option>Encanador</option><option>Chaveiro</option><option>Pintor</option><option>Montador</option><option>Marceneiro</option></select></div>
                 </div>
                 <button class="btn btn-success" onclick="salvarProfissional()" id="btn-salvar-prof">Salvar</button>
-                <button class="btn" style="background:#f1f5f9;color:var(--text-muted);width:100%;margin-top:6px;display:none;" id="btn-cancelar-edicao" onclick="cancelarEdicao()">Cancelar</button>
+                <button class="btn" style="background:#f1f5f9;color:var(--text-muted);width:100%;margin-top:4px;display:none;font-size:11px;" id="btn-cancelar-edicao" onclick="cancelarEdicao()">Cancelar</button>
             </div>
         </div>
     </div>
@@ -561,9 +195,9 @@
         <div class="section-header" style="margin-top:8px;">
             <span class="section-title">👑 Planos da Plataforma</span>
         </div>
-        <div style="padding:0 16px;margin-bottom:12px;">
-            <div style="background:#e3f2fd;border:1px solid #bbdefb;padding:12px;border-radius:10px;font-size:11px;color:#1565c0;">
-                📋 Visualize os planos. Sua comissão em <b style="color:#f59e0b;">⭐ amarelo</b>.
+        <div style="padding:0 14px;margin-bottom:10px;">
+            <div style="background:#e3f2fd;border:1px solid #bbdefb;padding:10px;border-radius:8px;font-size:10px;color:#1565c0;">
+                📋 Comissão em <b style="color:#f59e0b;">⭐ amarelo</b>.
             </div>
         </div>
         <div class="card-list" id="planos-list"></div>
@@ -572,24 +206,38 @@
     <div class="spacer"></div>
 </div>
 
+<!-- MODAL CONVERTER -->
+<div class="modal-overlay" id="modal-converter">
+    <div class="modal-premium">
+        <h2>🔄 Converter Comissão</h2>
+        <div class="comissao-resumo">
+            <p>Comissão Disponível</p>
+            <h4 id="conv-creditos">0 <span style="font-size:14px;color:var(--text-muted);">créditos</span></h4>
+        </div>
+        <p style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">
+            Equivale a <strong id="conv-equiv" style="color:#1b5e20;">R$ 0,00</strong>
+        </p>
+        <button class="btn btn-gold" onclick="converterCreditos()" id="btn-conv-modal" disabled>
+            <i class="fas fa-sync-alt"></i> Converter em Dinheiro
+        </button>
+        <button class="btn" style="background:#f1f5f9;color:var(--text-muted);width:100%;margin-top:6px;" onclick="fecharConverter()">
+            Fechar
+        </button>
+    </div>
+</div>
+
 <!-- MODAL RESGATE -->
 <div class="modal-overlay" id="modal-resgate">
     <div class="modal-premium">
         <h2>💵 Resgatar Saldo</h2>
-        <p style="color:var(--text-muted);font-size:13px;">Seu saldo disponível</p>
+        <p style="color:var(--text-muted);font-size:12px;">Seu saldo disponível</p>
         <div class="modal-valor" id="modal-saldo-valor">R$ 0,00</div>
-        <div class="modal-info">
-            O administrador fará o PIX após aprovação.<br>
-            Valor por crédito: R$ 5,00
-        </div>
-        <button class="btn btn-gold" onclick="solicitarResgate()" style="margin-bottom:8px;">
+        <div class="modal-info">O administrador fará o PIX após aprovação.</div>
+        <button class="btn btn-gold" onclick="solicitarResgate()" style="margin-bottom:6px;">
             <i class="fas fa-paper-plane"></i> Solicitar Resgate
         </button>
-        <button class="btn" style="background:#f1f5f9;color:var(--text-muted);width:100%;" onclick="fecharResgate()">
-            Cancelar
-        </button>
-        
-        <h4 style="font-size:14px;font-weight:700;margin:20px 0 8px;text-align:left;">📜 Histórico</h4>
+        <button class="btn" style="background:#f1f5f9;color:var(--text-muted);width:100%;" onclick="fecharResgate()">Fechar</button>
+        <h4 style="font-size:13px;font-weight:700;margin:16px 0 6px;text-align:left;">📜 Histórico</h4>
         <div id="historico-resgates"></div>
     </div>
 </div>
@@ -602,7 +250,6 @@ let profissionais = JSON.parse(localStorage.getItem('profissionais')) || [];
 let resgates = JSON.parse(localStorage.getItem('resgates')) || [];
 const VALOR_CREDITO = 5.00;
 
-// PLANOS UNIFICADOS
 const PLANOS_PADRAO = [
     { id: 'plano1', nome: 'Start', icone: 'fas fa-seedling', valor: 39.90, limiteSolicitacoes: 3, categorias: 1, prioridade: 75, selo: '', cor: 'start', destaque: false, comissao: 2 },
     { id: 'plano2', nome: 'Pro', icone: 'fas fa-star', valor: 49.90, limiteSolicitacoes: 6, categorias: 1, prioridade: 80, selo: '', cor: 'pro', destaque: true, comissao: 3 },
@@ -610,14 +257,12 @@ const PLANOS_PADRAO = [
     { id: 'plano4', nome: 'Empresa', icone: 'fas fa-building', valor: 89.90, limiteSolicitacoes: 999, categorias: 999, prioridade: 100, selo: '🏢 Verificado', cor: 'empresa', destaque: false, comissao: 6 }
 ];
 
-if (!localStorage.getItem('planos')) {
-    localStorage.setItem('planos', JSON.stringify(PLANOS_PADRAO));
-}
+if (!localStorage.getItem('planos')) localStorage.setItem('planos', JSON.stringify(PLANOS_PADRAO));
 planos = JSON.parse(localStorage.getItem('planos')) || PLANOS_PADRAO;
 
 let revendaAtual = revendas.find(r => r.id === REVENDA_ID) || { 
     id: REVENDA_ID, nome: 'Revenda Alecrim', regiao: 'Leste', whats: '(84) 98888-7777', 
-    saldo: 150, comissao: 0, saldoResgate: 0 
+    comissao: 0, saldoResgate: 0 
 };
 
 let editandoIndex = -1;
@@ -636,12 +281,6 @@ function atualizarTudo() {
     document.getElementById('comissao-header').innerText = revendaAtual.comissao || 0;
     document.getElementById('saldo-header').innerText = 'R$ ' + ((revendaAtual.saldoResgate || 0)).toFixed(2).replace('.', ',');
     document.getElementById('nome-revenda').innerText = revendaAtual.nome || 'Revenda';
-    
-    const comissao = revendaAtual.comissao || 0;
-    document.getElementById('comissao-creditos').innerHTML = comissao + ' <span>créditos</span>';
-    document.getElementById('comissao-equiv').innerText = 'R$ ' + (comissao * VALOR_CREDITO).toFixed(2).replace('.', ',');
-    document.getElementById('btn-converter').disabled = comissao <= 0;
-    document.getElementById('btn-converter').innerHTML = comissao <= 0 ? '<i class="fas fa-sync-alt"></i> Sem créditos para converter' : '<i class="fas fa-sync-alt"></i> Converter ' + comissao + ' créditos em Dinheiro';
 }
 
 function mudarView(view) {
@@ -653,104 +292,17 @@ function mudarView(view) {
     if(view === 'profissionais') renderProfissionais();
 }
 
-// ==================== PROFISSIONAIS ====================
-function renderProfissionais() {
-    const list = document.getElementById('profissionais-list');
-    const meusPros = profissionais.filter(p => p.revendaId === REVENDA_ID);
-    
-    if(meusPros.length === 0) {
-        list.innerHTML = '<div class="card-premium" style="text-align:center;color:var(--text-muted);padding:30px;">Nenhum profissional cadastrado</div>';
-    } else {
-        list.innerHTML = meusPros.map((p, idx) => {
-            const originalIndex = profissionais.indexOf(p);
-            return `
-                <div class="card-premium">
-                    <div class="prof-card">
-                        <div class="prof-avatar">👷</div>
-                        <div class="prof-info">
-                            <div class="prof-nome">${p.nome}</div>
-                            <div class="prof-detalhes">
-                                <i class="fas fa-tools"></i> ${p.categoria}
-                                ${p.whats ? `<br><i class="fab fa-whatsapp"></i> ${p.whats}` : ''}
-                            </div>
-                        </div>
-                        <div class="prof-actions">
-                            <button class="btn-icon btn-edit" onclick="editarProfissional(${originalIndex})" title="Editar">
-                                <i class="fas fa-pen"></i>
-                            </button>
-                            <button class="btn-icon btn-delete" onclick="excluirProfissional(${originalIndex})" title="Excluir">
-                                <i class="fas fa-trash-alt"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }).join('');
-    }
-    atualizarTudo();
-}
-
-function salvarProfissional() {
-    const nome = document.getElementById('add-nome-prof').value.trim();
-    const whats = document.getElementById('add-whats-prof').value.trim();
-    const categoria = document.getElementById('add-categoria-prof').value;
-    
-    if(!nome) return alert('Digite o nome!');
-    
-    if(editandoIndex >= 0) {
-        // Editando
-        profissionais[editandoIndex] = { ...profissionais[editandoIndex], nome, whats, categoria };
-        editandoIndex = -1;
-        document.getElementById('form-titulo').innerText = '➕ Cadastrar Profissional';
-        document.getElementById('btn-salvar-prof').innerText = 'Salvar';
-        document.getElementById('btn-cancelar-edicao').style.display = 'none';
-    } else {
-        // Novo
-        profissionais.push({ revendaId: REVENDA_ID, nome, whats, categoria });
-    }
-    
-    saveData();
-    document.getElementById('add-nome-prof').value = '';
-    document.getElementById('add-whats-prof').value = '';
-    renderProfissionais();
-}
-
-function editarProfissional(index) {
-    const p = profissionais[index];
-    if(!p) return;
-    
-    editandoIndex = index;
-    document.getElementById('add-nome-prof').value = p.nome;
-    document.getElementById('add-whats-prof').value = p.whats || '';
-    document.getElementById('add-categoria-prof').value = p.categoria;
-    
-    document.getElementById('form-titulo').innerText = '✏️ Editar Profissional';
-    document.getElementById('btn-salvar-prof').innerText = 'Atualizar';
-    document.getElementById('btn-cancelar-edicao').style.display = 'block';
-    
-    window.scrollTo({ top: document.getElementById('add-nome-prof').offsetTop - 100, behavior: 'smooth' });
-}
-
-function cancelarEdicao() {
-    editandoIndex = -1;
-    document.getElementById('add-nome-prof').value = '';
-    document.getElementById('add-whats-prof').value = '';
-    document.getElementById('form-titulo').innerText = '➕ Cadastrar Profissional';
-    document.getElementById('btn-salvar-prof').innerText = 'Salvar';
-    document.getElementById('btn-cancelar-edicao').style.display = 'none';
-}
-
-function excluirProfissional(index) {
-    const p = profissionais[index];
-    if(!p) return;
-    if(!confirm(`Excluir ${p.nome}?`)) return;
-    profissionais.splice(index, 1);
-    if(editandoIndex === index) cancelarEdicao();
-    saveData();
-    renderProfissionais();
-}
-
 // ==================== CONVERTER ====================
+function abrirConverter() {
+    const comissao = revendaAtual.comissao || 0;
+    document.getElementById('conv-creditos').innerHTML = comissao + ' <span style="font-size:14px;color:var(--text-muted);">créditos</span>';
+    document.getElementById('conv-equiv').innerText = 'R$ ' + (comissao * VALOR_CREDITO).toFixed(2).replace('.', ',');
+    document.getElementById('btn-conv-modal').disabled = comissao <= 0;
+    document.getElementById('btn-conv-modal').innerHTML = comissao <= 0 ? '<i class="fas fa-sync-alt"></i> Sem créditos' : '<i class="fas fa-sync-alt"></i> Converter ' + comissao + ' créditos';
+    document.getElementById('modal-converter').classList.add('active');
+}
+function fecharConverter() { document.getElementById('modal-converter').classList.remove('active'); }
+
 function converterCreditos() {
     const comissao = revendaAtual.comissao || 0;
     if(comissao <= 0) return;
@@ -758,8 +310,7 @@ function converterCreditos() {
     if(!confirm(`Converter ${comissao} créditos em R$ ${valor.toFixed(2)}?`)) return;
     revendaAtual.saldoResgate = (revendaAtual.saldoResgate || 0) + valor;
     revendaAtual.comissao = 0;
-    saveData();
-    atualizarTudo();
+    saveData(); atualizarTudo(); fecharConverter();
     alert(`✅ Convertido! R$ ${valor.toFixed(2)} no seu saldo.`);
 }
 
@@ -777,28 +328,105 @@ function solicitarResgate() {
     if(!confirm(`Solicitar resgate de R$ ${valor.toFixed(2)}?`)) return;
     resgates.push({ id: 'res' + Date.now(), revendaId: REVENDA_ID, valor, data: new Date().toISOString(), status: 'pendente' });
     revendaAtual.saldoResgate = 0;
-    saveData();
-    atualizarTudo();
-    abrirResgate();
+    saveData(); atualizarTudo(); abrirResgate();
     alert('✅ Solicitação enviada!');
 }
 
 function renderHistorico() {
     const container = document.getElementById('historico-resgates');
     const meus = resgates.filter(r => r.revendaId === REVENDA_ID);
-    if(meus.length === 0) {
-        container.innerHTML = '<p style="text-align:center;color:#888;padding:20px;">Nenhum resgate</p>';
-        return;
-    }
+    if(meus.length === 0) { container.innerHTML = '<p style="text-align:center;color:#888;padding:16px;">Nenhum resgate</p>'; return; }
     container.innerHTML = meus.sort((a,b) => new Date(b.data) - new Date(a.data)).map(r => `
         <div class="historico-card ${r.status}">
             <div class="hist-header">
                 <span class="hist-valor">R$ ${r.valor.toFixed(2).replace('.', ',')}</span>
-                <span class="badge-status badge-${r.status}">${r.status === 'pendente' ? '⏳ Pendente' : r.status === 'aprovado' ? '✅ Pago' : '❌ Negado'}</span>
+                <span class="badge-status badge-${r.status}">${r.status === 'pendente' ? '⏳' : r.status === 'aprovado' ? '✅' : '❌'}</span>
             </div>
             <span class="hist-data">${new Date(r.data).toLocaleString('pt-BR')}</span>
         </div>
     `).join('');
+}
+
+// ==================== PROFISSIONAIS ====================
+function renderProfissionais() {
+    const list = document.getElementById('profissionais-list');
+    const meusPros = profissionais.filter(p => p.revendaId === REVENDA_ID);
+    if(meusPros.length === 0) {
+        list.innerHTML = '<div class="card-premium" style="text-align:center;color:var(--text-muted);padding:24px;">Nenhum profissional</div>';
+    } else {
+        list.innerHTML = meusPros.map((p, idx) => {
+            const originalIndex = profissionais.indexOf(p);
+            return `
+                <div class="card-premium">
+                    <div class="prof-card">
+                        <div class="prof-avatar">👷</div>
+                        <div class="prof-info">
+                            <div class="prof-nome">${p.nome}</div>
+                            <div class="prof-detalhes">
+                                <i class="fas fa-tools"></i> ${p.categoria}
+                                ${p.whats ? ` · <i class="fab fa-whatsapp"></i> ${p.whats}` : ''}
+                            </div>
+                        </div>
+                        <div class="prof-actions">
+                            <button class="btn-icon btn-edit" onclick="editarProfissional(${originalIndex})" title="Editar"><i class="fas fa-pen"></i></button>
+                            <button class="btn-icon btn-delete" onclick="excluirProfissional(${originalIndex})" title="Excluir"><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+    atualizarTudo();
+}
+
+function salvarProfissional() {
+    const nome = document.getElementById('add-nome-prof').value.trim();
+    const whats = document.getElementById('add-whats-prof').value.trim();
+    const categoria = document.getElementById('add-categoria-prof').value;
+    if(!nome) return alert('Digite o nome!');
+    
+    if(editandoIndex >= 0) {
+        profissionais[editandoIndex] = { ...profissionais[editandoIndex], nome, whats, categoria };
+        editandoIndex = -1;
+        document.getElementById('form-titulo').innerText = '➕ Cadastrar';
+        document.getElementById('btn-salvar-prof').innerText = 'Salvar';
+        document.getElementById('btn-cancelar-edicao').style.display = 'none';
+    } else {
+        profissionais.push({ revendaId: REVENDA_ID, nome, whats, categoria });
+    }
+    saveData();
+    document.getElementById('add-nome-prof').value = '';
+    document.getElementById('add-whats-prof').value = '';
+    renderProfissionais();
+}
+
+function editarProfissional(index) {
+    const p = profissionais[index]; if(!p) return;
+    editandoIndex = index;
+    document.getElementById('add-nome-prof').value = p.nome;
+    document.getElementById('add-whats-prof').value = p.whats || '';
+    document.getElementById('add-categoria-prof').value = p.categoria;
+    document.getElementById('form-titulo').innerText = '✏️ Editar';
+    document.getElementById('btn-salvar-prof').innerText = 'Atualizar';
+    document.getElementById('btn-cancelar-edicao').style.display = 'block';
+    window.scrollTo({ top: document.getElementById('add-nome-prof').offsetTop - 80, behavior: 'smooth' });
+}
+
+function cancelarEdicao() {
+    editandoIndex = -1;
+    document.getElementById('add-nome-prof').value = '';
+    document.getElementById('add-whats-prof').value = '';
+    document.getElementById('form-titulo').innerText = '➕ Cadastrar';
+    document.getElementById('btn-salvar-prof').innerText = 'Salvar';
+    document.getElementById('btn-cancelar-edicao').style.display = 'none';
+}
+
+function excluirProfissional(index) {
+    const p = profissionais[index]; if(!p) return;
+    if(!confirm(`Excluir ${p.nome}?`)) return;
+    profissionais.splice(index, 1);
+    if(editandoIndex === index) cancelarEdicao();
+    saveData(); renderProfissionais();
 }
 
 // ==================== PLANOS ====================
@@ -821,8 +449,7 @@ function renderPlanos() {
 }
 
 // INICIALIZAR
-atualizarTudo();
-renderProfissionais();
+atualizarTudo(); renderProfissionais();
 </script>
 </body>
 </html>

@@ -159,8 +159,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 20px;
-            margin-bottom: 16px;
+            padding: 0 16px;
+            margin-bottom: 12px;
         }
         .section-title {
             font-size: 13px;
@@ -169,18 +169,26 @@
             letter-spacing: 2px;
             font-weight: 700;
         }
+        .section-count {
+            background: #1a1a2e;
+            color: var(--gold);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: 700;
+        }
         
         .card-list {
             padding: 0 16px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
             margin-bottom: 100px;
         }
         .card-premium {
             background: white;
             border-radius: 16px;
-            padding: 20px;
+            padding: 16px;
             transition: all 0.3s;
             border: 1px solid var(--border);
             box-shadow: 0 2px 10px rgba(0,0,0,0.03);
@@ -207,6 +215,71 @@
             font-weight: 800;
             transform: rotate(45deg);
             letter-spacing: 1px;
+        }
+        
+        /* PROFISSIONAL CARD */
+        .prof-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .prof-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .prof-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .prof-nome {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .prof-detalhes {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .prof-detalhes i {
+            width: 14px;
+            text-align: center;
+            margin-right: 2px;
+        }
+        .prof-actions {
+            display: flex;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+        .btn-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-edit {
+            background: #eff6ff;
+            color: #1e40af;
+        }
+        .btn-delete {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .btn-icon:hover {
+            transform: scale(1.1);
         }
         
         /* COMISSÃO CARD */
@@ -270,39 +343,6 @@
             transform: none;
         }
         
-        /* SALDO CARD */
-        .saldo-card {
-            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
-            border: 2px solid #10b981;
-            border-radius: 20px;
-            padding: 24px;
-            text-align: center;
-            margin: 0 16px 16px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .saldo-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(16,185,129,0.2);
-        }
-        .saldo-card .saldo-titulo {
-            font-size: 12px;
-            color: #166534;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 700;
-        }
-        .saldo-card .saldo-valor {
-            font-size: 36px;
-            font-weight: 900;
-            color: #1b5e20;
-        }
-        .saldo-card .saldo-dica {
-            font-size: 10px;
-            color: #166534;
-            margin-top: 4px;
-        }
-        
         .plano-icon { font-size: 36px; text-align: center; margin-bottom: 8px; }
         .plano-nome { font-size: 18px; font-weight: 800; text-align: center; }
         .plano-preco { font-size: 32px; font-weight: 900; text-align: center; color: #1a1a2e; }
@@ -320,74 +360,6 @@
         .plano-feature i { font-size: 12px; }
         .plano-feature .fa-check-circle { color: var(--success); }
         .plano-feature .fa-star { color: #f59e0b; }
-        
-        .prof-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-        .prof-nome { font-size: 16px; font-weight: 700; }
-        .prof-categoria {
-            background: #eff6ff;
-            color: #1e40af;
-            padding: 3px 8px;
-            border-radius: 8px;
-            font-size: 10px;
-            font-weight: 700;
-        }
-        .prof-saldo {
-            font-size: 14px;
-            font-weight: 700;
-            color: #1b5e20;
-            margin-bottom: 12px;
-        }
-        
-        .credit-row {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .credit-controller {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            background: #f0f4f8;
-            padding: 4px;
-            border-radius: 20px;
-            flex: 1;
-        }
-        .counter-btn {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            border: none;
-            background: #fff;
-            color: #1a1a2e;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .credit-input {
-            width: 50px;
-            text-align: center;
-            border: none;
-            background: transparent;
-            font-size: 15px;
-            font-weight: 700;
-            outline: none;
-        }
-        .btn-repassar {
-            background: #ff9800;
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 700;
-            cursor: pointer;
-        }
         
         .btn {
             padding: 12px 20px;
@@ -414,8 +386,8 @@
         .form-row {
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            margin-bottom: 16px;
+            gap: 10px;
+            margin-bottom: 14px;
         }
         .form-group {
             display: flex;
@@ -470,7 +442,6 @@
         .badge-aprovado { background: #dcfce7; color: #166534; }
         .badge-negado { background: #fee2e2; color: #991b1b; }
         
-        /* MODAL */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -566,18 +537,21 @@
     <div id="view-profissionais">
         <div class="section-header">
             <span class="section-title">👷 Seus Profissionais</span>
+            <span class="section-count" id="count-profissionais">1</span>
         </div>
         <div class="card-list" id="profissionais-list"></div>
         
         <div style="padding: 0 16px;">
             <div class="card-premium">
-                <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;">➕ Cadastrar Profissional</h3>
+                <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;" id="form-titulo">➕ Cadastrar Profissional</h3>
+                <input type="hidden" id="edit-prof-index" value="-1">
                 <div class="form-row">
                     <div class="form-group"><label>Nome</label><input type="text" id="add-nome-prof" placeholder="Ex: Seu Jorge"></div>
                     <div class="form-group"><label>WhatsApp</label><input type="text" id="add-whats-prof" placeholder="(84) 99999-9999"></div>
-                    <div class="form-group"><label>Categoria</label><select id="add-categoria-prof"><option>Eletricista</option><option>Pedreiro</option><option>Diarista</option><option>Encanador</option><option>Chaveiro</option><option>Pintor</option></select></div>
+                    <div class="form-group"><label>Categoria</label><select id="add-categoria-prof"><option>Eletricista</option><option>Pedreiro</option><option>Diarista</option><option>Encanador</option><option>Chaveiro</option><option>Pintor</option><option>Montador</option><option>Marceneiro</option></select></div>
                 </div>
-                <button class="btn btn-success" onclick="criarProfissional()">Salvar</button>
+                <button class="btn btn-success" onclick="salvarProfissional()" id="btn-salvar-prof">Salvar</button>
+                <button class="btn" style="background:#f1f5f9;color:var(--text-muted);width:100%;margin-top:6px;display:none;" id="btn-cancelar-edicao" onclick="cancelarEdicao()">Cancelar</button>
             </div>
         </div>
     </div>
@@ -628,20 +602,25 @@ let profissionais = JSON.parse(localStorage.getItem('profissionais')) || [];
 let resgates = JSON.parse(localStorage.getItem('resgates')) || [];
 const VALOR_CREDITO = 5.00;
 
-if (planos.length === 0) {
-    planos = [
-        { id: 'plano1', nome: 'Start', icone: 'fas fa-seedling', valor: 39.90, limiteSolicitacoes: 3, categorias: 1, prioridade: 75, selo: '', cor: 'start', destaque: false, comissao: 2 },
-        { id: 'plano2', nome: 'Pro', icone: 'fas fa-star', valor: 49.90, limiteSolicitacoes: 6, categorias: 1, prioridade: 80, selo: '', cor: 'pro', destaque: true, comissao: 3 },
-        { id: 'plano3', nome: 'Premium', icone: 'fas fa-gem', valor: 59.90, limiteSolicitacoes: 8, categorias: 2, prioridade: 85, selo: '', cor: 'premium', destaque: false, comissao: 4 },
-        { id: 'plano4', nome: 'Empresa', icone: 'fas fa-building', valor: 89.90, limiteSolicitacoes: 999, categorias: 999, prioridade: 100, selo: '🏢 Verificado', cor: 'empresa', destaque: false, comissao: 6 }
-    ];
-    localStorage.setItem('planos', JSON.stringify(planos));
+// PLANOS UNIFICADOS
+const PLANOS_PADRAO = [
+    { id: 'plano1', nome: 'Start', icone: 'fas fa-seedling', valor: 39.90, limiteSolicitacoes: 3, categorias: 1, prioridade: 75, selo: '', cor: 'start', destaque: false, comissao: 2 },
+    { id: 'plano2', nome: 'Pro', icone: 'fas fa-star', valor: 49.90, limiteSolicitacoes: 6, categorias: 1, prioridade: 80, selo: '', cor: 'pro', destaque: true, comissao: 3 },
+    { id: 'plano3', nome: 'Premium', icone: 'fas fa-gem', valor: 59.90, limiteSolicitacoes: 8, categorias: 2, prioridade: 85, selo: '', cor: 'premium', destaque: false, comissao: 4 },
+    { id: 'plano4', nome: 'Empresa', icone: 'fas fa-building', valor: 89.90, limiteSolicitacoes: 999, categorias: 999, prioridade: 100, selo: '🏢 Verificado', cor: 'empresa', destaque: false, comissao: 6 }
+];
+
+if (!localStorage.getItem('planos')) {
+    localStorage.setItem('planos', JSON.stringify(PLANOS_PADRAO));
 }
+planos = JSON.parse(localStorage.getItem('planos')) || PLANOS_PADRAO;
 
 let revendaAtual = revendas.find(r => r.id === REVENDA_ID) || { 
     id: REVENDA_ID, nome: 'Revenda Alecrim', regiao: 'Leste', whats: '(84) 98888-7777', 
     saldo: 150, comissao: 0, saldoResgate: 0 
 };
+
+let editandoIndex = -1;
 
 function saveData() {
     const i = revendas.findIndex(r => r.id === REVENDA_ID);
@@ -652,22 +631,17 @@ function saveData() {
 }
 
 function atualizarTudo() {
-    // Header
     document.getElementById('total-profissionais').innerText = profissionais.filter(p => p.revendaId === REVENDA_ID).length;
+    document.getElementById('count-profissionais').innerText = profissionais.filter(p => p.revendaId === REVENDA_ID).length;
     document.getElementById('comissao-header').innerText = revendaAtual.comissao || 0;
     document.getElementById('saldo-header').innerText = 'R$ ' + ((revendaAtual.saldoResgate || 0)).toFixed(2).replace('.', ',');
     document.getElementById('nome-revenda').innerText = revendaAtual.nome || 'Revenda';
     
-    // Comissão card
     const comissao = revendaAtual.comissao || 0;
     document.getElementById('comissao-creditos').innerHTML = comissao + ' <span>créditos</span>';
     document.getElementById('comissao-equiv').innerText = 'R$ ' + (comissao * VALOR_CREDITO).toFixed(2).replace('.', ',');
     document.getElementById('btn-converter').disabled = comissao <= 0;
-    if(comissao <= 0) {
-        document.getElementById('btn-converter').innerHTML = '<i class="fas fa-sync-alt"></i> Sem créditos para converter';
-    } else {
-        document.getElementById('btn-converter').innerHTML = '<i class="fas fa-sync-alt"></i> Converter ' + comissao + ' créditos em Dinheiro';
-    }
+    document.getElementById('btn-converter').innerHTML = comissao <= 0 ? '<i class="fas fa-sync-alt"></i> Sem créditos para converter' : '<i class="fas fa-sync-alt"></i> Converter ' + comissao + ' créditos em Dinheiro';
 }
 
 function mudarView(view) {
@@ -679,19 +653,114 @@ function mudarView(view) {
     if(view === 'profissionais') renderProfissionais();
 }
 
-// ==================== CONVERTER CRÉDITOS ====================
+// ==================== PROFISSIONAIS ====================
+function renderProfissionais() {
+    const list = document.getElementById('profissionais-list');
+    const meusPros = profissionais.filter(p => p.revendaId === REVENDA_ID);
+    
+    if(meusPros.length === 0) {
+        list.innerHTML = '<div class="card-premium" style="text-align:center;color:var(--text-muted);padding:30px;">Nenhum profissional cadastrado</div>';
+    } else {
+        list.innerHTML = meusPros.map((p, idx) => {
+            const originalIndex = profissionais.indexOf(p);
+            return `
+                <div class="card-premium">
+                    <div class="prof-card">
+                        <div class="prof-avatar">👷</div>
+                        <div class="prof-info">
+                            <div class="prof-nome">${p.nome}</div>
+                            <div class="prof-detalhes">
+                                <i class="fas fa-tools"></i> ${p.categoria}
+                                ${p.whats ? `<br><i class="fab fa-whatsapp"></i> ${p.whats}` : ''}
+                            </div>
+                        </div>
+                        <div class="prof-actions">
+                            <button class="btn-icon btn-edit" onclick="editarProfissional(${originalIndex})" title="Editar">
+                                <i class="fas fa-pen"></i>
+                            </button>
+                            <button class="btn-icon btn-delete" onclick="excluirProfissional(${originalIndex})" title="Excluir">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+    atualizarTudo();
+}
+
+function salvarProfissional() {
+    const nome = document.getElementById('add-nome-prof').value.trim();
+    const whats = document.getElementById('add-whats-prof').value.trim();
+    const categoria = document.getElementById('add-categoria-prof').value;
+    
+    if(!nome) return alert('Digite o nome!');
+    
+    if(editandoIndex >= 0) {
+        // Editando
+        profissionais[editandoIndex] = { ...profissionais[editandoIndex], nome, whats, categoria };
+        editandoIndex = -1;
+        document.getElementById('form-titulo').innerText = '➕ Cadastrar Profissional';
+        document.getElementById('btn-salvar-prof').innerText = 'Salvar';
+        document.getElementById('btn-cancelar-edicao').style.display = 'none';
+    } else {
+        // Novo
+        profissionais.push({ revendaId: REVENDA_ID, nome, whats, categoria });
+    }
+    
+    saveData();
+    document.getElementById('add-nome-prof').value = '';
+    document.getElementById('add-whats-prof').value = '';
+    renderProfissionais();
+}
+
+function editarProfissional(index) {
+    const p = profissionais[index];
+    if(!p) return;
+    
+    editandoIndex = index;
+    document.getElementById('add-nome-prof').value = p.nome;
+    document.getElementById('add-whats-prof').value = p.whats || '';
+    document.getElementById('add-categoria-prof').value = p.categoria;
+    
+    document.getElementById('form-titulo').innerText = '✏️ Editar Profissional';
+    document.getElementById('btn-salvar-prof').innerText = 'Atualizar';
+    document.getElementById('btn-cancelar-edicao').style.display = 'block';
+    
+    window.scrollTo({ top: document.getElementById('add-nome-prof').offsetTop - 100, behavior: 'smooth' });
+}
+
+function cancelarEdicao() {
+    editandoIndex = -1;
+    document.getElementById('add-nome-prof').value = '';
+    document.getElementById('add-whats-prof').value = '';
+    document.getElementById('form-titulo').innerText = '➕ Cadastrar Profissional';
+    document.getElementById('btn-salvar-prof').innerText = 'Salvar';
+    document.getElementById('btn-cancelar-edicao').style.display = 'none';
+}
+
+function excluirProfissional(index) {
+    const p = profissionais[index];
+    if(!p) return;
+    if(!confirm(`Excluir ${p.nome}?`)) return;
+    profissionais.splice(index, 1);
+    if(editandoIndex === index) cancelarEdicao();
+    saveData();
+    renderProfissionais();
+}
+
+// ==================== CONVERTER ====================
 function converterCreditos() {
     const comissao = revendaAtual.comissao || 0;
     if(comissao <= 0) return;
-    
     const valor = comissao * VALOR_CREDITO;
-    if(!confirm(`Converter ${comissao} créditos em R$ ${valor.toFixed(2).replace('.', ',')}?\n\nO valor irá para seu saldo.`)) return;
-    
+    if(!confirm(`Converter ${comissao} créditos em R$ ${valor.toFixed(2)}?`)) return;
     revendaAtual.saldoResgate = (revendaAtual.saldoResgate || 0) + valor;
     revendaAtual.comissao = 0;
     saveData();
     atualizarTudo();
-    alert(`✅ Convertido com sucesso!\n\nR$ ${valor.toFixed(2).replace('.', ',')} adicionado ao seu saldo.\nClique no Saldo para resgatar.`);
+    alert(`✅ Convertido! R$ ${valor.toFixed(2)} no seu saldo.`);
 }
 
 // ==================== RESGATE ====================
@@ -700,29 +769,18 @@ function abrirResgate() {
     renderHistorico();
     document.getElementById('modal-resgate').classList.add('active');
 }
-
-function fecharResgate() {
-    document.getElementById('modal-resgate').classList.remove('active');
-}
+function fecharResgate() { document.getElementById('modal-resgate').classList.remove('active'); }
 
 function solicitarResgate() {
     const valor = revendaAtual.saldoResgate || 0;
-    if(valor <= 0) return alert('Sem saldo disponível!');
-    if(!confirm(`Solicitar resgate de R$ ${valor.toFixed(2).replace('.', ',')}?\n\nO administrador fará o PIX após aprovação.`)) return;
-    
-    resgates.push({
-        id: 'res' + Date.now(),
-        revendaId: REVENDA_ID,
-        valor: valor,
-        data: new Date().toISOString(),
-        status: 'pendente'
-    });
-    
+    if(valor <= 0) return alert('Sem saldo!');
+    if(!confirm(`Solicitar resgate de R$ ${valor.toFixed(2)}?`)) return;
+    resgates.push({ id: 'res' + Date.now(), revendaId: REVENDA_ID, valor, data: new Date().toISOString(), status: 'pendente' });
     revendaAtual.saldoResgate = 0;
     saveData();
     atualizarTudo();
     abrirResgate();
-    alert('✅ Solicitação enviada! Aguarde o PIX do administrador.');
+    alert('✅ Solicitação enviada!');
 }
 
 function renderHistorico() {
@@ -741,64 +799,6 @@ function renderHistorico() {
             <span class="hist-data">${new Date(r.data).toLocaleString('pt-BR')}</span>
         </div>
     `).join('');
-}
-
-// ==================== PROFISSIONAIS ====================
-function renderProfissionais() {
-    const list = document.getElementById('profissionais-list');
-    const meusPros = profissionais.filter(p => p.revendaId === REVENDA_ID);
-    
-    if(meusPros.length === 0) {
-        list.innerHTML = '<div class="card-premium" style="text-align:center;color:var(--text-muted);padding:30px;">Nenhum profissional</div>';
-        atualizarTudo();
-        return;
-    }
-    
-    list.innerHTML = meusPros.map((p, idx) => `
-        <div class="card-premium">
-            <div class="prof-header">
-                <span class="prof-nome">${p.nome}</span>
-                <span class="prof-categoria">${p.categoria}</span>
-            </div>
-            <div class="prof-saldo">💎 Saldo: <span id="sp-${idx}">${p.saldo || 0}</span> créditos</div>
-            <div class="credit-row">
-                <div class="credit-controller">
-                    <button class="counter-btn" onclick="aj('input-prof-${idx}', -1)">−</button>
-                    <input type="number" class="credit-input" id="input-prof-${idx}" value="5">
-                    <button class="counter-btn" onclick="aj('input-prof-${idx}', 1)">+</button>
-                </div>
-                <button class="btn-repassar" onclick="venderCredito(${idx})">Repassar</button>
-            </div>
-        </div>
-    `).join('');
-    atualizarTudo();
-}
-
-function aj(id, v) { const i = document.getElementById(id); let x = parseInt(i.value)||0; x+=v; if(x<0)x=0; i.value = x; }
-
-function venderCredito(idx) {
-    const q = parseInt(document.getElementById('input-prof-'+idx).value)||0;
-    if(q<=0) return alert('Valor inválido!');
-    if(q > revendaAtual.saldo) return alert('Saldo insuficiente!');
-    revendaAtual.saldo -= q;
-    const pro = profissionais.filter(p => p.revendaId === REVENDA_ID)[idx];
-    if(pro) pro.saldo = (pro.saldo || 0) + q;
-    saveData();
-    renderProfissionais();
-    atualizarTudo();
-    document.getElementById('input-prof-'+idx).value = 5;
-}
-
-function criarProfissional() {
-    const nome = document.getElementById('add-nome-prof').value.trim();
-    const whats = document.getElementById('add-whats-prof').value.trim();
-    const categoria = document.getElementById('add-categoria-prof').value;
-    if(!nome) return alert('Digite o nome!');
-    profissionais.push({ revendaId: REVENDA_ID, nome, whats, categoria, saldo: 0 });
-    saveData();
-    document.getElementById('add-nome-prof').value = '';
-    document.getElementById('add-whats-prof').value = '';
-    renderProfissionais();
 }
 
 // ==================== PLANOS ====================

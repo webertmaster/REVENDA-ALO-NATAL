@@ -27,7 +27,6 @@
         body { background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; }
         .app-container { width: 100%; max-width: 430px; background: var(--bg); min-height: 100vh; position: relative; overflow-x: hidden; box-shadow: 0 0 60px rgba(0,0,0,0.5); }
         
-        /* HEADER PREMIUM */
         .header {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             color: white;
@@ -84,10 +83,9 @@
             border: 2px solid rgba(255,255,255,0.3);
         }
         
-        /* STATS */
         .header-stats {
             display: flex;
-            gap: 16px;
+            gap: 12px;
             margin-top: 20px;
             position: relative;
             z-index: 1;
@@ -95,11 +93,20 @@
         .header-stat {
             background: rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
-            padding: 12px 16px;
+            padding: 12px 14px;
             border-radius: 12px;
             border: 1px solid rgba(255,255,255,0.15);
             flex: 1;
             text-align: center;
+            cursor: default;
+            transition: all 0.3s;
+        }
+        .header-stat.clickable {
+            cursor: pointer;
+        }
+        .header-stat.clickable:hover {
+            background: rgba(255,215,0,0.2);
+            border-color: var(--gold);
         }
         .header-stat p {
             font-size: 9px;
@@ -113,8 +120,12 @@
             font-weight: 800;
             color: var(--gold);
         }
+        .header-stat .stat-sub {
+            font-size: 10px;
+            color: rgba(255,255,255,0.7);
+            font-weight: 500;
+        }
         
-        /* NAV MENU */
         .nav-menu {
             display: flex;
             gap: 4px;
@@ -144,7 +155,6 @@
             box-shadow: 0 4px 12px rgba(26,26,46,0.3);
         }
         
-        /* SECTION */
         .section-header {
             display: flex;
             justify-content: space-between;
@@ -160,7 +170,6 @@
             font-weight: 700;
         }
         
-        /* CARDS */
         .card-list {
             padding: 0 16px;
             display: flex;
@@ -200,7 +209,100 @@
             letter-spacing: 1px;
         }
         
-        /* PLANO CARD */
+        /* COMISSÃO CARD */
+        .comissao-card {
+            background: linear-gradient(135deg, #fffbeb, #fff7e0);
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+            padding: 24px;
+            text-align: center;
+            margin: 0 16px 16px;
+        }
+        .comissao-card .comissao-titulo {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .comissao-card .comissao-creditos {
+            font-size: 42px;
+            font-weight: 900;
+            color: #1a1a2e;
+        }
+        .comissao-card .comissao-creditos span {
+            font-size: 16px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .comissao-card .comissao-valor {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin: 8px 0 16px;
+        }
+        .comissao-card .comissao-valor strong {
+            color: #1b5e20;
+            font-size: 18px;
+        }
+        .btn-converter {
+            background: linear-gradient(135deg, var(--success), #059669);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 25px rgba(16,185,129,0.3);
+        }
+        .btn-converter:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(16,185,129,0.4);
+        }
+        .btn-converter:disabled {
+            background: #cbd5e1;
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* SALDO CARD */
+        .saldo-card {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border: 2px solid #10b981;
+            border-radius: 20px;
+            padding: 24px;
+            text-align: center;
+            margin: 0 16px 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .saldo-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16,185,129,0.2);
+        }
+        .saldo-card .saldo-titulo {
+            font-size: 12px;
+            color: #166534;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+        .saldo-card .saldo-valor {
+            font-size: 36px;
+            font-weight: 900;
+            color: #1b5e20;
+        }
+        .saldo-card .saldo-dica {
+            font-size: 10px;
+            color: #166534;
+            margin-top: 4px;
+        }
+        
         .plano-icon { font-size: 36px; text-align: center; margin-bottom: 8px; }
         .plano-nome { font-size: 18px; font-weight: 800; text-align: center; }
         .plano-preco { font-size: 32px; font-weight: 900; text-align: center; color: #1a1a2e; }
@@ -219,7 +321,6 @@
         .plano-feature .fa-check-circle { color: var(--success); }
         .plano-feature .fa-star { color: #f59e0b; }
         
-        /* PROFISSIONAL CARD */
         .prof-header {
             display: flex;
             justify-content: space-between;
@@ -234,11 +335,6 @@
             border-radius: 8px;
             font-size: 10px;
             font-weight: 700;
-        }
-        .prof-whatsapp {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
         }
         .prof-saldo {
             font-size: 14px;
@@ -293,7 +389,6 @@
             cursor: pointer;
         }
         
-        /* BOTÕES */
         .btn {
             padding: 12px 20px;
             border: none;
@@ -316,7 +411,6 @@
         }
         .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,215,0,0.4); }
         
-        /* FORM */
         .form-row {
             display: flex;
             flex-direction: column;
@@ -348,34 +442,6 @@
             background: white;
         }
         
-        /* RESGATE */
-        .resgate-info-box {
-            background: #f0fdf4;
-            border: 1px solid #bbf7d0;
-            padding: 16px;
-            border-radius: 12px;
-            margin-bottom: 16px;
-            text-align: center;
-        }
-        .resgate-info-box h3 {
-            font-size: 28px;
-            font-weight: 900;
-            color: #1b5e20;
-        }
-        .resgate-info-box p {
-            font-size: 11px;
-            color: #166534;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .resgate-valor {
-            font-size: 24px;
-            font-weight: 800;
-            color: #1a1a2e;
-            text-align: center;
-            margin: 12px 0;
-        }
-        
         .historico-card {
             background: #f9fafb;
             border-radius: 12px;
@@ -391,14 +457,8 @@
             align-items: center;
             margin-bottom: 4px;
         }
-        .historico-card .hist-valor {
-            font-size: 14px;
-            font-weight: 700;
-        }
-        .historico-card .hist-data {
-            font-size: 10px;
-            color: var(--text-muted);
-        }
+        .historico-card .hist-valor { font-size: 14px; font-weight: 700; }
+        .historico-card .hist-data { font-size: 10px; color: var(--text-muted); }
         .badge-status {
             padding: 3px 8px;
             border-radius: 12px;
@@ -409,6 +469,45 @@
         .badge-pendente { background: #fef3c7; color: #92400e; }
         .badge-aprovado { background: #dcfce7; color: #166534; }
         .badge-negado { background: #fee2e2; color: #991b1b; }
+        
+        /* MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-premium {
+            background: white;
+            border-radius: 24px;
+            padding: 28px;
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+        .modal-premium h2 {
+            font-size: 22px;
+            font-weight: 800;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+        }
+        .modal-premium .modal-valor {
+            font-size: 36px;
+            font-weight: 900;
+            color: #1b5e20;
+            margin: 12px 0;
+        }
+        .modal-premium .modal-info {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
         
         .spacer { height: 20px; }
     </style>
@@ -433,13 +532,24 @@
             </div>
             <div class="header-stat">
                 <p>Comissão</p>
-                <h3 id="comissao-header">0 Crs</h3>
+                <h3 id="comissao-header">0</h3>
+                <span class="stat-sub">créditos</span>
             </div>
-            <div class="header-stat">
-                <p>Estoque</p>
-                <h3 id="estoque-header">150 Crs</h3>
+            <div class="header-stat clickable" onclick="abrirResgate()" title="Clique para resgatar">
+                <p>Saldo</p>
+                <h3 id="saldo-header">R$ 0</h3>
             </div>
         </div>
+    </div>
+
+    <!-- COMISSÃO CARD -->
+    <div class="comissao-card" id="comissao-card">
+        <div class="comissao-titulo">💰 Comissão Disponível</div>
+        <div class="comissao-creditos" id="comissao-creditos">0 <span>créditos</span></div>
+        <div class="comissao-valor">Equivale a <strong id="comissao-equiv">R$ 0,00</strong></div>
+        <button class="btn-converter" id="btn-converter" onclick="converterCreditos()" disabled>
+            <i class="fas fa-sync-alt"></i> Converter em Dinheiro
+        </button>
     </div>
 
     <!-- NAV MENU -->
@@ -449,9 +559,6 @@
         </button>
         <button class="nav-item" id="nav-planos" onclick="mudarView('planos')">
             <i class="fas fa-crown"></i> Planos
-        </button>
-        <button class="nav-item" id="nav-resgate" onclick="mudarView('resgate')">
-            <i class="fas fa-hand-holding-usd"></i> Resgatar
         </button>
     </div>
 
@@ -466,21 +573,9 @@
             <div class="card-premium">
                 <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;">➕ Cadastrar Profissional</h3>
                 <div class="form-row">
-                    <div class="form-group">
-                        <label>Nome</label>
-                        <input type="text" id="add-nome-prof" placeholder="Ex: Seu Jorge">
-                    </div>
-                    <div class="form-group">
-                        <label>WhatsApp</label>
-                        <input type="text" id="add-whats-prof" placeholder="(84) 99999-9999">
-                    </div>
-                    <div class="form-group">
-                        <label>Categoria</label>
-                        <select id="add-categoria-prof">
-                            <option>Eletricista</option><option>Pedreiro</option><option>Diarista</option>
-                            <option>Encanador</option><option>Chaveiro</option><option>Pintor</option>
-                        </select>
-                    </div>
+                    <div class="form-group"><label>Nome</label><input type="text" id="add-nome-prof" placeholder="Ex: Seu Jorge"></div>
+                    <div class="form-group"><label>WhatsApp</label><input type="text" id="add-whats-prof" placeholder="(84) 99999-9999"></div>
+                    <div class="form-group"><label>Categoria</label><select id="add-categoria-prof"><option>Eletricista</option><option>Pedreiro</option><option>Diarista</option><option>Encanador</option><option>Chaveiro</option><option>Pintor</option></select></div>
                 </div>
                 <button class="btn btn-success" onclick="criarProfissional()">Salvar</button>
             </div>
@@ -494,44 +589,35 @@
         </div>
         <div style="padding:0 16px;margin-bottom:12px;">
             <div style="background:#e3f2fd;border:1px solid #bbdefb;padding:12px;border-radius:10px;font-size:11px;color:#1565c0;">
-                📋 Visualize os planos disponíveis. Sua comissão está em <b style="color:#f59e0b;">⭐ amarelo</b>.
+                📋 Visualize os planos. Sua comissão em <b style="color:#f59e0b;">⭐ amarelo</b>.
             </div>
         </div>
         <div class="card-list" id="planos-list"></div>
     </div>
 
-    <!-- RESGATE VIEW -->
-    <div id="view-resgate" style="display:none;">
-        <div class="section-header" style="margin-top:8px;">
-            <span class="section-title">💰 Resgatar Comissão</span>
-        </div>
-        <div style="padding:0 16px;">
-            <div class="resgate-info-box">
-                <p>Comissão Disponível</p>
-                <h3 id="comissao-disponivel">0</h3>
-                <p>Créditos</p>
-            </div>
-            <div class="card-premium">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Quantos créditos resgatar?</label>
-                        <input type="number" id="qtd-resgate" value="1" min="1" onchange="calcularResgate()" style="font-size:18px;font-weight:700;text-align:center;">
-                    </div>
-                </div>
-                <div class="resgate-valor" id="valor-resgate">R$ 5,00</div>
-                <p style="font-size:10px;color:var(--text-muted);text-align:center;margin-bottom:12px;">Cada crédito vale R$ 5,00</p>
-                <button class="btn btn-gold" onclick="solicitarResgate()">
-                    <i class="fas fa-paper-plane"></i> Solicitar Resgate
-                </button>
-                <p style="font-size:10px;color:#888;text-align:center;margin-top:8px;">O administrador fará o PIX após aprovação.</p>
-            </div>
-            
-            <h4 style="font-size:14px;font-weight:700;margin:16px 0 8px;">📜 Histórico</h4>
-            <div id="historico-resgates"></div>
-        </div>
-    </div>
-
     <div class="spacer"></div>
+</div>
+
+<!-- MODAL RESGATE -->
+<div class="modal-overlay" id="modal-resgate">
+    <div class="modal-premium">
+        <h2>💵 Resgatar Saldo</h2>
+        <p style="color:var(--text-muted);font-size:13px;">Seu saldo disponível</p>
+        <div class="modal-valor" id="modal-saldo-valor">R$ 0,00</div>
+        <div class="modal-info">
+            O administrador fará o PIX após aprovação.<br>
+            Valor por crédito: R$ 5,00
+        </div>
+        <button class="btn btn-gold" onclick="solicitarResgate()" style="margin-bottom:8px;">
+            <i class="fas fa-paper-plane"></i> Solicitar Resgate
+        </button>
+        <button class="btn" style="background:#f1f5f9;color:var(--text-muted);width:100%;" onclick="fecharResgate()">
+            Cancelar
+        </button>
+        
+        <h4 style="font-size:14px;font-weight:700;margin:20px 0 8px;text-align:left;">📜 Histórico</h4>
+        <div id="historico-resgates"></div>
+    </div>
 </div>
 
 <script>
@@ -540,8 +626,7 @@ let revendas = JSON.parse(localStorage.getItem('revendas')) || [];
 let planos = JSON.parse(localStorage.getItem('planos')) || [];
 let profissionais = JSON.parse(localStorage.getItem('profissionais')) || [];
 let resgates = JSON.parse(localStorage.getItem('resgates')) || [];
-let baseCredito = parseFloat(localStorage.getItem('baseCredito')) || 12.00;
-const VALOR_RESGATE_CREDITO = 5.00;
+const VALOR_CREDITO = 5.00;
 
 if (planos.length === 0) {
     planos = [
@@ -553,7 +638,10 @@ if (planos.length === 0) {
     localStorage.setItem('planos', JSON.stringify(planos));
 }
 
-let revendaAtual = revendas.find(r => r.id === REVENDA_ID) || { id: REVENDA_ID, nome: 'Revenda Alecrim', regiao: 'Leste', whats: '(84) 98888-7777', saldo: 150, comissao: 0 };
+let revendaAtual = revendas.find(r => r.id === REVENDA_ID) || { 
+    id: REVENDA_ID, nome: 'Revenda Alecrim', regiao: 'Leste', whats: '(84) 98888-7777', 
+    saldo: 150, comissao: 0, saldoResgate: 0 
+};
 
 function saveData() {
     const i = revendas.findIndex(r => r.id === REVENDA_ID);
@@ -563,22 +651,96 @@ function saveData() {
     localStorage.setItem('resgates', JSON.stringify(resgates));
 }
 
-function atualizarHeader() {
+function atualizarTudo() {
+    // Header
     document.getElementById('total-profissionais').innerText = profissionais.filter(p => p.revendaId === REVENDA_ID).length;
-    document.getElementById('comissao-header').innerText = (revendaAtual.comissao || 0) + ' Crs';
-    document.getElementById('estoque-header').innerText = (revendaAtual.saldo || 0) + ' Crs';
+    document.getElementById('comissao-header').innerText = revendaAtual.comissao || 0;
+    document.getElementById('saldo-header').innerText = 'R$ ' + ((revendaAtual.saldoResgate || 0)).toFixed(2).replace('.', ',');
     document.getElementById('nome-revenda').innerText = revendaAtual.nome || 'Revenda';
+    
+    // Comissão card
+    const comissao = revendaAtual.comissao || 0;
+    document.getElementById('comissao-creditos').innerHTML = comissao + ' <span>créditos</span>';
+    document.getElementById('comissao-equiv').innerText = 'R$ ' + (comissao * VALOR_CREDITO).toFixed(2).replace('.', ',');
+    document.getElementById('btn-converter').disabled = comissao <= 0;
+    if(comissao <= 0) {
+        document.getElementById('btn-converter').innerHTML = '<i class="fas fa-sync-alt"></i> Sem créditos para converter';
+    } else {
+        document.getElementById('btn-converter').innerHTML = '<i class="fas fa-sync-alt"></i> Converter ' + comissao + ' créditos em Dinheiro';
+    }
 }
 
 function mudarView(view) {
     document.getElementById('view-profissionais').style.display = view === 'profissionais' ? 'block' : 'none';
     document.getElementById('view-planos').style.display = view === 'planos' ? 'block' : 'none';
-    document.getElementById('view-resgate').style.display = view === 'resgate' ? 'block' : 'none';
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     document.getElementById('nav-' + view).classList.add('active');
     if(view === 'planos') renderPlanos();
     if(view === 'profissionais') renderProfissionais();
-    if(view === 'resgate') renderResgate();
+}
+
+// ==================== CONVERTER CRÉDITOS ====================
+function converterCreditos() {
+    const comissao = revendaAtual.comissao || 0;
+    if(comissao <= 0) return;
+    
+    const valor = comissao * VALOR_CREDITO;
+    if(!confirm(`Converter ${comissao} créditos em R$ ${valor.toFixed(2).replace('.', ',')}?\n\nO valor irá para seu saldo.`)) return;
+    
+    revendaAtual.saldoResgate = (revendaAtual.saldoResgate || 0) + valor;
+    revendaAtual.comissao = 0;
+    saveData();
+    atualizarTudo();
+    alert(`✅ Convertido com sucesso!\n\nR$ ${valor.toFixed(2).replace('.', ',')} adicionado ao seu saldo.\nClique no Saldo para resgatar.`);
+}
+
+// ==================== RESGATE ====================
+function abrirResgate() {
+    document.getElementById('modal-saldo-valor').innerText = 'R$ ' + ((revendaAtual.saldoResgate || 0)).toFixed(2).replace('.', ',');
+    renderHistorico();
+    document.getElementById('modal-resgate').classList.add('active');
+}
+
+function fecharResgate() {
+    document.getElementById('modal-resgate').classList.remove('active');
+}
+
+function solicitarResgate() {
+    const valor = revendaAtual.saldoResgate || 0;
+    if(valor <= 0) return alert('Sem saldo disponível!');
+    if(!confirm(`Solicitar resgate de R$ ${valor.toFixed(2).replace('.', ',')}?\n\nO administrador fará o PIX após aprovação.`)) return;
+    
+    resgates.push({
+        id: 'res' + Date.now(),
+        revendaId: REVENDA_ID,
+        valor: valor,
+        data: new Date().toISOString(),
+        status: 'pendente'
+    });
+    
+    revendaAtual.saldoResgate = 0;
+    saveData();
+    atualizarTudo();
+    abrirResgate();
+    alert('✅ Solicitação enviada! Aguarde o PIX do administrador.');
+}
+
+function renderHistorico() {
+    const container = document.getElementById('historico-resgates');
+    const meus = resgates.filter(r => r.revendaId === REVENDA_ID);
+    if(meus.length === 0) {
+        container.innerHTML = '<p style="text-align:center;color:#888;padding:20px;">Nenhum resgate</p>';
+        return;
+    }
+    container.innerHTML = meus.sort((a,b) => new Date(b.data) - new Date(a.data)).map(r => `
+        <div class="historico-card ${r.status}">
+            <div class="hist-header">
+                <span class="hist-valor">R$ ${r.valor.toFixed(2).replace('.', ',')}</span>
+                <span class="badge-status badge-${r.status}">${r.status === 'pendente' ? '⏳ Pendente' : r.status === 'aprovado' ? '✅ Pago' : '❌ Negado'}</span>
+            </div>
+            <span class="hist-data">${new Date(r.data).toLocaleString('pt-BR')}</span>
+        </div>
+    `).join('');
 }
 
 // ==================== PROFISSIONAIS ====================
@@ -587,7 +749,8 @@ function renderProfissionais() {
     const meusPros = profissionais.filter(p => p.revendaId === REVENDA_ID);
     
     if(meusPros.length === 0) {
-        list.innerHTML = '<div class="card-premium" style="text-align:center;color:var(--text-muted);padding:30px;">Nenhum profissional cadastrado</div>';
+        list.innerHTML = '<div class="card-premium" style="text-align:center;color:var(--text-muted);padding:30px;">Nenhum profissional</div>';
+        atualizarTudo();
         return;
     }
     
@@ -597,7 +760,7 @@ function renderProfissionais() {
                 <span class="prof-nome">${p.nome}</span>
                 <span class="prof-categoria">${p.categoria}</span>
             </div>
-            <div class="prof-saldo">💎 Saldo: <span id="sp-${idx}">${p.saldo || 0}</span> Crs</div>
+            <div class="prof-saldo">💎 Saldo: <span id="sp-${idx}">${p.saldo || 0}</span> créditos</div>
             <div class="credit-row">
                 <div class="credit-controller">
                     <button class="counter-btn" onclick="aj('input-prof-${idx}', -1)">−</button>
@@ -608,7 +771,7 @@ function renderProfissionais() {
             </div>
         </div>
     `).join('');
-    atualizarHeader();
+    atualizarTudo();
 }
 
 function aj(id, v) { const i = document.getElementById(id); let x = parseInt(i.value)||0; x+=v; if(x<0)x=0; i.value = x; }
@@ -622,7 +785,7 @@ function venderCredito(idx) {
     if(pro) pro.saldo = (pro.saldo || 0) + q;
     saveData();
     renderProfissionais();
-    atualizarHeader();
+    atualizarTudo();
     document.getElementById('input-prof-'+idx).value = 5;
 }
 
@@ -636,82 +799,29 @@ function criarProfissional() {
     document.getElementById('add-nome-prof').value = '';
     document.getElementById('add-whats-prof').value = '';
     renderProfissionais();
-    atualizarHeader();
 }
 
 // ==================== PLANOS ====================
 function renderPlanos() {
     const list = document.getElementById('planos-list');
-    list.innerHTML = planos.map(p => {
-        const comissao = p.comissao || 0;
-        return `
-            <div class="card-premium ${p.destaque ? 'popular' : ''}">
-                <div class="plano-icon"><i class="${p.icone || 'fas fa-box'}"></i></div>
-                <div class="plano-nome">${p.nome}</div>
-                <div class="plano-preco">R$ ${p.valor.toFixed(2).replace('.', ',')}<small>/mês</small></div>
-                <div class="plano-features">
-                    <div class="plano-feature"><i class="fas fa-check-circle"></i> ${p.limiteSolicitacoes >= 999 ? 'Sem limite' : 'Até ' + p.limiteSolicitacoes + ' solicitações/mês'}</div>
-                    <div class="plano-feature"><i class="fas fa-check-circle"></i> ${p.categorias >= 999 ? 'Todas categorias' : p.categorias + ' categoria(s)'}</div>
-                    <div class="plano-feature"><i class="fas fa-check-circle"></i> Prioridade ${p.prioridade}%</div>
-                    ${p.selo ? `<div class="plano-feature"><i class="fas fa-check-circle"></i> ${p.selo}</div>` : ''}
-                    <div class="plano-feature"><i class="fas fa-star"></i> <strong>Sua Comissão: ${comissao} créditos</strong></div>
-                </div>
+    list.innerHTML = planos.map(p => `
+        <div class="card-premium ${p.destaque ? 'popular' : ''}">
+            <div class="plano-icon"><i class="${p.icone || 'fas fa-box'}"></i></div>
+            <div class="plano-nome">${p.nome}</div>
+            <div class="plano-preco">R$ ${p.valor.toFixed(2).replace('.', ',')}<small>/mês</small></div>
+            <div class="plano-features">
+                <div class="plano-feature"><i class="fas fa-check-circle"></i> ${p.limiteSolicitacoes >= 999 ? 'Sem limite' : 'Até ' + p.limiteSolicitacoes + ' solicitações/mês'}</div>
+                <div class="plano-feature"><i class="fas fa-check-circle"></i> ${p.categorias >= 999 ? 'Todas categorias' : p.categorias + ' categoria(s)'}</div>
+                <div class="plano-feature"><i class="fas fa-check-circle"></i> Prioridade ${p.prioridade}%</div>
+                ${p.selo ? `<div class="plano-feature"><i class="fas fa-check-circle"></i> ${p.selo}</div>` : ''}
+                <div class="plano-feature"><i class="fas fa-star"></i> <strong>Sua Comissão: ${p.comissao || 0} créditos</strong></div>
             </div>
-        `;
-    }).join('');
-}
-
-// ==================== RESGATE ====================
-function renderResgate() {
-    document.getElementById('comissao-disponivel').innerText = revendaAtual.comissao || 0;
-    document.getElementById('qtd-resgate').max = revendaAtual.comissao || 0;
-    calcularResgate();
-    renderHistorico();
-}
-
-function calcularResgate() {
-    const qtd = parseInt(document.getElementById('qtd-resgate').value) || 0;
-    const comissao = revendaAtual.comissao || 0;
-    if(qtd > comissao) document.getElementById('qtd-resgate').value = comissao;
-    const qtdFinal = Math.min(qtd, comissao);
-    document.getElementById('valor-resgate').innerText = 'R$ ' + (qtdFinal * VALOR_RESGATE_CREDITO).toFixed(2).replace('.', ',');
-}
-
-function solicitarResgate() {
-    const qtd = parseInt(document.getElementById('qtd-resgate').value) || 0;
-    const comissao = revendaAtual.comissao || 0;
-    if(qtd <= 0) return alert('Quantidade inválida!');
-    if(qtd > comissao) return alert('Comissão insuficiente!');
-    if(!confirm(`Solicitar resgate de ${qtd} créditos = R$ ${(qtd * VALOR_RESGATE_CREDITO).toFixed(2)}?`)) return;
-    
-    resgates.push({ id: 'res' + Date.now(), revendaId: REVENDA_ID, creditos: qtd, valor: qtd * VALOR_RESGATE_CREDITO, data: new Date().toISOString(), status: 'pendente' });
-    revendaAtual.comissao = comissao - qtd;
-    saveData();
-    renderResgate();
-    atualizarHeader();
-    alert('✅ Solicitação enviada! Aguarde aprovação.');
-}
-
-function renderHistorico() {
-    const container = document.getElementById('historico-resgates');
-    const meus = resgates.filter(r => r.revendaId === REVENDA_ID);
-    if(meus.length === 0) {
-        container.innerHTML = '<p style="text-align:center;color:#888;padding:20px;">Nenhum resgate</p>';
-        return;
-    }
-    container.innerHTML = meus.sort((a,b) => new Date(b.data) - new Date(a.data)).map(r => `
-        <div class="historico-card ${r.status}">
-            <div class="hist-header">
-                <span class="hist-valor">${r.creditos} créditos = R$ ${r.valor.toFixed(2).replace('.', ',')}</span>
-                <span class="badge-status badge-${r.status}">${r.status === 'pendente' ? '⏳ Pendente' : r.status === 'aprovado' ? '✅ Pago' : '❌ Negado'}</span>
-            </div>
-            <span class="hist-data">${new Date(r.data).toLocaleString('pt-BR')}</span>
         </div>
     `).join('');
 }
 
 // INICIALIZAR
-atualizarHeader();
+atualizarTudo();
 renderProfissionais();
 </script>
 </body>
